@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../shared/material/material.module';
 import { ContentContainerComponent } from './pages/content-container/content-container.component';
 import { AppRoutingModule } from '../app-routing.module';
+import { SecondMenuComponent } from './components/second-menu/second-menu.component';
 
-const CoreComponents = [ContentContainerComponent];
+const CoreComponents = [ContentContainerComponent, SecondMenuComponent];
 
 @NgModule({
   declarations: [CoreComponents],
