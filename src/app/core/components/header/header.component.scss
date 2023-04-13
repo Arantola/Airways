@@ -1,0 +1,95 @@
+@import '../../../shared/styles/abstract.scss';
+
+.app-header:host {
+  & &__toolbar {
+    position:fixed;
+    top: 0;
+    background: rgba(116, 118, 122, 0.2);
+    color: $surface;
+    font-weight: 400;
+    line-height: 1.5em;
+  }
+
+  & &__spacer {
+    flex: 1 1 auto;
+  }
+
+  & &__toolbar-content {
+    @media screen and (max-width: 1128px) {
+      width: 100%;
+    }
+
+    width: 1128px;
+    margin: 0 auto;
+    height: 88px;
+    padding: 24px 0;
+    letter-spacing: 0.5px;
+    gap: 40px
+  }
+
+  & &__login-button {
+    padding: 0 1em;
+
+    mat-icon {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+
+  & &__basket-button {
+    background: transparent;
+    border: none;
+  }
+}
+
+::ng-deep .app-header__currency-menu.mat-mdc-menu-panel.mat-mdc-menu-panel {
+  min-width: 4em;
+}
+
+:host ::ng-deep {
+  .mat-mdc-select-arrow svg {
+    fill: $surface;
+  }
+
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
+    padding: .5em 0;
+    min-height: 2.5em;
+    border-color: #CECECE;
+    .mat-mdc-select-value {
+      color: inherit;
+    }
+  }
+
+  .mat-mdc-select-min-line.ng-tns-c8-1.ng-star-inserted {
+    color: $surface;
+    font-weight: 400;
+    line-height: 1.5em;
+  }
+
+  .mdc-notched-outline__trailing,
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: #CECECE;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    max-width: 162px;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+  }
+
+  .mat-mdc-menu-trigger.mdc-button,
+  .mat-mdc-outlined-button.mat-mdc-button-base {
+    font-size: 16px;
+    height: 2.5em;
+  }
+
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+        border-color: #CECECE;
+    }
+  }
+}
