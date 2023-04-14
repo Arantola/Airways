@@ -5,14 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FormsModule } from '@angular/forms';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from './shared/material/material.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -22,12 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     CoreModule,
     FormsModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

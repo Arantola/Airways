@@ -1,11 +1,11 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public readonly dateFormats = [
     'MM/DD/YYYY',
     'DD/MM/YYYY',
@@ -24,9 +24,5 @@ export class HeaderComponent implements OnInit {
 
   public selectedCurrency = this.currencies[0];
 
-  constructor(private elementRef: ElementRef) { }
-
-  ngOnInit(): void {
-    this.elementRef.nativeElement.classList.add('app-header');
-  }
+  constructor() { }
 }
