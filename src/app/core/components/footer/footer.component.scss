@@ -1,4 +1,4 @@
-@import 'src/app/shared/styles/abstract.scss';
+@import 'src/app/shared/styles/utils';
 
 .footer-wrapper {
   min-width: 100%;
@@ -16,6 +16,7 @@
   letter-spacing: 0.25px;
   &__copyright {
     color: $primary;
+    @include body-medium;
   }
   &__authors {
     display: flex;
@@ -41,6 +42,7 @@
     gap: 8px;
   }
   &__payments-info {
+    @include body-medium;
     margin-right: 16px;
   }
 }
