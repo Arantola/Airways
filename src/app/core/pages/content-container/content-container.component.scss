@@ -1,0 +1,13 @@
+@import 'src/app/shared/styles/abstract.scss';
+
+:host {
+  display: block;
+  padding-top: 88px;
+  background: center / cover no-repeat url(../../../../assets/Background.png) $netural80;
+  width: 100%;
+  height: calc(100% - 92px);
+  .container {
+    width: 1128px;
+    margin: 0 auto;
+  }
+}

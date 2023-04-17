@@ -1,11 +1,11 @@
-@import '../../../shared/styles/abstract.scss';
+@import '../../../shared/styles/abstract';
 
 :host {
   & .app-header__toolbar {
     position:fixed;
     top: 0;
     background: rgba(116, 118, 122, 0.2);
-    color: $surface;
+    color: $neutral100;
     font-weight: 400;
     line-height: 1.5em;
   }
@@ -48,7 +48,7 @@
 
 :host ::ng-deep {
   .mat-mdc-select-arrow svg {
-    fill: $surface;
+    fill: $neutral100;
   }
 
   .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
@@ -61,7 +61,7 @@
   }
 
   .mat-mdc-select-min-line.ng-tns-c8-1.ng-star-inserted {
-    color: $surface;
+    color: $neutral100;
     font-weight: 400;
     line-height: 1.5em;
   }

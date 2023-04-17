@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="flight__info">
+    <div class="flight__destination">
+      <span>{{ flightInfo.from }}</span>
+      <img src="./assets/icons/return_trip.svg">
+      <span>{{ flightInfo.destination }}</span>
+    </div>
+    <div class="flight__return">
+      Return
+      <span class="splitter"></span>
+      <span>{{ flightInfo.dates.boardingThere }}</span>
+      &nbsp;-&nbsp;
+      <span>{{ flightInfo.dates.arrivalBack }}</span>
+      <span class="splitter"></span>
+      <span>{{ flightInfo.passengers.length }}</span>
+      <img class="flight__icon-passenger" src="./assets/icons/account_fill.svg">
+    </div>
+    <button class="flight__btn-edit"
+      type="button"
+      (click)="onToggleEdit()">
+      Edit
+    </button>
+  </div>
+</div>
