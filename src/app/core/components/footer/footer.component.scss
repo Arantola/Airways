@@ -1,0 +1,46 @@
+@import 'src/app/shared/styles/abstract.scss';
+
+.footer-wrapper {
+  min-width: 100%;
+  border-top: 1px solid #D0D9DF;
+}
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1128px;
+  margin: 0 auto;
+  height: 92px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  &__copyright {
+    color: $primary;
+  }
+  &__authors {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  &__authors-logo {
+    width: 20px;
+    height: 20px;
+  }
+  &__authors-link {
+    text-decoration: none;
+    &:visited {
+      color: black;
+    }
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+  &__payments {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  &__payments-info {
+    margin-right: 16px;
+  }
+}
