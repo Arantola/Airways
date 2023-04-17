@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/services/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -24,5 +25,9 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  toggleAuthWindow() {
+    this.authService.showAuthWindow();
+  }
 }
