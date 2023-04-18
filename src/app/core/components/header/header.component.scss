@@ -4,7 +4,7 @@
   & .app-header__toolbar {
     position:fixed;
     top: 0;
-    background: $netural40;
+    background: rgba(116, 118, 122, 0.2);
     color: $neutral100;
     font-weight: 400;
     line-height: 1.5em;
@@ -12,7 +12,7 @@
 
   & .app-header__toolbar.app-header__toolbar_booking {
     background: transparent;
-    color: #49454F;
+    color: $netural10;
   }
 
   & .app-header__spacer {
@@ -71,13 +71,13 @@
   }
 
   .select_booking .mat-mdc-select-arrow svg {
-    fill: #49454F;
+    fill: $netural10;
   }
 
   .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
     padding: .5em 0;
     min-height: 2.5em;
-    border-color: #CECECE;
+    border-color: $netural60;
     .mat-mdc-select-value {
       color: inherit;
     }
@@ -90,7 +90,7 @@
 
   .mdc-notched-outline__trailing,
   .mat-mdc-outlined-button:not(:disabled) {
-    border-color: #CECECE;
+    border-color: $netural60;
   }
 
   .mat-mdc-text-field-wrapper {
@@ -111,7 +111,7 @@
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
-        border-color: #CECECE;
+        border-color: $netural60;
     }
   }
 }

@@ -16,23 +16,23 @@
   border-radius: 50%;
   font-size: 0.6em;
   color: $neutral100;
-  background-color: #74767A;
+  background-color: $netural30;
   span {
     padding-top: 1px;
   }
 }
 
 .selected-step {
-  background-color: #0090BD;
+  background-color: $accent;
 }
 
 .stepper__label {
-  color: #74767A;
+  color: $netural30;
   font-size: 0.7em;
 }
 
 .stepper__line {
   width: 80px;
   height: 1px;
-  background-color: rgba(116, 118, 122, 0.6);
+  background-color: $netural40;
 }
