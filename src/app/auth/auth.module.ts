@@ -5,6 +5,9 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AuthWindowComponent } from './pages/auth-window/auth-window.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SocialLinkComponent } from './components/social-link/social-link.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { SocialLinkComponent } from './components/social-link/social-link.compon
   ],
   imports: [
     CommonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   exports: [AuthWindowComponent]
 })

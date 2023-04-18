@@ -1,9 +1,30 @@
 @import 'src/app/shared/styles/utils';
 
-// .login-form {
-//   width: 494px;
-//   background-color: $neutral100;
-//   margin: 0 auto;
-//   border-radius: 8px;
-//   padding: 32px 24px;
-// }
+.login-form {
+  width: 494px;
+  background-color: $neutral100;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.close-login-form {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: -35px;
+  right: -10px;
+  &__button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $netural0;
+    cursor: pointer;
+    font-size: 20px;
+    pointer-events: all;
+    &:hover {
+      color: $netural20;
+    }
+  }
+}
+
+

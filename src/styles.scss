@@ -21,3 +21,11 @@ $my-theme: mat.define-light-theme((
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.mat-mdc-dialog-surface.mdc-dialog__surface{
+  overflow-y: visible;
+}
+
+.mat-mdc-dialog-content.mdc-dialog__content {
+  max-height: 100vh;
+}

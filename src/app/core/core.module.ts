@@ -6,12 +6,19 @@ import { ContentContainerComponent } from './pages/content-container/content-con
 import { AppRoutingModule } from '../app-routing.module';
 import { SecondMenuComponent } from './components/second-menu/second-menu.component';
 import { AuthModule } from '../auth/auth.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const CoreComponents = [ContentContainerComponent, SecondMenuComponent, FooterComponent];
 
 @NgModule({
   declarations: [CoreComponents],
   exports: [CoreComponents],
-  imports: [CommonModule, AppRoutingModule, MaterialModule, AuthModule],
+  imports: [
+    CommonModule,
+    AppRoutingModule,
+    MaterialModule,
+    AuthModule,
+    MatDialogModule,
+  ],
 })
 export class CoreModule {}
