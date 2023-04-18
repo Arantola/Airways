@@ -1,0 +1,38 @@
+@import '../../../shared/styles/abstract';
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 10px;
+}
+
+.stepper__step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 0.6em;
+  color: $neutral100;
+  background-color: #74767A;
+  span {
+    padding-top: 1px;
+  }
+}
+
+.selected-step {
+  background-color: #0090BD;
+}
+
+.stepper__label {
+  color: #74767A;
+  font-size: 0.7em;
+}
+
+.stepper__line {
+  width: 80px;
+  height: 1px;
+  background-color: rgba(116, 118, 122, 0.6);
+}

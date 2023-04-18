@@ -4,10 +4,15 @@
   & .app-header__toolbar {
     position:fixed;
     top: 0;
-    background: rgba(116, 118, 122, 0.2);
+    background: $netural40;
     color: $neutral100;
     font-weight: 400;
     line-height: 1.5em;
+  }
+
+  & .app-header__toolbar.app-header__toolbar_booking {
+    background: transparent;
+    color: #49454F;
   }
 
   & .app-header__spacer {
@@ -27,8 +32,12 @@
     gap: 40px
   }
 
+  & .app-header__toolbar-content.app-header__toolbar-content_booking {
+    gap: 16px
+  }
+
   & .app-header__login-button {
-    padding: 0 1em;
+    padding: 0 0.75em;
 
     mat-icon {
       height: 1.5em;
@@ -36,9 +45,19 @@
     }
   }
 
+  .app-header__login-button.app-header__login-button_booking {
+    mat-icon {
+      padding-top: 4px;
+    }
+  }
+
   & .app-header__basket-button {
     background: transparent;
     border: none;
+    width: 62px;
+    height: 40px;
+    margin-left: 16px;
+    cursor: pointer;
   }
 }
 
@@ -51,6 +70,10 @@
     fill: $neutral100;
   }
 
+  .select_booking .mat-mdc-select-arrow svg {
+    fill: #49454F;
+  }
+
   .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
     padding: .5em 0;
     min-height: 2.5em;
@@ -61,7 +84,6 @@
   }
 
   .mat-mdc-select-min-line.ng-tns-c8-1.ng-star-inserted {
-    color: $neutral100;
     font-weight: 400;
     line-height: 1.5em;
   }
@@ -81,7 +103,7 @@
 
   .mat-mdc-menu-trigger.mdc-button,
   .mat-mdc-outlined-button.mat-mdc-button-base {
-    font-size: 16px;
+    font-size: 0.8em;
     height: 2.5em;
   }
 
