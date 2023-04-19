@@ -6,8 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/components/header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
+
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -17,9 +18,10 @@ import { MaterialModule } from './shared/material/material.module';
     BrowserAnimationsModule,
     CoreModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

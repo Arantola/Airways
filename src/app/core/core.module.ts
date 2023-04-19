@@ -6,7 +6,11 @@ import { ContentContainerComponent } from './pages/content-container/content-con
 import { AppRoutingModule } from '../app-routing.module';
 import { SecondMenuComponent } from './components/second-menu/second-menu.component';
 
-const CoreComponents = [ContentContainerComponent, SecondMenuComponent, FooterComponent];
+const CoreComponents = [
+  ContentContainerComponent,
+  SecondMenuComponent,
+  FooterComponent,
+];
 
 @NgModule({
   declarations: [CoreComponents],
