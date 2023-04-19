@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ContentContainerComponent } from './pages/content-container/content-container.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SecondMenuComponent } from './components/second-menu/second-menu.component';
+import { BookingModule } from '../booking/booking.module';
 
 const CoreComponents = [
   ContentContainerComponent,
@@ -15,6 +16,6 @@ const CoreComponents = [
 @NgModule({
   declarations: [CoreComponents],
   exports: [CoreComponents],
-  imports: [CommonModule, AppRoutingModule, MaterialModule],
+  imports: [CommonModule, AppRoutingModule, MaterialModule, BookingModule],
 })
 export class CoreModule {}

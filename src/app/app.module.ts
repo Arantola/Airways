@@ -8,7 +8,7 @@ import { CoreModule } from './core/core.module';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
-
+import { BookingModule } from './booking/booking.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -20,6 +20,7 @@ import { MaterialModule } from './shared/material/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    BookingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
