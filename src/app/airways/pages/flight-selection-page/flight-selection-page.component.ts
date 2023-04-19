@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -6,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./flight-selection-page.component.scss']
 })
 export class FlightSelectionPageComponent {
-
 }

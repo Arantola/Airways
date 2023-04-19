@@ -33,4 +33,13 @@ export class HeaderComponent {
   toggleAuthWindow() {
     this.dialog.open(AuthWindowComponent, { disableClose: true })
   }
+
+  ngOnInit() {
+    const pathname = window.location.pathname;
+    console.log(pathname);
+    const result = pathname.match(/^\/booking\//);
+    if (result) {
+      this.isBookingPage = true;
+    }
+  }
 }
