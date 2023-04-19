@@ -1,18 +1,34 @@
 <div class="stepper">
-  <div class="stepper__step selected-step completed-step">
-    <img src="../../../../assets/icons/pen.svg">
+  <div class="stepper__step"
+    [class.selected-step]="isFirstStep"
+    [class.completed-step]="isSecondStep || isThirdStep"
+  >
+    <img *ngIf="isFirstStep" src="../../../../assets/icons/pen.svg">
+    <img *ngIf="!isFirstStep" src="../../../../assets/icons/check_mark.svg">
   </div>
   <div class="stepper__label">Flights</div>
   <div class="stepper__line"></div>
 
-  <div class="stepper__step">
-    <span>2</span>
+  <div class="stepper__step"
+    [class.selected-step]="isSecondStep"
+    [class.completed-step]="isThirdStep"
+  >
+    <img *ngIf="isSecondStep" src="../../../../assets/icons/pen.svg">
+    <img *ngIf="!isSecondStep && !isFirstStep" src="../../../../assets/icons/check_mark.svg">
+    <span *ngIf="isFirstStep">2</span>
   </div>
   <div class="stepper__label">Passengers</div>
   <div class="stepper__line"></div>
 
-  <div class="stepper__step">
-    <span>3</span>
+  <div class="stepper__step"
+    [class.selected-step]="isThirdStep"
+    [class.completed-step]="isThirdStep"
+  >
+    <img *ngIf="isThirdStep" src="../../../../assets/icons/pen.svg">
+    <img *ngIf="!isSecondStep && !isThirdStep && isThirdStep" src="../../../../assets/icons/check_mark.svg">
+    <span *ngIf="!isThirdStep">3</span>
   </div>
   <div class="stepper__label">Review & Payment</div>
+  <button (click)="goBackStep()">back</button>
+  <button (click)="goNextStep()">next</button>
 </div>
