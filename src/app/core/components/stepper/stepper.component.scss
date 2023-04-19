@@ -7,6 +7,12 @@
   margin: 0 10px;
 }
 
+.stepper__header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .stepper__step {
   display: flex;
   align-items: center;

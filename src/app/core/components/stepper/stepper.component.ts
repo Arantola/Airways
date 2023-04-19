@@ -6,48 +6,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent {
+  static readonly FIRST_STEP = 1;
+  static readonly THIRD_STEP = 3;
+  
   constructor(){
   }
 
-  isFirstStep = true;
-
-  isSecondStep = false;
-
-  isThirdStep = false;
+  step = StepperComponent.FIRST_STEP;
 
   goNextStep() {
-    if (this.isThirdStep === true) {
+    if (this.step < StepperComponent.THIRD_STEP) {
+      this.step++;
+    } else {
       return;
     }
-
-    if (this.isFirstStep === true) {
-      this.isFirstStep = false;
-      this.isSecondStep = true;
-      return;
-    }
-
-    if (this.isSecondStep === true) {
-      this.isSecondStep = false;
-      this.isThirdStep = true;
-      return;
-    }
-
   }
 
   goBackStep() {
-    if (this.isFirstStep === true) {
-      return;
-    }
-
-    if (this.isSecondStep === true) {
-      this.isFirstStep = true;
-      this.isSecondStep = false;
-      return;
-    }
-
-    if (this.isThirdStep === true) {
-      this.isSecondStep = true;
-      this.isThirdStep = false;
+    if (this.step > StepperComponent.FIRST_STEP) {
+      this.step--;
+    } else {
       return;
     }
   }

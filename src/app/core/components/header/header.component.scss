@@ -24,12 +24,12 @@
       width: 100%;
     }
 
-    width: 1128px;
+    max-width: 1128px;
     margin: 0 auto;
     height: 88px;
     padding: 24px 0;
     letter-spacing: 0.5px;
-    gap: 40px
+    gap: 40px;
   }
 
   & .app-header__toolbar-content.app-header__toolbar-content_booking {
@@ -59,6 +59,14 @@
     margin-left: 16px;
     cursor: pointer;
   }
+}
+
+.user-icon {
+  fill: white;
+}
+
+.user-icon.user-icon_black {
+  fill: black;
 }
 
 ::ng-deep .app-header__currency-menu.mat-mdc-menu-panel.mat-mdc-menu-panel {
