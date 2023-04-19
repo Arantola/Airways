@@ -45,12 +45,6 @@
     }
   }
 
-  .app-header__login-button.app-header__login-button_booking {
-    mat-icon {
-      padding-top: 4px;
-    }
-  }
-
   & .app-header__basket-button {
     background: transparent;
     border: none;
@@ -62,11 +56,11 @@
 }
 
 .user-icon {
-  fill: white;
+  fill: $neutral100;
 }
 
 .user-icon.user-icon_black {
-  fill: black;
+  fill: $netural10;
 }
 
 ::ng-deep .app-header__currency-menu.mat-mdc-menu-panel.mat-mdc-menu-panel {
