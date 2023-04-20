@@ -48,74 +48,71 @@
 
   <div class="main-page__containter-bottom">
 
-  <mat-form-field appearance="outline" *ngIf="!isRounded">
-    <mat-label>Choose a date</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      formControlName="singleDate"
-    >
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" *ngIf="isRounded">
-    <mat-label>Enter a date range</mat-label>
-    <mat-date-range-input
-      [rangePicker]="picker"
-      formGroupName="date">
+    <mat-form-field appearance="outline" *ngIf="!isRounded">
+      <mat-label>Choose a date</mat-label>
       <input
-        matStartDate
-        formControlName="start"
-        placeholder="Start date"
+        matInput
+        [matDatepicker]="picker"
+        formControlName="singleDate"
       >
-      <input
-        matEndDate
-        formControlName="end"
-        placeholder="End date"
-      >
-    </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Passengers</mat-label>
-    <mat-select multiple>
-      <mat-option *ngFor="let passenger of passengersList" [value]="passenger" class="option-flex">
+    <mat-form-field appearance="outline" *ngIf="isRounded">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input
+        [rangePicker]="picker"
+        formGroupName="date">
+        <input
+          matStartDate
+          formControlName="start"
+          placeholder="Start date"
+        >
+        <input
+          matEndDate
+          formControlName="end"
+          placeholder="End date"
+        >
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
 
-        <div class="passenger-option">
-          <p>{{passenger}}</p>
-
-          <button
-          mat-button
-          mat-icon-button
-          matPrefix
-          aria-label="Remove"
-          >
-          <mat-icon>remove</mat-icon>
-          </button>
-          <input matInput type="number"/>
-          <button
-            mat-button
-            mat-icon-button
-            matSuffix
-            aria-label="Add"
-            >
-            <mat-icon>add</mat-icon>
-          </button>
-
+    <div class="passengers__form">
+      <span class="passengers__label" [ngClass]="{'passengers__label-open': isPassangersMenuOpened}">Passangers</span>
+      <button
+        class="passengers__btn"
+        type="button"
+        (click)="togglePassangerMenu()"
+        [ngClass]="{'passengers__open': isPassangersMenuOpened}"
+        >
+        <span class="passengers__display">{{ passengersDisplay }}</span>
+      </button>
+      <div class="passengers__select"
+        *ngIf="isPassangersMenuOpened"
+        formGroupName="passangers"
+        >
+        <div class="option" *ngFor="let passangerType of passengersList">
+          <div class="option__info">
+            <div [ngStyle]="{color: getColor(passangerType[0])}">{{ passangerType[0] | titlecase }}</div>
+            <div class="option__support">{{ passangerType[1] }}</div>
+          </div>
+          <button class="option__operator option__minus" type="button" (click)="onChangeNumber(passangerType[0], 'minus')"> - </button>
+          <input
+            [formControlName]="passangerType[0]"
+            type="number"
+            [ngStyle]="{color: getColor(passangerType[0])}"
+            readonly
+            />
+          <button class="option__operator option__plus" type="button" (click)="onChangeNumber(passangerType[0], 'plus')"> + </button>
         </div>
-
-      </mat-option>
-
-    </mat-select>
-  </mat-form-field>
+      </div>
+    </div>
 
   </div>
 
   <button class="main-page__btn" mat-flat-button color="primary" type="submit">Search</button>
 </form>
-

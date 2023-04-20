@@ -1,23 +1,25 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { MatEndDate } from '@angular/material/datepicker';
-import { MatRadioChange } from '@angular/material/radio';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements OnInit, OnDestroy {
   initialForm!: FormGroup;
 
-  passengersList = ['Adults', 'Child', 'Infant'];
+  isRounded: boolean = true;
 
-  passangers = {
-    adults: 1,
-    child: 0,
-    infant: 0,
-  };
+  passengersList = [
+    ['adults', '14+ years'],
+    ['child', '2-14 years'],
+    ['infant', '0-2 years'],
+  ];
+
+  passengersDisplay: string = '1 Adult';
+
+  isPassangersMenuOpened: boolean = false;
   // TODO replace mock data with data from api request
   places = [
     {
@@ -34,12 +36,25 @@ export class MainPageComponent implements OnInit {
     },
   ];
 
-  isRounded: boolean = true;
-
   constructor() {}
 
   ngOnInit() {
     this.initForm();
+    window.addEventListener('click', (e: Event) =>
+      this.passangerFocusHandler(e)
+    );
+  }
+
+  ngOnDestroy() {
+    //TODO Check removing listener. If it not removed change to onclick method and delete with "= null"
+    window.removeEventListener('click', (e: Event) =>
+      this.passangerFocusHandler(e)
+    );
+  }
+
+  private passangerFocusHandler(e: Event) {
+    const target = (<HTMLElement>e.target).closest('.passengers__form');
+    this.isPassangersMenuOpened = Boolean(target);
   }
 
   private initForm() {
@@ -60,6 +75,21 @@ export class MainPageComponent implements OnInit {
     });
   }
 
+  private setPassangersDisplay(adults: number, child: number, infant: number) {
+    this.passengersDisplay = `
+    ${adults > 1 ? `${adults} Adults` : '1 Adult'}${
+      child > 0 ? `, ${child} Child${child > 1 ? 'ren' : ''}` : ''
+    }${infant > 0 ? `, ${infant} Infant${infant > 1 ? 's' : ''}` : ''}`;
+  }
+
+  private patchPassanges(form: FormGroup, field: string, value: number = 1) {
+    this.initialForm.patchValue({
+      passangers: {
+        [field]: form?.value[field] + value,
+      },
+    });
+  }
+
   onRadioChange() {
     this.isRounded = !this.isRounded;
   }
@@ -72,6 +102,37 @@ export class MainPageComponent implements OnInit {
   }
 
   onSubmit() {
+    // TODO add dato to store
     console.log(this.initialForm);
+  }
+
+  togglePassangerMenu() {
+    this.isPassangersMenuOpened = !this.isPassangersMenuOpened;
+  }
+
+  getColor(type: string) {
+    return this.initialForm.get('passangers')?.value[type]
+      ? '#11397E'
+      : '#1C1B1F';
+  }
+
+  onChangeNumber(fieldName: string, operation: string) {
+    const form = <FormGroup>this.initialForm.get('passangers');
+    if (operation === 'plus' && form?.value[fieldName] < 10) {
+      this.patchPassanges(form, fieldName, 1);
+    }
+    if (operation === 'minus') {
+      if (fieldName === 'adults' && form?.value[fieldName] > 1) {
+        this.patchPassanges(form, fieldName, -1);
+      } else if (form?.value[fieldName] > 0) {
+        this.patchPassanges(form, fieldName, -1);
+      }
+    }
+
+    this.setPassangersDisplay(
+      form?.value.adults,
+      form?.value.child,
+      form?.value.infant
+    );
   }
 }
