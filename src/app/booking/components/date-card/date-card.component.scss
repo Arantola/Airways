@@ -5,30 +5,63 @@
   display:flex;
   flex-direction: column;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   border-left: 1px solid $netural60;
   background: $neutral100;
   width: 225px;
-  height: 83px;
-}
-
-.date-card__month {
-  @include subtitle-medium;
-  color: $primary;
-}
-
-.date-card__day {
-  @include body-medium;
-  color: $netural30;
-}
-
-.date-card__ptice {
-  @include subtitle-large;
-  color: $primary;
-}
-
-.date-card__seat-indicator {
-  height: 4px;
-  width: 100%;
-  background-color: $highlight-yellow;
+  height: 70px;
+  &.date-card_select {
+    height: 83px;
+    & .date-card__month {
+      @include subtitle-medium;
+      color: $primary;
+    }
+    & .date-card__day {
+      @include body-medium;
+      color: $netural30;
+      margin-bottom: 0px;
+    }
+    & .date-card__price {
+      @include subtitle-large;
+      margin-bottom: 0px;
+    }
+  }
+  &.date-card_disable {
+    height: 70px;
+    & .date-card__month {
+      @include label-medium;
+      color: #D0D9DF;
+    }
+    & .date-card__day {
+      font-weight: 100;
+      font-size: 12px;
+      line-height: 12px;
+      color: $netural30;
+      margin-bottom: 6px;
+    }
+  }
+  & &__month {
+    @include label-medium;
+    color: $accent;
+  }
+  & &__day {
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 12px;
+    color: $netural30;
+    margin-bottom: 6px;
+  }
+  & &__price {
+    @include subtitle-medium;
+    color: $primary;
+    margin-bottom: 8px;
+  }
+  & &__seat-indicator {
+    height: 4px;
+    width: 100%;
+    background-color: $highlight-yellow;
+  }
+  & &__icon {
+    margin-bottom: 7px;
+  }
 }

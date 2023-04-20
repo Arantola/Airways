@@ -1,6 +1,11 @@
-<div class="date-card">
+<div
+  class="date-card"
+  [class.date-card_select]="isSelect"
+  [class.date-card_disable]="isDisable"
+>
   <span class="date-card__month">01 Mar</span>
   <span class="date-card__day">Wednesday</span>
-  <span class="date-card__ptice">€146.70</span>
-  <div class="date-card__seat-indicator"></div>
+  <span class="date-card__price" *ngIf="!isDisable">€146.70</span>
+  <img class="date-card__icon" *ngIf="isDisable" src="../../../../assets/icons/no-flight.svg" alt="no flight">
+  <div *ngIf="isSelect" class="date-card__seat-indicator"></div>
 </div>
