@@ -1,0 +1,34 @@
+@import '../../../shared/styles/typography';
+@import '../../../shared/styles/abstract';
+
+.date-card {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  border-left: 1px solid $netural60;
+  background: $neutral100;
+  width: 225px;
+  height: 83px;
+}
+
+.date-card__month {
+  @include subtitle-medium;
+  color: $primary;
+}
+
+.date-card__day {
+  @include body-medium;
+  color: $netural30;
+}
+
+.date-card__ptice {
+  @include subtitle-large;
+  color: $primary;
+}
+
+.date-card__seat-indicator {
+  height: 4px;
+  width: 100%;
+  background-color: $highlight-yellow;
+}

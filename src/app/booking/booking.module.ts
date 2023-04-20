@@ -6,6 +6,7 @@ import { FlightSelectionPageComponent } from './pages/flight-selection-page/flig
 import { BookingRoutingModule } from './booking-routing.module';
 import { SummaryPageComponent } from './pages/summary-page/summary-page.component';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
+import { DateCardComponent } from './components/date-card/date-card.component';
 
 const BookingComponents = [];
 
@@ -13,7 +14,8 @@ const BookingComponents = [];
   declarations: [
     FlightSelectionPageComponent,
     SummaryPageComponent,
-    PassengersPageComponent
+    PassengersPageComponent,
+    DateCardComponent
   ],
   exports: [],
   imports: [
