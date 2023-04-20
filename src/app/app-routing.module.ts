@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'main', component: MainModalWindowComponent },
   {
     path: 'booking',
-    loadChildren: () => import('./airways/airways.module').then((m) => m.AirwaysModule)
+    loadChildren: () => import('./booking/booking.module').then((m) => m.BookingModule)
   },
   { path: '**', redirectTo: 'main' },
 ];

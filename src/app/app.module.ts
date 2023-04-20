@@ -8,7 +8,6 @@ import { CoreModule } from './core/core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
-import { AirwaysModule } from './airways/airways.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +20,6 @@ import { AirwaysModule } from './airways/airways.module';
     ReactiveFormsModule,
     MaterialModule,
     BookingModule,
-    AirwaysModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
