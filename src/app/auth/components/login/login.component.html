@@ -3,15 +3,33 @@
   <div class="form-title__text">or log in with your email</div>
   <div class="form-title__line"><hr></div>
 </div>
-<form class="form" >
+<form class="form" [formGroup]="loginForm">
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Email</mat-label>
-    <input matInput value="Input">
+    <input
+      matInput
+      formControlName="userEmail"
+      [(ngModel)]="valueEmail">
   </mat-form-field>
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput value="Pass">
+    <input
+      matInput
+      formControlName="userPassword"
+      [(ngModel)]="valuePassword"
+      [type]="isHidePassword ? 'password' : 'text'">
+    <mat-icon
+      matSuffix
+      class="form__field-icon"
+      (click)="makeVisiblePassword()">{{ isHidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
   </mat-form-field>
 </form>
 <div class="recovery-password">Forgot password?</div>
-<button mat-raised-button color="primary" class="submit-button">Log in</button>
+<button
+  mat-raised-button
+  color="primary"
+  class="submit-button"
+  [disabled]="loginForm.controls['userEmail'].invalid
+  || loginForm.controls['userPassword'].invalid">
+  Log in
+</button>

@@ -16,6 +16,19 @@
   &__field {
     width: 100%;
   }
+  &__field:nth-child(7) {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  &__field-button {
+    width: 50%;
+  }
+
+  &__field-number {
+    flex: 1;
+  }
 }
 
 .submit-button{
