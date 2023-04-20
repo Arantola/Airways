@@ -12,7 +12,7 @@ export class StepperComponent {
   constructor(){
   }
 
-  step = StepperComponent.FIRST_STEP;
+  public step = StepperComponent.FIRST_STEP;
 
   goNextStep() {
     if (this.step < StepperComponent.THIRD_STEP) {

@@ -1,8 +1,8 @@
 <div class="stepper">
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.selected-step]="step === 1"
-      [class.completed-step]="step === 2 || step === 3"
+      [class.stepper__step_selected-step]="step === 1"
+      [class.stepper__step_completed-step]="step === 2 || step === 3"
     >
       <img *ngIf="step === 1" src="../../../../assets/icons/pen.svg">
       <img *ngIf="step !== 1" src="../../../../assets/icons/check_mark.svg">
@@ -14,8 +14,8 @@
 
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.selected-step]="step === 2"
-      [class.completed-step]="step === 3"
+      [class.stepper__step_selected-step]="step === 2"
+      [class.stepper__step_completed-step]="step === 3"
     >
       <img *ngIf="step === 2" src="../../../../assets/icons/pen.svg">
       <img *ngIf="step !== 2 && step !== 1" src="../../../../assets/icons/check_mark.svg">
@@ -28,8 +28,8 @@
 
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.selected-step]="step === 3"
-      [class.completed-step]="step === 3"
+      [class.stepper__step_selected-step]="step === 3"
+      [class.stepper__step_completed-step]="step === 3"
     >
       <img *ngIf="step === 3" src="../../../../assets/icons/pen.svg">
       <span *ngIf="step !== 3">3</span>
