@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FlightSelectionPageComponent } from './pages/flight-selection-page/flight-selection-page.component';
-import { BookingProcessPageComponent } from './pages/booking-process-page/booking-process-page.component';
 import { SummaryPageComponent } from './pages/summary-page/summary-page.component';
+import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
 
 const routes: Routes = [
   {
@@ -10,8 +10,8 @@ const routes: Routes = [
     component: FlightSelectionPageComponent,
   },
   {
-    path: 'booking-process',
-    component: BookingProcessPageComponent,
+    path: 'passengers',
+    component: PassengersPageComponent,
   },
   {
     path: 'summary',
