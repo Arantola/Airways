@@ -13,6 +13,12 @@ export class SignupComponent implements OnInit {
   signUpForm!: FormGroup;
   citizenshipsData = nationalities;
   countryCodeData = phoneCode;
+  validPassword = `Please use:
+    1) min 8 characters
+    2) letters with upper and lower case
+    3) at least one letter and one number
+    4) one special char (! @ # ?)`;
+  validName = 'The field doesn\'t contain numbers'
 
   constructor(private formBuilder: FormBuilder) {
 
@@ -21,7 +27,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
       'userEmail': ['', [Validators.required, Validators.email]],
-      'userPassword': ['', Validators.required],
+      'userPassword': ['', [Validators.required, this.passwordValidator]],
       'userFirstName': ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
       'userLastName': ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
       'userBirthday': ['', [Validators.required, this.dateValidator]],
@@ -37,6 +43,14 @@ export class SignupComponent implements OnInit {
     const nowDate = new Date();
     if (creationDate > nowDate) {
       return { futureDate: true };
+    }
+    return null;
+  }
+
+  passwordValidator(control: FormControl): { [s: string]: boolean } | null {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}/;
+    if (!regex.test(control.value)) {
+      return { userPass: true };
     }
     return null;
   }

@@ -28,14 +28,14 @@
       {{ isHidePassword ? 'visibility_off' : 'visibility' }}
     </mat-icon>
   </mat-form-field>
+  <div class="form__recovery-password">Forgot password?</div>
+  <button
+    mat-raised-button
+    type="submit"
+    color="primary"
+    class="form__submit-button"
+  >
+    Log in
+  </button>
 </form>
-<div class="recovery-password">Forgot password?</div>
-<button
-  mat-raised-button
-  color="primary"
-  class="submit-button"
-  [disabled]="loginForm.controls['userEmail'].invalid
-  || loginForm.controls['userPassword'].invalid"
->
-  Log in
-</button>
+

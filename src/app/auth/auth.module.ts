@@ -15,7 +15,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+const AuthModules = [
+  CommonModule,
+  MatTabsModule,
+  MatDialogModule,
+  MatInputModule,
+  MatButtonModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatButtonToggleModule,
+  MatSelectModule,
+  MatCheckboxModule,
+  FormsModule,
+  ReactiveFormsModule,
+  MatIconModule,
+  MatTooltipModule,
+];
 
 @NgModule({
   declarations: [
@@ -24,21 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     AuthWindowComponent,
     SocialLinkComponent,
   ],
-  imports: [
-    CommonModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonToggleModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-  ],
+  imports: [AuthModules],
   exports: [AuthWindowComponent]
 })
 export class AuthModule { }

@@ -8,22 +8,54 @@
     <mat-label>Email</mat-label>
     <input matInput formControlName="userEmail">
   </mat-form-field>
+  <div
+    class="error"
+    *ngIf="signUpForm.get('userEmail')?.errors?.['email']
+    && signUpForm.controls['userEmail'].touched"
+  >
+    Invalid email
+  </div>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Password</mat-label>
     <input matInput formControlName="userPassword">
+    <mat-icon
+      matSuffix
+      [matTooltip]="validPassword"
+      class="form__field-error"
+      *ngIf="signUpForm.get('userPassword')?.errors?.['userPass']
+      && signUpForm.controls['userPassword'].touched; else infoPass"
+    >
+      error
+    </mat-icon>
+    <ng-template #infoPass>
+      <mat-icon matSuffix [matTooltip]="validPassword">info</mat-icon>
+    </ng-template>
+
   </mat-form-field>
+  <div
+    class="error"
+    *ngIf="signUpForm.get('userPassword')?.errors?.['userPass']
+    && signUpForm.controls['userPassword'].touched"
+  >
+    Invalid password
+  </div>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>First name</mat-label>
     <input matInput formControlName="userFirstName">
     <mat-icon
       matSuffix
+      [matTooltip]="validName"
       class="form__field-error"
-      *ngIf="signUpForm.get('userFirstName')?.errors?.['pattern']"
+      *ngIf="signUpForm.get('userFirstName')?.errors?.['pattern']
+      && signUpForm.controls['userFirstName'].touched; else infoFirstName"
     >
       error
     </mat-icon>
+    <ng-template #infoFirstName>
+      <mat-icon matSuffix [matTooltip]="validName">info</mat-icon>
+    </ng-template>
   </mat-form-field>
   <div
     class="error"
@@ -37,11 +69,16 @@
     <input matInput formControlName="userLastName">
     <mat-icon
       matSuffix
+      [matTooltip]="validName"
       class="form__field-error"
-      *ngIf="signUpForm.get('userLastName')?.errors?.['pattern']"
+      *ngIf="signUpForm.get('userLastName')?.errors?.['pattern']
+      && signUpForm.controls['userLastName'].touched; else infoLastName"
     >
       error
     </mat-icon>
+    <ng-template #infoLastName>
+      <mat-icon matSuffix [matTooltip]="validName">info</mat-icon>
+    </ng-template>
   </mat-form-field>
   <div
     class="error"
@@ -60,7 +97,7 @@
     class="error"
     *ngIf="signUpForm.get('userBirthday')?.errors?.['futureDate']"
   >
-    The date is invalid
+    Invalid date
   </div>
 
   <mat-button-toggle-group class="form__field" #gender="matButtonToggleGroup" formControlName="userGender">
@@ -71,9 +108,10 @@
     <mat-button-toggle class="form__field-button" value="female">
       <mat-icon color="primary" *ngIf="gender.value === 'female'">done</mat-icon>
       Female
-    </mat-button-toggle>  </mat-button-toggle-group>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 
-  <div class="form__field">
+  <div class="form__field phone-field">
     <mat-form-field appearance="outline">
       <mat-label>Country code</mat-label>
       <mat-select class="form__field-number" formControlName="countryCode">
@@ -103,6 +141,14 @@
     <span>I agree to Airway's <a class="form__agreement-link">Privacy Policy</a> and <a class="form__agreement-link">Terms of Use</a></span>
   </section>
 
+  <button
+    mat-raised-button
+    color="primary"
+    class="form__submit-button"
+    type="submit"
+  >
+    Sign up
+  </button>
+
 </form>
 
-<button mat-raised-button color="primary" class="submit-button">Sign up</button>

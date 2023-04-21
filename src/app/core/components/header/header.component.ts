@@ -1,5 +1,4 @@
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from './../../../auth/services/auth.service';
 import { Component } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
 
@@ -27,7 +26,7 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  constructor(private authService: AuthService, private dialog: MatDialog,) { }
+  constructor(private dialog: MatDialog,) { }
 
   toggleAuthWindow() {
     this.dialog.open(AuthWindowComponent, { disableClose: true })

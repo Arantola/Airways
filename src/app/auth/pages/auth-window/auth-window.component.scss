@@ -2,21 +2,19 @@
 
 .login-form {
   width: 494px;
-  // max-height: 80vh;
   background-color: $neutral100;
   margin: 0 auto;
   border-radius: 8px;
-
   ::ng-deep {
     .mat-mdc-tab-labels {
-      border: 0.5px solid $netural60;
+      border: 0.5px solid $neutral60;
       border-radius: 6px;
     }
     .mat-mdc-tab .mdc-tab__text-label {
       @include label-medium;
     }
     .mdc-tab--active {
-      border: 1px solid $netural60;
+      border: 1px solid $neutral60;
       border-bottom: none;
       border-radius: 6px;
       background-color: $secondary90;
@@ -40,12 +38,12 @@
     background-color: transparent;
     border: none;
     outline: none;
-    color: $netural0;
+    color: $neutral0;
     cursor: pointer;
     font-size: 20px;
     pointer-events: all;
     &:hover {
-      color: $netural20;
+      color: $neutral20;
     }
   }
 }
