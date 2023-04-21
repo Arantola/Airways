@@ -24,5 +24,7 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
+  public isBookingPage = true;
+
   constructor() { }
 }

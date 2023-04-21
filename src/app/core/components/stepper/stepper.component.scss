@@ -1,0 +1,42 @@
+@import '../../../shared/styles/abstract';
+@import '../../../shared/styles/typography';
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 10px;
+  &__header {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  &__step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $neutral100;
+    background-color: $netural30;
+    &.stepper__step_selected-step {
+      background-color: $accent;
+    }
+    &.stepper__step_completed-step {
+      background-color: $accent;
+    }
+  }
+  &__label {
+    @include label-medium;
+    color: $netural30;
+  }
+  &__line {
+    width: 80px;
+    height: 1px;
+    background-color: $netural40;
+  }
+}
