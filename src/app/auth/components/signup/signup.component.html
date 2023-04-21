@@ -3,66 +3,104 @@
   <div class="form-title__text">or sign up with your email</div>
   <div class="form-title__line"><hr></div>
 </div>
-<form class="form" >
+<form class="form" [formGroup]="signUpForm" novalidate>
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Email</mat-label>
-    <input matInput>
+    <input matInput formControlName="userEmail">
   </mat-form-field>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput>
+    <input matInput formControlName="userPassword">
   </mat-form-field>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>First name</mat-label>
-    <input matInput>
+    <input matInput formControlName="userFirstName">
+    <mat-icon
+      matSuffix
+      class="form__field-error"
+      *ngIf="signUpForm.get('userFirstName')?.errors?.['pattern']"
+    >
+      error
+    </mat-icon>
   </mat-form-field>
+  <div
+    class="error"
+    *ngIf="signUpForm.get('userFirstName')?.errors?.['pattern']"
+  >
+    Invalid character
+  </div>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Last name</mat-label>
-    <input matInput>
+    <input matInput formControlName="userLastName">
+    <mat-icon
+      matSuffix
+      class="form__field-error"
+      *ngIf="signUpForm.get('userLastName')?.errors?.['pattern']"
+    >
+      error
+    </mat-icon>
   </mat-form-field>
+  <div
+    class="error"
+    *ngIf="signUpForm.get('userLastName')?.errors?.['pattern']"
+  >
+    Invalid character
+  </div>
 
   <mat-form-field class="form__field" appearance="outline">
-    <mat-label>Date of birth*</mat-label>
-    <input matInput [matDatepicker]="picker">
+    <mat-label>Date of birth</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="userBirthday">
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
+  <div
+    class="error"
+    *ngIf="signUpForm.get('userBirthday')?.errors?.['futureDate']"
+  >
+    The date is invalid
+  </div>
 
-  <mat-button-toggle-group class="form__field" name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle class="form__field-button" value="bold" selected>Male</mat-button-toggle>
-    <mat-button-toggle class="form__field-button" value="italic">Female</mat-button-toggle>
-  </mat-button-toggle-group>
+  <mat-button-toggle-group class="form__field" #gender="matButtonToggleGroup" formControlName="userGender">
+    <mat-button-toggle class="form__field-button" value="male">
+      <mat-icon color="primary" *ngIf="gender.value === 'male'">done</mat-icon>
+      Male
+    </mat-button-toggle>
+    <mat-button-toggle class="form__field-button" value="female">
+      <mat-icon color="primary" *ngIf="gender.value === 'female'">done</mat-icon>
+      Female
+    </mat-button-toggle>  </mat-button-toggle-group>
 
   <div class="form__field">
     <mat-form-field appearance="outline">
       <mat-label>Country code</mat-label>
-      <mat-select class="form__field-number">
-        <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-          {{food.viewValue}}
-        </mat-option> -->
+      <mat-select class="form__field-number" formControlName="countryCode">
+        <mat-option *ngFor="let code of countryCodeData" [value]="code">
+          {{ code.name }} ({{ code.dial_code }})
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Mobile phone number</mat-label>
-      <input matInput class="form__field-number">
+      <input matInput class="form__field-number" formControlName="phoneNumber">
     </mat-form-field>
   </div>
 
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Citizenship</mat-label>
-    <mat-select>
-      <!-- <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option> -->
+    <mat-select formControlName="nationalities">
+      <mat-option *ngFor="let item of citizenshipsData" [value]="item">
+        {{item}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <section class="example-section">
-    <mat-checkbox class="example-margin">I agree to Airway's Privacy Policy and Terms of Use</mat-checkbox>
+  <section class="form__agreement">
+    <mat-checkbox color="primary"></mat-checkbox>
+    <span>I agree to Airway's <a class="form__agreement-link">Privacy Policy</a> and <a class="form__agreement-link">Terms of Use</a></span>
   </section>
 
 </form>

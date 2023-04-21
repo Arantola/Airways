@@ -2,9 +2,32 @@
 
 .login-form {
   width: 494px;
+  // max-height: 80vh;
   background-color: $neutral100;
   margin: 0 auto;
   border-radius: 8px;
+
+  ::ng-deep {
+    .mat-mdc-tab-labels {
+      border: 0.5px solid $netural60;
+      border-radius: 6px;
+    }
+    .mat-mdc-tab .mdc-tab__text-label {
+      @include label-medium;
+    }
+    .mdc-tab--active {
+      border: 1px solid $netural60;
+      border-bottom: none;
+      border-radius: 6px;
+      background-color: $secondary90;
+    }
+    .mat-mdc-tab-body-content.ng-trigger-translateTab {
+      overflow: hidden;
+    }
+  }
+  .mat-mdc-dialog-container.mdc-dialog__content {
+    max-height: 80vh;
+  }
 }
 
 .close-login-form {
@@ -27,4 +50,11 @@
   }
 }
 
-
+::ng-deep{
+  .mat-mdc-dialog-container .mdc-dialog__content {
+    max-height: 85vh;
+  }
+  .mat-mdc-dialog-surface.mdc-dialog__surface{
+    overflow-y: visible;
+  }
+}

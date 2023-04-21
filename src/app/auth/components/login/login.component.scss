@@ -25,6 +25,14 @@
       opacity: 0.7;
     }
   }
+  &::ng-deep {
+    .mat-mdc-text-field-wrapper.mdc-text-field {
+      background-color: $secondary90;
+      &:focus-within {
+        background-color: $secondary50;
+      }
+    }
+  }
 }
 
 .recovery-password {
