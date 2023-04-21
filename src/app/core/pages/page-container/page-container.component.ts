@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./page-container.component.scss'],
 })
 export class PageContainerComponent {
-  isSecondMenuOn: boolean = true;
+  isMainPage: boolean = true;
 }

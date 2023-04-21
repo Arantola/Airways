@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainModalWindowComponent } from './airways/pages/main-page/main-modal-window.component';
+import { MainModalWindowComponent } from './core/components/main-modal-window/main-modal-window.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },

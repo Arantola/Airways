@@ -8,15 +8,15 @@ import { SecondMenuComponent } from './components/second-menu/second-menu.compon
 import { StepperComponent } from './components/stepper/stepper.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AirwaysModule } from '../airways/airways.module';
 import { BookingModule } from '../booking/booking.module';
-
+import { MainModalWindowComponent } from './components/main-modal-window/main-modal-window.component';
 
 const CoreComponents = [
   HeaderComponent,
   StepperComponent,
   PageContainerComponent,
   SecondMenuComponent,
+  MainModalWindowComponent,
   FooterComponent,
 ];
 
@@ -29,7 +29,6 @@ const CoreComponents = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    AirwaysModule,
     BookingModule,
   ],
 })
