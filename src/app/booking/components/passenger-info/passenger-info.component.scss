@@ -1,0 +1,9 @@
+@import 'src/app/shared/styles/utils';
+
+.passanger {
+  &__containter{
+    @include shadow;
+    border-radius: 8px;
+    background: $neutral100;
+  }
+}

@@ -3,11 +3,18 @@
 :host {
   display: block;
   padding-top: 88px;
-  background: center / cover no-repeat url(../../../../assets/Background.png) $neutral80;
   width: 100%;
-  height: calc(100% - 92px);
+  // height: calc(100% - 92px);
   .container {
     width: 1128px;
     margin: 0 auto;
+  }
+  .background {
+    width: 100%;
+    height: 100%;
+    background-color: $neutral80;
+    &-on {
+      background: center / cover no-repeat url(../../../../assets/Background.png);
+    }
   }
 }

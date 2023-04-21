@@ -82,32 +82,32 @@
     </mat-form-field>
 
     <div class="passengers__form">
-      <span class="passengers__label" [ngClass]="{'passengers__label-open': isPassangersMenuOpened}">Passangers</span>
+      <span class="passengers__label" [ngClass]="{'passengers__label-open': isPassengersMenuOpened}">Passengers</span>
       <button
         class="passengers__btn"
         type="button"
-        (click)="togglePassangerMenu()"
-        [ngClass]="{'passengers__open': isPassangersMenuOpened}"
+        (click)="togglePassengerMenu()"
+        [ngClass]="{'passengers__open': isPassengersMenuOpened}"
         >
         <span class="passengers__display">{{ passengersDisplay }}</span>
       </button>
       <div class="passengers__select"
-        *ngIf="isPassangersMenuOpened"
-        formGroupName="passangers"
+        *ngIf="isPassengersMenuOpened"
+        formGroupName="passengers"
         >
-        <div class="option" *ngFor="let passangerType of passengersList">
+        <div class="option" *ngFor="let passengerType of passengersList">
           <div class="option__info">
-            <div [ngStyle]="{color: getColor(passangerType[0])}">{{ passangerType[0] | titlecase }}</div>
-            <div class="option__support">{{ passangerType[1] }}</div>
+            <div [ngStyle]="{color: getColor(passengerType[0])}">{{ passengerType[0] | titlecase }}</div>
+            <div class="option__support">{{ passengerType[1] }}</div>
           </div>
-          <button class="option__operator option__minus" type="button" (click)="onChangeNumber(passangerType[0], 'minus')"> - </button>
+          <button class="option__operator option__minus" type="button" (click)="onChangeNumber(passengerType[0], 'minus')"> - </button>
           <input
-            [formControlName]="passangerType[0]"
+            [formControlName]="passengerType[0]"
             type="number"
-            [ngStyle]="{color: getColor(passangerType[0])}"
+            [ngStyle]="{color: getColor(passengerType[0])}"
             readonly
             />
-          <button class="option__operator option__plus" type="button" (click)="onChangeNumber(passangerType[0], 'plus')"> + </button>
+          <button class="option__operator option__plus" type="button" (click)="onChangeNumber(passengerType[0], 'plus')"> + </button>
         </div>
       </div>
     </div>
