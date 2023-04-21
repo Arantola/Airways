@@ -22,7 +22,7 @@
     font-size: 12px;
     line-height: 16px;
     color: $neutral100;
-    background-color: $netural30;
+    background-color: $neutral30;
     &.stepper__step_selected-step {
       background-color: $accent;
     }
@@ -32,11 +32,11 @@
   }
   &__label {
     @include label-medium;
-    color: $netural30;
+    color: $neutral30;
   }
   &__line {
     width: 80px;
     height: 1px;
-    background-color: $netural40;
+    background-color: $neutral40;
   }
 }
