@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss'],
+  selector: 'app-main-modal-window',
+  templateUrl: './main-modal-window.component.html',
+  styleUrls: ['./main-modal-window.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainModalWindowComponent implements OnInit, OnDestroy {
   initialForm!: FormGroup;
 
   isRounded: boolean = true;

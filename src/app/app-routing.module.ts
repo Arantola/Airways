@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from './booking/pages/main-page/main-page.component';
+import { MainModalWindowComponent } from './core/components/main-modal-window/main-modal-window.component';
 import { PassengersPageComponent } from './booking/pages/passengers-page/passengers-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
-  { path: 'main', component: PassengersPageComponent },
+  { path: 'main', component: MainModalWindowComponent },
+  { path: 'passengers', component: PassengersPageComponent },
   { path: '**', redirectTo: 'main' },
 ];
 

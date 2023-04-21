@@ -5,9 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/material/material.module';
-
 import { CoreModule } from './core/core.module';
+import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
 
 @NgModule({
