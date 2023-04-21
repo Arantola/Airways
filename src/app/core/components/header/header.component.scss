@@ -12,7 +12,7 @@
 
   & .app-header__toolbar.app-header__toolbar_booking {
     background: transparent;
-    color: $netural10;
+    color: $neutral10;
   }
 
   & .app-header__spacer {
@@ -60,7 +60,7 @@
 }
 
 .user-icon.user-icon_black {
-  fill: $netural10;
+  fill: $neutral10;
 }
 
 ::ng-deep .app-header__currency-menu.mat-mdc-menu-panel.mat-mdc-menu-panel {
@@ -73,13 +73,13 @@
   }
 
   .select_booking .mat-mdc-select-arrow svg {
-    fill: $netural10;
+    fill: $neutral10;
   }
 
   .mat-mdc-text-field-wrapper .mat-mdc-form-field-infix {
     padding: .5em 0;
     min-height: 2.5em;
-    border-color: $netural60;
+    border-color: $neutral60;
     .mat-mdc-select-value {
       color: inherit;
     }
@@ -92,7 +92,7 @@
 
   .mdc-notched-outline__trailing,
   .mat-mdc-outlined-button:not(:disabled) {
-    border-color: $netural60;
+    border-color: $neutral60;
   }
 
   .mat-mdc-text-field-wrapper {
@@ -113,7 +113,7 @@
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
-        border-color: $netural60;
+        border-color: $neutral60;
     }
   }
 }
