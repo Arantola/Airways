@@ -26,7 +26,9 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  constructor(private dialog: MatDialog,) { }
+  public isBookingPage = true;
+
+  constructor(private dialog: MatDialog) { }
 
   toggleAuthWindow() {
     this.dialog.open(AuthWindowComponent, { disableClose: true })
