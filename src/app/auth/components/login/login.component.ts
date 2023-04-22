@@ -8,8 +8,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  valueEmail = '';
-  valuePassword = '';
   isHidePassword = true;
 
   ngOnInit(): void {
