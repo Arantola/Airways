@@ -1,4 +1,4 @@
-
+<form [formGroup]="passengersForm" (ngSubmit)="submitForm()">
   <div class="passengers__title-group">
     <mat-icon class="passengers__icon" svgIcon="account" color="primary"></mat-icon>
     <h2 class="passengers__title">Passengers</h2>
@@ -6,7 +6,7 @@
   <p class="passengers__support-text">Enter the passenger's names as they appear on document (passport or ID).</p>
 
   <div class="passengers__list">
-    <app-passenger-info *ngFor="let passenger of passangers; let i = index" [index]="i" [passengerType]="passenger"></app-passenger-info>
+    <app-passenger-list formControlName="passengersList"></app-passenger-list>
   </div>
 
   <div class="passengers__title-group">
@@ -15,11 +15,10 @@
   </div>
   <p class="passengers__support-text">We need contact details to be able to deliver the latest information regarding your flight.</p>
 
-    <form class="contacts"
-      [formGroup]="contactsForm"
+    <!-- <div class="contacts"
+      formGroupName="contactsForm"
       >
-
-      <app-phone formControlName="phone"></app-phone>
+      <app-phone formGroupName="phone"></app-phone>
 
       <mat-form-field appearance="outline">
         <mat-label>Enter your email</mat-label>
@@ -29,9 +28,10 @@
           required
           >
       </mat-form-field>
-    </form>
+    </div> -->
 
   <div class="passengers__buttons-group">
     <a class="passengers__button passengers__button-back">Back</a>
-    <button mat-flat-button class="passengers__button" color="primary">Continue</button>
+    <button mat-flat-button class="passengers__button" color="primary" type="submit">Continue</button>
   </div>
+</form>

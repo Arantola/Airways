@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 48px;
+  padding-bottom: 100px;
   .passengers {
     &__title-group {
       display: flex;
@@ -20,6 +21,7 @@
       color: $neutral10;
     }
     &__list {
+      margin-bottom: 48px;
       display: flex;
       flex-direction: column;
       gap: 20px;

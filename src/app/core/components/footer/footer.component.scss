@@ -3,6 +3,7 @@
 .footer-wrapper {
   min-width: 100%;
   border-top: 1px solid #D0D9DF;
+  height: 92px;
 }
 .footer {
   display: flex;
@@ -10,7 +11,7 @@
   align-items: center;
   max-width: 1128px;
   margin: 0 auto;
-  height: 92px;
+  height: 100%;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.25px;

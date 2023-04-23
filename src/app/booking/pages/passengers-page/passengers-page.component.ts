@@ -9,9 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./passengers-page.component.scss'],
 })
 export class PassengersPageComponent implements OnInit {
-  contactsForm!: FormGroup;
+  passengersForm!: FormGroup;
   selectedValue!: string;
-  passangers = ['audit', 'child', 'infant'];
 
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -36,13 +35,19 @@ export class PassengersPageComponent implements OnInit {
   }
 
   private initForm(): void {
-    this.contactsForm = new FormGroup({
-      code: new FormControl<number | null>(null),
-      phone: new FormGroup({
-        code: new FormControl(),
-        tel: new FormControl(),
-      }),
-      email: new FormControl<string>(''),
+    this.passengersForm = new FormGroup({
+      passengersList: new FormControl(),
+      // contactsForm: new FormGroup({
+      // phone: new FormGroup({
+      // country: new FormControl(),
+      // number: new FormControl(),
+      // }),
+      // email: new FormControl<string>(''),
+      // })
     });
+  }
+
+  submitForm() {
+    console.log(this.passengersForm);
   }
 }

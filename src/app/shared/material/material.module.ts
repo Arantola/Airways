@@ -14,6 +14,7 @@ import {
 } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, NativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const MaterialModules = [
   MatInputModule,
@@ -28,6 +29,7 @@ const MaterialModules = [
   MatDatepickerModule,
   NativeDateModule,
   MatNativeDateModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({
