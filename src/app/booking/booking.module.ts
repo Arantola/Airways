@@ -7,6 +7,8 @@ import { BookingRoutingModule } from './booking-routing.module';
 import { SummaryPageComponent } from './pages/summary-page/summary-page.component';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
 import { DateCardComponent } from './components/date-card/date-card.component';
+import { DateCarouselComponent } from './components/date-carousel/date-carousel.component';
+import { IndicatorColorDirective } from './directives/indicator-color.directive';
 
 const BookingComponents = [];
 
@@ -15,7 +17,9 @@ const BookingComponents = [];
     FlightSelectionPageComponent,
     SummaryPageComponent,
     PassengersPageComponent,
-    DateCardComponent
+    DateCardComponent,
+    DateCarouselComponent,
+    IndicatorColorDirective
   ],
   exports: [],
   imports: [

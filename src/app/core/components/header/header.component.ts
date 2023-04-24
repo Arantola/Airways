@@ -26,7 +26,7 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  public isBookingPage = true;
+  public isBookingPage = false;
 
   constructor(private dialog: MatDialog) { }
 
@@ -36,7 +36,6 @@ export class HeaderComponent {
 
   ngOnInit() {
     const pathname = window.location.pathname;
-    console.log(pathname);
     const result = pathname.match(/^\/booking\//);
     if (result) {
       this.isBookingPage = true;

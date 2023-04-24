@@ -6,10 +6,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  border-left: 1px solid $netural60;
+  border-left: 1px solid $neutral60;
   background: $neutral100;
-  width: 225px;
   height: 70px;
+  cursor: pointer;
   &.date-card_select {
     height: 83px;
     & .date-card__month {
@@ -18,12 +18,16 @@
     }
     & .date-card__day {
       @include body-medium;
-      color: $netural30;
+      color: $neutral30;
       margin-bottom: 0px;
     }
     & .date-card__price {
       @include subtitle-large;
       margin-bottom: 0px;
+      @media (max-width: 768px) {
+        @include subtitle-medium;
+        margin-bottom: 8px;
+      }
     }
   }
   &.date-card_disable {
@@ -36,7 +40,7 @@
       font-weight: 100;
       font-size: 12px;
       line-height: 12px;
-      color: $netural30;
+      color: $neutral30;
       margin-bottom: 6px;
     }
   }
@@ -48,7 +52,7 @@
     font-weight: 100;
     font-size: 12px;
     line-height: 12px;
-    color: $netural30;
+    color: $neutral30;
     margin-bottom: 6px;
   }
   & &__price {

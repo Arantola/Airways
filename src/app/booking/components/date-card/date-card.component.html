@@ -3,9 +3,14 @@
   [class.date-card_select]="isSelect"
   [class.date-card_disable]="isDisable"
 >
-  <span class="date-card__month">01 Mar</span>
-  <span class="date-card__day">Wednesday</span>
-  <span class="date-card__price" *ngIf="!isDisable">€146.70</span>
-  <img class="date-card__icon" *ngIf="isDisable" src="../../../../assets/icons/no-flight.svg" alt="no flight">
-  <div *ngIf="isSelect" class="date-card__seat-indicator"></div>
+  <span class="date-card__month">{{ date | date : 'd MMMM' }}</span>
+  <span class="date-card__day">{{ date | date : 'EEEE' }}</span>
+  <span class="date-card__price" *ngIf="!isDisable">{{ price | currency : locale : currency }}</span>
+  <img
+    class="date-card__icon"
+    *ngIf="isDisable"
+    src="../../../../assets/icons/no-flight.svg"
+    alt="no flight"
+  >
+  <div *ngIf="isSelect" class="date-card__seat-indicator" appIndicatorColor [numberOfSeats]="numberOfSeats"></div>
 </div>

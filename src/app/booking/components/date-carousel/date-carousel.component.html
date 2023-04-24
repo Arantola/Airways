@@ -1,0 +1,30 @@
+<div
+  class="date-carousel"
+  [class.date-carousel_next-animation]="isNextAnimation"
+  [class.date-carousel_next-animation-process]="isNextAnimationProcess"
+  [class.date-carousel_prev-animation]="isPrevAnimation"
+  [class.date-carousel_prev-animation-process]="isPrevAnimationProcess"
+>
+  <div class="date-carousel__inner">
+    <div class="date-carousel__cards" (transitionend)="onTransitionEnd()">
+      <app-date-card
+        *ngFor="let item of displayedItems"
+        class="date-carousel__card"
+        [isSelect]="item === selectedItem"
+        [isDisable]="item.isDisable"
+        [date]="item.date"
+        [price]="item.price"
+        [locale]="item.locale"
+        [currency]="item.currency"
+        [numberOfSeats]="item.seats"
+        (click)="selectedDate(item)"
+      />
+    </div>
+  </div>
+  <button class="date-carousel__next" (click)="next()">
+    <img src="../../../../assets/icons/next-arrow.svg" alt="arrow">
+  </button>
+  <button class="date-carousel__prev" (click)="prev()">
+    <img src="../../../../assets/icons/prev-arrow.svg" alt="arrow">
+  </button>
+</div>

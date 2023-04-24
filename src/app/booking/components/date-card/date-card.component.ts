@@ -6,7 +6,24 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./date-card.component.scss']
 })
 export class DateCardComponent {
-  @Input() public isSelect = false;
-  @Input() public isDisable = true;
+  @Input()
+  public isSelect = false;
 
+  @Input()
+  public isDisable = false;
+
+  @Input()
+  public date = new Date();
+
+  @Input()
+  public price = 0;
+
+  @Input()
+  public locale = 'en';
+
+  @Input()
+  public currency = '$';
+
+  @Input()
+  public numberOfSeats = 0;
 }
