@@ -12,8 +12,12 @@ import {
   MatRadioModule,
   MAT_RADIO_DEFAULT_OPTIONS,
 } from '@angular/material/radio';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, NativeDateModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialModules = [
   MatInputModule,
@@ -25,9 +29,13 @@ const MaterialModules = [
   MatMenuModule,
   MatIconModule,
   MatRadioModule,
-  MatDatepickerModule,
   NativeDateModule,
+  MatTabsModule,
+  MatDialogModule,
+  MatDatepickerModule,
   MatNativeDateModule,
+  MatCheckboxModule,
+  MatTooltipModule,
 ];
 
 @NgModule({
