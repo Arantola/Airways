@@ -1,4 +1,6 @@
+import { MatDialog } from '@angular/material/dialog';
 import { Component } from '@angular/core';
+import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
 
 @Component({
   selector: 'app-header',
@@ -26,5 +28,9 @@ export class HeaderComponent {
 
   public isBookingPage = true;
 
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
+
+  toggleAuthWindow() {
+    this.dialog.open(AuthWindowComponent, { disableClose: true })
+  }
 }

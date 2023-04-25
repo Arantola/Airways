@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookingModule } from '../booking/booking.module';
 import { MainModalWindowComponent } from './components/main-modal-window/main-modal-window.component';
+import { AuthModule } from '../auth/auth.module';
 
 const CoreComponents = [
   HeaderComponent,
@@ -30,6 +31,7 @@ const CoreComponents = [
     FormsModule,
     ReactiveFormsModule,
     BookingModule,
+    AuthModule,
   ],
 })
 export class CoreModule {}
