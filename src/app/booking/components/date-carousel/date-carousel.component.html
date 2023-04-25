@@ -10,13 +10,8 @@
       <app-date-card
         *ngFor="let item of displayedItems"
         class="date-carousel__card"
+        [flight]="item"
         [isSelect]="item === selectedItem"
-        [isDisable]="item.isDisable"
-        [date]="item.date"
-        [price]="item.price"
-        [locale]="item.locale"
-        [currency]="item.currency"
-        [numberOfSeats]="item.seats"
         (click)="selectedDate(item)"
       />
     </div>

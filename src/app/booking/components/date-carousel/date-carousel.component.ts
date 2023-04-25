@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-interface DateCarouselItem {
+export interface CarouselItem {
   isSelect: boolean;
   isDisable: boolean;
   date: Date;
@@ -10,7 +10,7 @@ interface DateCarouselItem {
   currency: string;
 }
 
-const data: DateCarouselItem[] = [
+const data: CarouselItem[] = [
   {
     isSelect: false,
     isDisable: false,
@@ -75,16 +75,6 @@ const data: DateCarouselItem[] = [
     currency: '$',
   }
 ]
-
-interface CarouselItem {
-  isSelect: boolean;
-  isDisable: boolean;
-  date: Date;
-  price: number;
-  seats: number;
-  locale: string;
-  currency: string;
-}
 
 enum Animations {
   NONE,
@@ -160,7 +150,7 @@ export class DateCarouselComponent {
     });
   }
 
-  selectedDate(item: DateCarouselItem) {
+  selectedDate(item: CarouselItem) {
     if (item.isDisable === true) {
       return;
     }

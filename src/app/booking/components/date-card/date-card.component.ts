@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CarouselItem } from '../date-carousel/date-carousel.component';
 
 @Component({
   selector: 'app-date-card',
@@ -10,20 +11,5 @@ export class DateCardComponent {
   public isSelect = false;
 
   @Input()
-  public isDisable = false;
-
-  @Input()
-  public date = new Date();
-
-  @Input()
-  public price = 0;
-
-  @Input()
-  public locale = 'en';
-
-  @Input()
-  public currency = '$';
-
-  @Input()
-  public numberOfSeats = 0;
+  public flight?: CarouselItem;
 }
