@@ -15,20 +15,34 @@
   </div>
   <p class="passengers__support-text">We need contact details to be able to deliver the latest information regarding your flight.</p>
 
-    <!-- <div class="contacts"
-      formGroupName="contactsForm"
-      >
-      <app-phone formGroupName="phone"></app-phone>
+    <div class="contacts" formGroupName="contactsForm">
 
-      <mat-form-field appearance="outline">
+      <ng-container formGroupName="phone">
+        <mat-form-field appearance="outline">
+          <mat-label>Country code</mat-label>
+          <mat-select formControlName="country">
+            <mat-option *ngFor="let code of countryCodeData" [value]="code">
+              {{ code.name }} ({{ code.dial_code }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="country">
+          <mat-label>Mobile phone number</mat-label>
+          <input matInput formControlName="number">
+        </mat-form-field>
+      </ng-container>
+
+      <mat-form-field class="contacts__email" appearance="outline">
         <mat-label>Enter your email</mat-label>
         <input
           formControlName="email"
-          matInput placeholder="pat@example.com"
+          matInput
+          placeholder="e.g. example@email.com"
           required
           >
       </mat-form-field>
-    </div> -->
+    </div>
 
   <div class="passengers__buttons-group">
     <a class="passengers__button passengers__button-back">Back</a>

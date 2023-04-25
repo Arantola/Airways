@@ -43,11 +43,15 @@
       color: $primary;
     }
   }
+
   .contacts {
     display: flex;
     gap:20px;
     padding: 32px 44px 10px 44px;
     background: $neutral100;
     margin-bottom: 40px;
+    &__email {
+      min-width: 400px;
+    }
   }
 }

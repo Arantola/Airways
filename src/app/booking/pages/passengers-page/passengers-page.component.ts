@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import phoneCode from 'src/app/shared/constants/CountryCodes.json';
 
 @Component({
   selector: 'app-passengers-page',
@@ -10,7 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class PassengersPageComponent implements OnInit {
   passengersForm!: FormGroup;
-  selectedValue!: string;
+  countryCodeData = phoneCode;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -37,14 +38,18 @@ export class PassengersPageComponent implements OnInit {
   private initForm(): void {
     this.passengersForm = new FormGroup({
       passengersList: new FormControl(),
-      // contactsForm: new FormGroup({
-      // phone: new FormGroup({
-      // country: new FormControl(),
-      // number: new FormControl(),
-      // }),
-      // email: new FormControl<string>(''),
-      // })
+      contactsForm: new FormGroup({
+        phone: new FormGroup({
+          country: new FormControl(),
+          number: new FormControl(),
+        }),
+        email: new FormControl<string>(''),
+      }),
     });
+  }
+
+  get country() {
+    return this.passengersForm.get('contactsForm.phone.country')?.value;
   }
 
   submitForm() {
