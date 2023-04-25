@@ -48,6 +48,9 @@
   .place-option {
     display: flex;
     flex-direction: column;
+    &__group{
+      position: relative;
+    }
     &__top{
       display: block;
       @include body-large;
@@ -65,22 +68,25 @@
 
 .btn-input-switch {
   position: absolute;
-  top: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 38px;
   right: 54px;
   width: 45px;
   height: 45px;
   border-radius: 50%;
   border: 1px solid $neutral40;
-  background: center / 60% no-repeat url(../../../../assets/icons/switch.svg) $neutral100;
   transition: 0.3ms;
+  color: $neutral20;
   &:hover {
     transition: 0.3ms;
     border: 1px solid $neutral0;
+    color: $neutral0;
   }
   &:active {
     transition: 0.3ms;
     border: 1px solid $neutral0;
-    background: center / 60% no-repeat url(../../../../assets/icons/switch.svg) $neutral80;
   }
 }
 

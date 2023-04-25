@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-modal-window',
@@ -36,7 +39,18 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'switch',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../assets/icons/switch.svg'
+      )
+    );
+  }
 
   ngOnInit() {
     this.initForm();
@@ -104,6 +118,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   onSubmit() {
     // TODO add dato to store
     console.log(this.initialForm);
+    this.router.navigate(['/passengers']);
   }
 
   togglePassengerMenu() {
