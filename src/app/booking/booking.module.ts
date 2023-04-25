@@ -4,13 +4,8 @@ import { MaterialModule } from '../shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
-import { PhoneComponent } from './components/phone/phone.component';
 
-const BookingComponents = [
-  PassengersPageComponent,
-  PassengerListComponent,
-  PhoneComponent,
-];
+const BookingComponents = [PassengersPageComponent, PassengerListComponent];
 
 @NgModule({
   declarations: [BookingComponents],
