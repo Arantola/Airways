@@ -34,6 +34,10 @@
     gap: 14px;
     @include label-small;
     color: black;
+
+    &.ticket__flight-time_way-back img {
+      transform: scaleX(-1);
+    }
   }
   &__finish-time-and-date {
     display: flex;

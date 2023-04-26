@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ticket',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
-
+  @Input() isWayBack = false;
 }

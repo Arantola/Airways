@@ -5,6 +5,10 @@
   display: flex;
   align-items: center;
   margin-bottom: 16px;
+
+  &.way__direction_way-back img {
+    transform: scaleX(-1);
+  }
 }
 
 .way__direction-text {

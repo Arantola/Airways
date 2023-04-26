@@ -1,10 +1,13 @@
 <div class="way">
-  <div class="way__direction">
+  <div
+    class="way__direction"
+    [class.way__direction_way-back]="isWayBack"
+  >
     <img src="../../../../assets/icons/airplane.svg" alt="airplane">
     <span class="way__direction-text">
       Dublin to Warsaw Modlin
     </span>
   </div>
   <app-date-carousel></app-date-carousel>
-  <app-ticket></app-ticket>
+  <app-ticket [isWayBack]="isWayBack"></app-ticket>
 </div>

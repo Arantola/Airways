@@ -15,7 +15,10 @@
       </div>
       <div class="ticket__time-progress">
         <div class="ticket__time-line"></div>
-        <div class="ticket__flight-time">
+        <div
+          class="ticket__flight-time"
+          [class.ticket__flight-time_way-back]="isWayBack"
+        >
           <div>2h 50m</div>
           <img src="../../../../assets/icons/airplane-time-to-right.svg" width="24">
           <div>Direct</div>

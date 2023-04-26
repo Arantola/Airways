@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-way',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./way.component.scss']
 })
 export class WayComponent {
-
+  @Input() isWayBack = false;
 }
