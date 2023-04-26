@@ -1,0 +1,61 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  .passanger {
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    &__card {
+      padding: 32px 44px;
+      @include shadow;
+      border-radius: 8px;
+      background: $neutral100;
+    }
+    &__title{
+      @include title-large;
+      color: $primary;
+    }
+    &__form-main {
+      display: flex;
+      gap: 20px;
+    }
+  }
+  .gender {
+    &__group {
+      margin-bottom: auto;
+    }
+    &__button {
+      width: 108px;
+      height: 56px;
+      border-color: $neutral40;
+
+    }
+  }
+  mat-form-field {
+    flex-grow: 1;
+  }
+  .toggle {
+    &__group {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+    }
+    &__icon {
+      margin-left: 20px;
+    }
+    &__label {
+      margin-left: 7px;
+      @include label-small;
+    }
+  }
+}
+
+:host ::ng-deep {
+  .mat-button-toggle-button {
+    height: 56px;
+  }
+}

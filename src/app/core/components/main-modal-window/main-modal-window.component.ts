@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-modal-window',
@@ -19,7 +22,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
 
   passengersDisplay: string = '1 Adult';
 
-  isPassangersMenuOpened: boolean = false;
+  isPassengersMenuOpened: boolean = false;
   // TODO replace mock data with data from api request
   places = [
     {
@@ -36,25 +39,36 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'switch',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../../../../assets/icons/switch.svg'
+      )
+    );
+  }
 
   ngOnInit() {
     this.initForm();
     window.addEventListener('click', (e: Event) =>
-      this.passangerFocusHandler(e)
+      this.passengerFocusHandler(e)
     );
   }
 
   ngOnDestroy() {
     //TODO Check removing listener. If it not removed change to onclick method and delete with "= null"
     window.removeEventListener('click', (e: Event) =>
-      this.passangerFocusHandler(e)
+      this.passengerFocusHandler(e)
     );
   }
 
-  private passangerFocusHandler(e: Event) {
+  private passengerFocusHandler(e: Event) {
     const target = (<HTMLElement>e.target).closest('.passengers__form');
-    this.isPassangersMenuOpened = Boolean(target);
+    this.isPassengersMenuOpened = Boolean(target);
   }
 
   private initForm() {
@@ -67,7 +81,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
         end: new FormControl<Date | null>(null),
       }),
       singleDate: new FormControl<Date | null>(null),
-      passangers: new FormGroup({
+      passengers: new FormGroup({
         adults: new FormControl(1),
         child: new FormControl(0),
         infant: new FormControl(0),
@@ -75,7 +89,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-  private setPassangersDisplay(adults: number, child: number, infant: number) {
+  private setPassengersDisplay(adults: number, child: number, infant: number) {
     this.passengersDisplay = `
     ${adults > 1 ? `${adults} Adults` : '1 Adult'}${
       child > 0 ? `, ${child} Child${child > 1 ? 'ren' : ''}` : ''
@@ -84,7 +98,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
 
   private patchPassanges(form: FormGroup, field: string, value: number = 1) {
     this.initialForm.patchValue({
-      passangers: {
+      passengers: {
         [field]: form?.value[field] + value,
       },
     });
@@ -104,20 +118,21 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   onSubmit() {
     // TODO add dato to store
     console.log(this.initialForm);
+    this.router.navigate(['/passengers']);
   }
 
-  togglePassangerMenu() {
-    this.isPassangersMenuOpened = !this.isPassangersMenuOpened;
+  togglePassengerMenu() {
+    this.isPassengersMenuOpened = !this.isPassengersMenuOpened;
   }
 
   getColor(type: string) {
-    return this.initialForm.get('passangers')?.value[type]
+    return this.initialForm.get('passengers')?.value[type]
       ? '#11397E'
       : '#1C1B1F';
   }
 
   onChangeNumber(fieldName: string, operation: string) {
-    const form = <FormGroup>this.initialForm.get('passangers');
+    const form = <FormGroup>this.initialForm.get('passengers');
     if (operation === 'plus' && form?.value[fieldName] < 10) {
       this.patchPassanges(form, fieldName, 1);
     }
@@ -129,7 +144,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.setPassangersDisplay(
+    this.setPassengersDisplay(
       form?.value.adults,
       form?.value.child,
       form?.value.infant

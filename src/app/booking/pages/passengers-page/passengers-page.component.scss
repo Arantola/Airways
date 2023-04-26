@@ -1,0 +1,57 @@
+@import '../../../shared/styles/utils';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding-top: 48px;
+  padding-bottom: 100px;
+  .passengers {
+    &__title-group {
+      display: flex;
+      gap: 12px;
+    }
+    &__title {
+      @include title-large;
+      color: $primary;
+      margin-bottom: 8px;
+    }
+    &__support-text {
+      margin-bottom: 20px;
+      @include body-large;
+      color: $neutral10;
+    }
+    &__list {
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    &__buttons-group {
+      display: flex;
+    }
+    &__button {
+      @include button-font;
+      height: 60px;
+      width: 126px;
+    }
+    &__button-back {
+      cursor: pointer;
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primary;
+    }
+  }
+
+  .contacts {
+    display: flex;
+    gap:20px;
+    padding: 32px 44px 10px 44px;
+    background: $neutral100;
+    margin-bottom: 40px;
+    &__email {
+      min-width: 400px;
+    }
+  }
+}

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuthWindowComponent } from './auth-window.component';
+import { PassengerListComponent } from './passenger-list.component';
 
-describe('AuthWindowComponent', () => {
-  let component: AuthWindowComponent;
-  let fixture: ComponentFixture<AuthWindowComponent>;
+describe('PassengerListComponent', () => {
+  let component: PassengerListComponent;
+  let fixture: ComponentFixture<PassengerListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AuthWindowComponent],
+      declarations: [PassengerListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AuthWindowComponent);
+    fixture = TestBed.createComponent(PassengerListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

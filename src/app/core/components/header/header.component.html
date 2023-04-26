@@ -6,7 +6,7 @@
     class="app-header__toolbar-content"
     [class.app-header__toolbar-content_booking]="isBookingPage"
   >
-    <img src="../../../../assets/svg/logo.svg" slt="logo airways">
+    <img src="../../../../assets/icons/logo.svg" slt="logo airways">
 
     <span *ngIf="!isBookingPage" class="app-header__spacer"></span>
 
@@ -59,7 +59,7 @@
 
       <button class="app-header__basket-button">
         <img
-          [src]="isBookingPage?'../../../../assets/svg/shopping_basket_black.svg':'../../../../assets/svg/shopping_basket.svg'"
+          src="../../../../assets/icons/shopping_basket.svg"
           alt="basket"
         >
       </button>

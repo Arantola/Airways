@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 const MaterialModules = [
   MatInputModule,
@@ -36,6 +37,7 @@ const MaterialModules = [
   MatNativeDateModule,
   MatCheckboxModule,
   MatTooltipModule,
+  MatSlideToggleModule,
 ];
 
 @NgModule({

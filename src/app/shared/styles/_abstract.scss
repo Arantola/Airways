@@ -6,20 +6,20 @@ $accent: #0090bd;
 $accent-light: #b3deeb;
 $accent-dark: #007dae;
 
-$error: #B3261E;
+$error: #b3261e;
 $error-light:rgba(179, 38, 30, 0.3);
 
 $gradient: linear-gradient(108.75deg, $accent 59.91%, $primary 95.36%);
 
-$highlight-green: #7F8906;
+$highlight-green: #7f8906;
 $highlight-green-light: rgba(241, 201, 51, 0.3);
-$highlight-yellow: #F1C933;
+$highlight-yellow: #f1c933;
 $highlight-yellow-light: rgba(127, 137, 6, 0.3);
 
-$neutral0:#1C1B1F;
-$neutral10:#49454F;
-$neutral20:#454A53;
-$neutral30:#74767A;
+$neutral0:#1c1b1f;
+$neutral10:#49454f;
+$neutral20:#454a53;
+$neutral30:#74767a;
 $neutral40: rgba(116, 118, 122, 0.6);
 $neutral50: rgba(0, 0, 0, 0.25);
 $neutral60: #cecece;
@@ -27,8 +27,8 @@ $neutral80: #f5f5f5;
 $neutral90: rgba(241, 243, 246, 0.15);
 $neutral100: #ffffff;
 
-$secondary50: #E1E5EB;
-$secondary90: #F4F6F9;
+$secondary50: #e1e5eb;
+$secondary90: #f4f6f9;
 $secondary100: #f8fafd;
 
 @mixin shadow {
