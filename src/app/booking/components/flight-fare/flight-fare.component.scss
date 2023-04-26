@@ -1,0 +1,32 @@
+@import 'src/app/shared/styles/utils';
+
+.fare {
+  background-color: $neutral100;
+  border-radius: 8px;
+  max-width: 551px;
+  &__passenger {
+    padding: 24px 72px 20px 40px;
+    &-type {
+      display: flex;
+      justify-content: space-between;
+      @include title-small;
+    }
+    &-base,
+    &-tax {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 40px;
+      @include body-large;
+    }
+  }
+  &__total {
+    padding: 20px 72px 20px 40px;
+    @include title-medium;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $secondary80;
+    &-cost {
+      color: $primary;
+    }
+  }
+}

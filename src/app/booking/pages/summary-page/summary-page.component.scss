@@ -1,0 +1,66 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  max-width: 1128px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70vh;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: $primary;
+  &__name {
+    @include title-large;
+    margin: 0;
+  }
+}
+
+//---------------------
+.flight-info {
+  display: flex;
+  gap: 30px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &__back {
+    text-decoration: none;
+    color: $primary;
+  }
+
+  &__add {
+    color: $primary;
+    border-radius: 4px;
+    border: 1px solid $primary;
+    width: 170px;
+    height: 60px;
+    margin-left: 85px;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
+
+  &__buy {
+    background-color: $primary;
+    color: $neutral100;
+    border-radius: 4px;
+    width: 126px;
+    height: 60px;
+    margin-left: 40px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+}

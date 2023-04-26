@@ -1,0 +1,13 @@
+@import 'src/app/shared/styles/utils';
+
+.passenger {
+  background-color: $neutral100;
+  max-width: 551px;
+  padding: 20px 24px;
+  border: 1px solid $secondary80;
+  @include body-large;
+  &__baggage {
+    list-style-type: none;
+    padding-left: 28px;
+  }
+}
