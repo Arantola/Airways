@@ -3,7 +3,7 @@
   <div class="form-title__text">or log in with your email</div>
   <div class="form-title__line"><hr></div>
 </div>
-<form class="form" [formGroup]="loginForm">
+<form class="form" [formGroup]="signInForm" (ngSubmit)="onSignIn()">
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Email</mat-label>
     <input

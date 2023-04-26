@@ -1,26 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthWindowComponent } from './pages/auth-window/auth-window.component';
 import { SocialLinkComponent } from './components/social-link/social-link.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material/material.module';
 
-const AuthModules = [
-  CommonModule,
-  FormsModule,
-  ReactiveFormsModule,
+const AuthComponents = [
+  SignInComponent,
+  SignUpComponent,
+  AuthWindowComponent,
+  SocialLinkComponent,
 ];
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    SignupComponent,
-    AuthWindowComponent,
-    SocialLinkComponent,
-  ],
-  imports: [AuthModules, MaterialModule],
-  exports: [AuthWindowComponent]
+  declarations: [AuthComponents],
+  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
+  exports: [AuthComponents],
 })
-export class AuthModule { }
+export class AuthModule {}
