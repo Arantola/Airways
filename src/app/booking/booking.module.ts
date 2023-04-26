@@ -9,6 +9,8 @@ import { PassengersPageComponent } from './pages/passengers-page/passengers-page
 import { DateCardComponent } from './components/date-card/date-card.component';
 import { DateCarouselComponent } from './components/date-carousel/date-carousel.component';
 import { IndicatorColorDirective } from './directives/indicator-color.directive';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { WayComponent } from './components/way/way.component';
 
 const BookingComponents = [];
 
@@ -19,7 +21,9 @@ const BookingComponents = [];
     PassengersPageComponent,
     DateCardComponent,
     DateCarouselComponent,
-    IndicatorColorDirective
+    IndicatorColorDirective,
+    TicketComponent,
+    WayComponent
   ],
   exports: [],
   imports: [
