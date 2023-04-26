@@ -26,11 +26,19 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  public isBookingPage = true;
+  public isBookingPage = false;
 
   constructor(private dialog: MatDialog) { }
 
   toggleAuthWindow() {
     this.dialog.open(AuthWindowComponent, { disableClose: true })
+  }
+
+  ngOnInit() {
+    const pathname = window.location.pathname;
+    const result = pathname.match(/^\/booking\//);
+    if (result) {
+      this.isBookingPage = true;
+    }
   }
 }

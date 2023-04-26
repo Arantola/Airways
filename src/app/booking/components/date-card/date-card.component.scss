@@ -1,0 +1,71 @@
+@import '../../../shared/styles/typography';
+@import '../../../shared/styles/abstract';
+
+.date-card {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-left: 1px solid $neutral60;
+  background: $neutral100;
+  height: 70px;
+  cursor: pointer;
+  &.date-card_select {
+    height: 83px;
+    & .date-card__month {
+      @include subtitle-medium;
+      color: $primary;
+    }
+    & .date-card__day {
+      @include body-medium;
+      color: $neutral30;
+      margin-bottom: 0px;
+    }
+    & .date-card__price {
+      @include subtitle-large;
+      margin-bottom: 0px;
+      @media (max-width: 768px) {
+        @include subtitle-medium;
+        margin-bottom: 8px;
+      }
+    }
+  }
+  &.date-card_disable {
+    height: 70px;
+    & .date-card__month {
+      @include label-medium;
+      color: #D0D9DF;
+    }
+    & .date-card__day {
+      font-weight: 100;
+      font-size: 12px;
+      line-height: 12px;
+      color: $neutral30;
+      margin-bottom: 6px;
+    }
+  }
+  & &__month {
+    @include label-medium;
+    color: $accent;
+  }
+  & &__day {
+    font-weight: 100;
+    font-size: 12px;
+    line-height: 12px;
+    color: $neutral30;
+    margin-bottom: 6px;
+  }
+  & &__price {
+    @include subtitle-medium;
+    color: $primary;
+    margin-bottom: 8px;
+  }
+  & &__seat-indicator {
+    height: 4px;
+    width: 100%;
+    background-color: $highlight-yellow;
+  }
+  & &__icon {
+    margin-bottom: 7px;
+  }
+}
