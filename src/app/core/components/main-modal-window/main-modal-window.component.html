@@ -8,7 +8,7 @@
     <mat-radio-button value="oneway">One Way</mat-radio-button>
   </mat-radio-group>
 
-  <div class="place-option__group">
+  <div class="place-options">
     <mat-form-field appearance="outline">
       <mat-label>From</mat-label>
       <mat-select
@@ -19,9 +19,9 @@
           *ngFor="let fromPlace of places"
           [value]="fromPlace"
           >
-          <div class="place-option">
-            <span class="place-option__top">{{ fromPlace.city }} ({{ fromPlace.iata }}) </span>
-            <span class="place-option__bottom">{{ fromPlace.airport }}, {{ fromPlace.country }}</span>
+          <div class="place-options__group">
+            <span class="place-options__top">{{ fromPlace.city }} ({{ fromPlace.iata }}) </span>
+            <span class="place-options__bottom">{{ fromPlace.airport }}, {{ fromPlace.country }}</span>
           </div>
         </mat-option>
       </mat-select>
@@ -37,9 +37,9 @@
           *ngFor="let toPlace of places"
           [value]="toPlace"
           >
-          <div class="place-option">
-            <span class="place-option__top">{{ toPlace.city }} ({{ toPlace.iata }}) </span>
-            <span class="place-option__bottom">{{ toPlace.airport }}, {{ toPlace.country }}</span>
+          <div class="place-options">
+            <span class="place-options__top">{{ toPlace.city }} ({{ toPlace.iata }}) </span>
+            <span class="place-options__bottom">{{ toPlace.airport }}, {{ toPlace.country }}</span>
           </div>
         </mat-option>
       </mat-select>

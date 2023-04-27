@@ -118,7 +118,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   onSubmit() {
     // TODO add dato to store
     console.log(this.initialForm);
-    this.router.navigate(['/passengers']);
+    this.router.navigate(['booking', 'passengers']);
   }
 
   togglePassengerMenu() {
