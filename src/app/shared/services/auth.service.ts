@@ -30,22 +30,22 @@ export class AuthService {
     });
   }
 
-  SignIn(email: string, password: string) {
+  signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
 
-  SignUp(email: string, password: string) {
+  signUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -57,7 +57,7 @@ export class AuthService {
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
-  SetUserData(user: any) {
+  setUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -73,7 +73,7 @@ export class AuthService {
     });
   }
 
-  SignOut() {
+  signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['main']);

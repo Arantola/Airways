@@ -23,7 +23,7 @@ export class HeaderComponent {
 
   public selectedCurrency = this.currencies[0];
 
-  public isBookingPage = false;
+  public isBookingPage = true;
 
   constructor(
     private dialog: MatDialog,
