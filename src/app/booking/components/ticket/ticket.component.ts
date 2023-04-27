@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CarouselItem } from '../date-carousel/date-carousel.component';
 
 @Component({
   selector: 'app-ticket',
@@ -7,4 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class TicketComponent {
   @Input() isWayBack = false;
+
+  @Input() flight?: CarouselItem;
 }

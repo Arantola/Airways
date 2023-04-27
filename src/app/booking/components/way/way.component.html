@@ -8,6 +8,6 @@
       Dublin to Warsaw Modlin
     </span>
   </div>
-  <app-date-carousel></app-date-carousel>
-  <app-ticket [isWayBack]="isWayBack"></app-ticket>
+  <app-date-carousel (itemSelected)="selectedItem = $event"></app-date-carousel>
+  <app-ticket [flight]="selectedItem" [isWayBack]="isWayBack"></app-ticket>
 </div>

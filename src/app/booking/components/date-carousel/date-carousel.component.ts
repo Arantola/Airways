@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 export interface CarouselItem {
   isSelect: boolean;
@@ -8,6 +8,13 @@ export interface CarouselItem {
   seats: number;
   locale: string;
   currency: string;
+  wayTo: string,
+  wayFrom: string,
+  startTime: string,
+  finishTime: string,
+  utcTo: string,
+  utcFrom: string,
+  wayTime: string,
 }
 
 const data: CarouselItem[] = [
@@ -19,6 +26,13 @@ const data: CarouselItem[] = [
     seats: 188,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '8:40',
+    finishTime: '12:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -28,6 +42,13 @@ const data: CarouselItem[] = [
     seats: 60,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '10:30',
+    finishTime: '12:20',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -37,6 +58,13 @@ const data: CarouselItem[] = [
     seats: 6,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '16:50',
+    finishTime: '18:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -46,6 +74,13 @@ const data: CarouselItem[] = [
     seats: 60,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '14:40',
+    finishTime: '16:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -55,6 +90,13 @@ const data: CarouselItem[] = [
     seats: 100,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '19:40',
+    finishTime: '21:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -64,6 +106,13 @@ const data: CarouselItem[] = [
     seats: 8,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '8:40',
+    finishTime: '12:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   },
   {
     isSelect: false,
@@ -73,6 +122,13 @@ const data: CarouselItem[] = [
     seats: 8,
     locale: 'en',
     currency: '$',
+    wayTo: 'Dublin',
+    wayFrom: 'Warsaw Modlin',
+    startTime: '8:40',
+    finishTime: '12:00',
+    utcTo: '+0',
+    utcFrom: '+1',
+    wayTime: '2h 50m',
   }
 ]
 
@@ -88,6 +144,8 @@ enum Animations {
   styleUrls: ['./date-carousel.component.scss']
 })
 export class DateCarouselComponent {
+  @Output() itemSelected = new EventEmitter<CarouselItem>();
+  
   public static readonly NUMBER_OF_SLIDES = 5;
 
   public animation = Animations.NONE;
@@ -150,12 +208,13 @@ export class DateCarouselComponent {
     });
   }
 
-  selectedDate(item: CarouselItem) {
+  public selectedDate(item: CarouselItem): void {
     if (item.isDisable === true) {
       return;
     }
 
     this.selectedItemIndex = data.indexOf(item);
+    this.itemSelected.emit(item);
   }
 
   public onTransitionEnd(): void {

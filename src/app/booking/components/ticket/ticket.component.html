@@ -1,16 +1,16 @@
-<div class="ticket">
+<div class="ticket" *ngIf="flight">
   <div class="ticket__information">
     <div class="ticket__flight-info">
       <div class="ticket__start-time-and-date">
         <span class="ticket__date">
-          Wed, 1 Mar 2023
+          {{ flight.date | date : 'EEE, d MMM YYYY' }}
         </span>
         <div class="ticket__time-and-timezone">
-          <div class="ticket__start-time">8:40</div>
-          <div class="ticket__timezone">UTC +0</div>
+          <div class="ticket__start-time">{{ flight.startTime }}</div>
+          <div class="ticket__timezone">{{ flight.utcTo }}</div>
         </div>
         <span class="ticket__city">
-          Dublin
+          {{ flight.wayTo }}
         </span>
       </div>
       <div class="ticket__time-progress">
@@ -27,14 +27,14 @@
       </div>
       <div class="ticket__finish-time-and-date">
         <span class="ticket__date">
-          Wed, 1 Mar 2023
+          {{ flight.date | date : 'EEE, d MMM YYYY' }}
         </span>
         <div class="ticket__time-and-timezone">
-          <div class="ticket__timezone">UTC +1</div>
-          <div class="ticket__finish-time">12:00</div>
+          <div class="ticket__timezone">{{ flight.utcFrom }}</div>
+          <div class="ticket__finish-time">{{ flight.finishTime }}</div>
         </div>
         <span class="ticket__city">
-          Warsaw Modlin
+          {{ flight.wayFrom }}
         </span>
       </div>
     </div>
@@ -46,12 +46,18 @@
   <div class="ticket__select-and-warning">
     <div class="ticket__select-container">
       <div class="ticket__price-and-warning">
-        <div class="ticket__warning">
-          100 seats<br>available
+        <div class="ticket__warning"
+          appIndicatorColor
+          [numberOfSeats]="flight.seats"
+          [fewSeatsColor]="'#E8BEBC'"
+          [enoughSeatsColor]="'#FBEFC2'"
+          [manySeatsColor]="'#D9DCB4'"
+        >
+          {{ flight.seats }} seats<br>available
         </div>
         Price
         <div class="ticket__price">
-          €146.70
+          {{ flight.currency }}{{ flight.price }}
         </div>
       </div>
       <div class="ticket__select">
