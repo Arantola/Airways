@@ -40,8 +40,8 @@
     padding: 0 0.75em;
 
     mat-icon {
-      height: 1.5em;
-      width: 1.5em;
+      height: 24px;
+      width: 24px;
     }
   }
 
@@ -50,17 +50,17 @@
     border: none;
     width: 62px;
     height: 40px;
-    margin-left: 16px;
+    margin-top: 8px;
     cursor: pointer;
   }
 }
 
-.user-icon {
-  fill: $neutral100;
+.icon {
+  color: $neutral100;
 }
 
-.user-icon.user-icon_black {
-  fill: $neutral10;
+.icon.icon_black {
+  color: $neutral10;
 }
 
 ::ng-deep .app-header__currency-menu.mat-mdc-menu-panel.mat-mdc-menu-panel {

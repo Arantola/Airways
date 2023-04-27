@@ -45,11 +45,11 @@
       align-self: flex-end;
     }
   }
-  .place-option {
-    display: flex;
-    flex-direction: column;
+  .place-options {
+    position: relative;
     &__group{
-      position: relative;
+      display: flex;
+      flex-direction: column;
     }
     &__top{
       display: block;

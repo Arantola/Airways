@@ -15,9 +15,9 @@ export abstract class FormControlValueAccessorAdapter
 
   onTouched: () => void = () => {};
 
-  writeValue(val: any): void {
-    if (val) {
-      this.formGroup.setValue(val, { emitEvent: false });
+  writeValue(value: any): void {
+    if (value) {
+      this.formGroup.setValue(value, { emitEvent: false });
     }
   }
 
@@ -33,7 +33,7 @@ export abstract class FormControlValueAccessorAdapter
     isDisabled ? this.formGroup.disable() : this.formGroup.enable();
   }
 
-  validate(c: AbstractControl): ValidationErrors | null {
+  validate(control: AbstractControl): ValidationErrors | null {
     return this.formGroup.valid
       ? null
       : {
