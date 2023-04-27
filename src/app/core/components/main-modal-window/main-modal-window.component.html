@@ -8,43 +8,47 @@
     <mat-radio-button value="oneway">One Way</mat-radio-button>
   </mat-radio-group>
 
-  <mat-form-field appearance="outline">
-    <mat-label>From</mat-label>
-    <mat-select
-      placeholder="Choose a departure point"
-      formControlName="from"
-      >
-      <mat-option
-        *ngFor="let fromPlace of places"
-        [value]="fromPlace"
+  <div class="place-options">
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <mat-select
+        placeholder="Choose a departure point"
+        formControlName="from"
         >
-        <div class="place-option">
-          <span class="place-option__top">{{ fromPlace.city }} ({{ fromPlace.iata }}) </span>
-          <span class="place-option__bottom">{{ fromPlace.airport }}, {{ fromPlace.country }}</span>
-        </div>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <mat-option
+          *ngFor="let fromPlace of places"
+          [value]="fromPlace"
+          >
+          <div class="place-options__group">
+            <span class="place-options__top">{{ fromPlace.city }} ({{ fromPlace.iata }}) </span>
+            <span class="place-options__bottom">{{ fromPlace.airport }}, {{ fromPlace.country }}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Destination</mat-label>
-    <mat-select
-      placeholder="Choose your destination"
-      formControlName="destination"
-      >
-      <mat-option
-        *ngFor="let toPlace of places"
-        [value]="toPlace"
+    <mat-form-field appearance="outline">
+      <mat-label>Destination</mat-label>
+      <mat-select
+        placeholder="Choose your destination"
+        formControlName="destination"
         >
-        <div class="place-option">
-          <span class="place-option__top">{{ toPlace.city }} ({{ toPlace.iata }}) </span>
-          <span class="place-option__bottom">{{ toPlace.airport }}, {{ toPlace.country }}</span>
-        </div>
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <mat-option
+          *ngFor="let toPlace of places"
+          [value]="toPlace"
+          >
+          <div class="place-options">
+            <span class="place-options__top">{{ toPlace.city }} ({{ toPlace.iata }}) </span>
+            <span class="place-options__bottom">{{ toPlace.airport }}, {{ toPlace.country }}</span>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button class="btn-input-switch" type="button" (click)="onClickSwitch()"></button>
+    <button class="btn-input-switch" type="button" (click)="onClickSwitch()">
+      <mat-icon class="passengers__icon" svgIcon="switch"></mat-icon>
+    </button>
+  </div>
 
   <div class="main-page__containter-bottom">
 
@@ -82,32 +86,32 @@
     </mat-form-field>
 
     <div class="passengers__form">
-      <span class="passengers__label" [ngClass]="{'passengers__label-open': isPassangersMenuOpened}">Passangers</span>
+      <span class="passengers__label" [ngClass]="{'passengers__label-open': isPassengersMenuOpened}">Passengers</span>
       <button
         class="passengers__btn"
         type="button"
-        (click)="togglePassangerMenu()"
-        [ngClass]="{'passengers__open': isPassangersMenuOpened}"
+        (click)="togglePassengerMenu()"
+        [ngClass]="{'passengers__open': isPassengersMenuOpened}"
         >
         <span class="passengers__display">{{ passengersDisplay }}</span>
       </button>
       <div class="passengers__select"
-        *ngIf="isPassangersMenuOpened"
-        formGroupName="passangers"
+        *ngIf="isPassengersMenuOpened"
+        formGroupName="passengers"
         >
-        <div class="option" *ngFor="let passangerType of passengersList">
+        <div class="option" *ngFor="let passengerType of passengersList">
           <div class="option__info">
-            <div [ngStyle]="{color: getColor(passangerType[0])}">{{ passangerType[0] | titlecase }}</div>
-            <div class="option__support">{{ passangerType[1] }}</div>
+            <div [ngStyle]="{color: getColor(passengerType[0])}">{{ passengerType[0] | titlecase }}</div>
+            <div class="option__support">{{ passengerType[1] }}</div>
           </div>
-          <button class="option__operator option__minus" type="button" (click)="onChangeNumber(passangerType[0], 'minus')"> - </button>
+          <button class="option__operator option__minus" type="button" (click)="onChangeNumber(passengerType[0], 'minus')"> - </button>
           <input
-            [formControlName]="passangerType[0]"
+            [formControlName]="passengerType[0]"
             type="number"
-            [ngStyle]="{color: getColor(passangerType[0])}"
+            [ngStyle]="{color: getColor(passengerType[0])}"
             readonly
             />
-          <button class="option__operator option__plus" type="button" (click)="onChangeNumber(passangerType[0], 'plus')"> + </button>
+          <button class="option__operator option__plus" type="button" (click)="onChangeNumber(passengerType[0], 'plus')"> + </button>
         </div>
       </div>
     </div>
