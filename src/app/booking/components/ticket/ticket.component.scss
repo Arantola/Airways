@@ -7,13 +7,28 @@
   width: 100%;
   background-color: $neutral100;
   margin-top: 8px;
-  &__information {
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  &.ticket_selected {
+    justify-content: space-between;
+    & .ticket__flight-no {
+      justify-content: flex-end;
+      border-right: none;
+    }
+  }
+  &__flight-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 75%;
+    width: 60%;
     box-sizing: border-box;
-    padding: 27px 40px;
+    padding: 27px 20px 27px 40px;
+  }
+  &__flight-no {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 15%;
     border-right: dashed 2px #D0D9DF;
   }
   &__start-time-and-date {
@@ -71,14 +86,6 @@
     display: flex;
     align-items: center;
   }
-  &__flight-info {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-  }
-  &__flight-no {
-    display: flex;
-  }
   &__flight-no-text {
     @include body-medium;
     color: $neutral30;
@@ -91,26 +98,27 @@
   &__select-and-warning {
     display: flex;
     justify-content: flex-end;
-    width: 25%;
+    padding-right: 40px;
+    width: 30%;
   }
   &__select-container {
     display: flex;
     box-sizing: border-box;
-    width: 90%;
+    width: 88%;
     padding: 15.5px 0;
   }
   &__select {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 50%;
+    justify-content: flex-end;
+    width: 45%;
   }
   &__price-and-warning {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    width: 50%;
+    width: 55%;
     @include subtitle-small;
     color: $neutral30;
   }
@@ -137,6 +145,29 @@
     box-sizing: border-box;
     padding: 8px 16px;
     background: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
-    border: 1px solid #11397E;
+    border: 1px solid $primary;
+  }
+  &__edit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 15%;
+    padding-right: 40px;
+  }
+  &__edit-button {
+    background: $secondary90;
+    color: $primary;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+  &__price-selected {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 15%;
+    @include subtitle-large;
+    color: #000000;
   }
 }

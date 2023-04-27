@@ -10,4 +10,6 @@ export class WayComponent {
   @Input() isWayBack = false;
 
   public selectedItem?: CarouselItem;
+
+  public selectedTicket?: boolean;
 }

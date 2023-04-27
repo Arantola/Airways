@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 export interface CarouselItem {
   isSelect: boolean;
@@ -145,6 +145,8 @@ enum Animations {
 })
 export class DateCarouselComponent {
   @Output() itemSelected = new EventEmitter<CarouselItem>();
+
+  @Input() selectedTicket?: boolean;
   
   public static readonly NUMBER_OF_SLIDES = 5;
 
