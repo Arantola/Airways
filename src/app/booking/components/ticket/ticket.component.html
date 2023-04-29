@@ -1,0 +1,90 @@
+<div
+  class="ticket"
+  [class.ticket_selected]="selected"
+  *ngIf="flight"
+>
+  <div class="ticket__flight-info">
+    <div class="ticket__start-time-and-date">
+      <span class="ticket__date">
+        {{ flight.date | date : 'EEE, d MMM YYYY' }}
+      </span>
+      <div class="ticket__time-and-timezone">
+        <div class="ticket__start-time">{{ flight.startTime }}</div>
+        <div class="ticket__timezone">UTC{{ flight.utcTo }}</div>
+      </div>
+      <span class="ticket__city">
+        {{ flight.wayTo }}
+      </span>
+    </div>
+    <div class="ticket__time-progress">
+      <div class="ticket__time-line"></div>
+      <div
+        class="ticket__flight-time"
+        [class.ticket__flight-time_way-back]="isWayBack"
+      >
+        <div>2h 50m</div>
+        <img src="../../../../assets/icons/airplane-time-to-right.svg" width="24">
+        <div>Direct</div>
+      </div>
+      <div class="ticket__time-line"></div>
+    </div>
+    <div class="ticket__finish-time-and-date">
+      <span class="ticket__date">
+        {{ flight.date | date : 'EEE, d MMM YYYY' }}
+      </span>
+      <div class="ticket__time-and-timezone">
+        <div class="ticket__timezone">UTC{{ flight.utcFrom }}</div>
+        <div class="ticket__finish-time">{{ flight.finishTime }}</div>
+      </div>
+      <span class="ticket__city">
+        {{ flight.wayFrom }}
+      </span>
+    </div>
+  </div>
+  <div class="ticket__flight-no">
+    <div class="ticket__flight-no-text">Flight no.</div>
+    <div class="ticket__flight-no-fr">FR 1925</div>
+  </div>
+  <div *ngIf="selected" class="ticket__price-selected">
+    {{ flight.currency }}{{ flight.price }}
+  </div>
+  <div *ngIf="selected" class="ticket__edit">
+    <button
+      class="ticket__edit-button"
+      mat-flat-button
+      color="primary"
+      (click)="toggleTicket()"
+    >
+      Edit
+    </button>
+  </div>
+  <div *ngIf="!selected" class="ticket__select-and-warning">
+    <div class="ticket__select-container">
+      <div class="ticket__price-and-warning">
+        <div class="ticket__warning"
+          appIndicatorColor
+          [numberOfSeats]="flight.seats"
+          [fewSeatsColor]="'#E8BEBC'"
+          [enoughSeatsColor]="'#FBEFC2'"
+          [manySeatsColor]="'#D9DCB4'"
+        >
+          {{ flight.seats }} seats<br>available
+        </div>
+        Price
+        <div class="ticket__price">
+          {{ flight.currency }}{{ flight.price }}
+        </div>
+      </div>
+      <div class="ticket__select">
+        <button
+          class="ticket__select-button"
+          mat-flat-button
+          color="primary"
+          (click)="toggleTicket()"
+        >
+          Select
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

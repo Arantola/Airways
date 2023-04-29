@@ -9,12 +9,28 @@ import { PassengersPageComponent } from './pages/passengers-page/passengers-page
 import { DateCardComponent } from './components/date-card/date-card.component';
 import { DateCarouselComponent } from './components/date-carousel/date-carousel.component';
 import { IndicatorColorDirective } from './directives/indicator-color.directive';
+import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
 import { FlightDirectionComponent } from './components/flight-info/flight-direction/flight-direction.component';
 import { PassengerInfoComponent } from './components/flight-info/passenger-info/passenger-info.component';
 
-const BookingComponents = [];
+const BookingComponents = [
+  PassengerListComponent,
+  DateCardComponent,
+  DateCarouselComponent,
+  TicketComponent,
+  WayComponent,
+  FlightSelectionPageComponent,
+  SummaryPageComponent,
+  PassengersPageComponent,
+  FlightInfoComponent,
+  FlightFareComponent,
+  FlightDirectionComponent,
+  PassengerInfoComponent
+];
 
 @NgModule({
   declarations: [
@@ -24,18 +40,14 @@ const BookingComponents = [];
     DateCardComponent,
     DateCarouselComponent,
     IndicatorColorDirective,
-    FlightInfoComponent,
-    FlightFareComponent,
-    FlightDirectionComponent,
-    PassengerInfoComponent
+    BookingComponents,
   ],
-  exports: [],
+  exports: [BookingComponents],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     BookingRoutingModule,
   ],
 })
