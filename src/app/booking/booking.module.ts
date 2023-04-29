@@ -33,15 +33,7 @@ const BookingComponents = [
 ];
 
 @NgModule({
-  declarations: [
-    FlightSelectionPageComponent,
-    SummaryPageComponent,
-    PassengersPageComponent,
-    DateCardComponent,
-    DateCarouselComponent,
-    IndicatorColorDirective,
-    BookingComponents,
-  ],
+  declarations: [BookingComponents, IndicatorColorDirective],
   exports: [BookingComponents],
   imports: [
     CommonModule,
