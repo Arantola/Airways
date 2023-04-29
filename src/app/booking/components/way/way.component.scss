@@ -1,0 +1,18 @@
+@import '../../../shared/styles/typography';
+@import '../../../shared/styles/abstract';
+
+.way__direction {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+
+  &.way__direction_way-back img {
+    transform: scaleX(-1);
+  }
+}
+
+.way__direction-text {
+  margin-left: 12px;
+  @include title-large;
+  color: $primary;
+}
