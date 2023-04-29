@@ -1,26 +1,26 @@
 <mat-toolbar
   class="app-header__toolbar"
-  [class.app-header__toolbar_booking]="isBookingPage"
+  [class.app-header__toolbar_booking]="!IsMainPage"
 >
   <mat-toolbar-row
     class="app-header__toolbar-content"
-    [class.app-header__toolbar-content_booking]="isBookingPage"
+    [class.app-header__toolbar-content_booking]="!IsMainPage"
   >
     <img src="../../../../assets/icons/logo.svg" alt="logo airways">
 
-    <span *ngIf="!isBookingPage" class="app-header__spacer"></span>
+    <span *ngIf="IsMainPage" class="app-header__spacer"></span>
 
-    <app-stepper *ngIf="isBookingPage"></app-stepper>
+    <app-stepper *ngIf="!IsMainPage"></app-stepper>
 
-    <span *ngIf="!isBookingPage">Book flights</span>
+    <span *ngIf="IsMainPage">Book flights</span>
 
     <mat-form-field
       appearance="outline"
       color="primary"
-      [class.select_booking]="isBookingPage"
+      [class.select_booking]="!IsMainPage"
     >
-      <mat-select [(ngModel)]="selectedDateFormat">
-        <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat">
+      <mat-select [(ngModel)]="selectedDateFormat" (selectionChange)="onChangeDateFormat($event.value)">
+        <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat" >
           {{ dateFormat }}
         </mat-option>
       </mat-select>
@@ -32,6 +32,7 @@
       <button mat-menu-item
         *ngFor="let currency of currencies"
         (click)="selectedCurrency = currency"
+        (click)="onChangeCurrency(currency)"
       >
         {{ currency }}
       </button>
@@ -41,15 +42,15 @@
       <button
         mat-stroked-button
         class="app-header__signin-button"
-        [class.app-header__signin-button_booking]="isBookingPage"
+        [class.app-header__signin-button_booking]="!IsMainPage"
         (click)="toggleAuthWindow()"
       >
-        <mat-icon class="icon" [class.icon_black]="isBookingPage" svgIcon="user"></mat-icon>
+        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
         Sing in
       </button>
 
       <button class="app-header__basket-button">
-        <mat-icon class="icon" [class.icon_black]="isBookingPage" svgIcon="basket"></mat-icon>
+        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
       </button>
 
   </mat-toolbar-row>

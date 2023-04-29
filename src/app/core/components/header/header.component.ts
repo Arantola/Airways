@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
+import { Store } from '@ngrx/store';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
+import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
 
 @Component({
   selector: 'app-header',
@@ -10,22 +14,18 @@ import { MatIconRegistry } from '@angular/material/icon';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  public readonly dateFormats = [
-    'MM/DD/YYYY',
-    'DD/MM/YYYY',
-    'YYYY/DD/MM',
-    'YYYY/MM/DD',
-  ];
+  public readonly dateFormats = DATE_FORMATS;
 
-  public readonly currencies = ['EUR', 'USA', 'RUB', 'PLN'];
+  public readonly currencies = CURRENCIES;
 
   public selectedDateFormat = this.dateFormats[0];
 
   public selectedCurrency = this.currencies[0];
 
-  public isBookingPage = true;
+  public IsMainPage = true;
 
   constructor(
+    private store: Store,
     private dialog: MatDialog,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
@@ -44,15 +44,27 @@ export class HeaderComponent {
     );
   }
 
+  ngOnInit() {
+    this.trackPage();
+  }
+
+  private trackPage() {
+    this.store.select(selectCurrentPage).subscribe((currentPage) => {
+      this.IsMainPage = currentPage === 'main';
+    });
+  }
+
   toggleAuthWindow() {
     this.dialog.open(AuthWindowComponent, { disableClose: true });
   }
 
-  ngOnInit() {
-    const pathname = window.location.pathname;
-    const result = pathname.match(/^\/booking\//);
-    if (result) {
-      this.isBookingPage = true;
-    }
+  onChangeDateFormat(value: string) {
+    this.store.dispatch(
+      appSettingsActions.changeDateFormat({ dateFormat: value })
+    );
+  }
+
+  onChangeCurrency(value: string) {
+    this.store.dispatch(appSettingsActions.changeCurrency({ currency: value }));
   }
 }

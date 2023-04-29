@@ -3,6 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  appSettingsActions,
+  bookingActions,
+} from 'src/app/redux/actions/app.actions';
+import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import phoneCode from 'src/app/shared/constants/CountryCodes.json';
 
 @Component({
@@ -15,6 +21,7 @@ export class PassengersPageComponent implements OnInit {
   countryCodeData = phoneCode;
 
   constructor(
+    private store: Store,
     private router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
@@ -54,8 +61,26 @@ export class PassengersPageComponent implements OnInit {
     return this.passengersForm.get('contactsForm.phone.country')?.value;
   }
 
+  get passengersList() {
+    return this.passengersForm.get('passengersList')?.value.passengers;
+  }
+
+  get contacts() {
+    return this.passengersForm.get('contactsForm')?.value;
+  }
+
   submitForm() {
-    console.log(this.passengersForm);
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
+    );
+    this.store.dispatch(
+      bookingActions.updatePassengersInfo({
+        passengersInfo: this.passengersList,
+      })
+    );
+    this.store.dispatch(
+      bookingActions.updateContacts({ contacts: this.contacts })
+    );
     this.router.navigate(['booking', 'summary']);
   }
 }

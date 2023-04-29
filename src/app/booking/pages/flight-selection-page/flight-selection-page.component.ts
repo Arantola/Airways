@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
+import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -7,5 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./flight-selection-page.component.scss'],
 })
 export class FlightSelectionPageComponent {
-  constructor(router: Router) {}
+
+  constructor(private store: Store) {}
+
+  onSubmit() {
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
+    );
+  }
 }

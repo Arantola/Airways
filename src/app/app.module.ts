@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AngularFireModule } from '@angular/fire/compat';
@@ -7,6 +7,11 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { firebaseConfig } from './firebase/fbconfig';
+
+import { StoreModule } from '@ngrx/store';
+import { currentOrderReducer } from './redux/reducers/current-order.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appSettingsReducer } from './redux/reducers/settings.reducer';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +22,7 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -26,6 +32,11 @@ import { BookingModule } from './booking/booking.module';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    StoreModule.forRoot({
+      settingsState: appSettingsReducer,
+      currentOrderState: currentOrderReducer,
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,

@@ -1,11 +1,11 @@
 <div class="stepper">
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.stepper__step_selected-step]="step === 1"
-      [class.stepper__step_completed-step]="step === 2 || step === 3"
+      [class.stepper__step_selected-step]="currentPage === pages[0]"
+      [class.stepper__step_completed-step]="currentPage !== pages[0]"
     >
-      <img *ngIf="step === 1" src="../../../../assets/icons/pen.svg">
-      <img *ngIf="step !== 1" src="../../../../assets/icons/check_mark.svg">
+      <img *ngIf="currentPage === pages[0]" src="../../../../assets/icons/pen.svg">
+      <img *ngIf="currentPage !== pages[0]" src="../../../../assets/icons/check_mark.svg">
     </div>
     <div class="stepper__label">Flights</div>
   </div>
@@ -14,12 +14,12 @@
 
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.stepper__step_selected-step]="step === 2"
-      [class.stepper__step_completed-step]="step === 3"
+      [class.stepper__step_selected-step]="currentPage === pages[1]"
+      [class.stepper__step_completed-step]="currentPage === pages[2]"
     >
-      <img *ngIf="step === 2" src="../../../../assets/icons/pen.svg">
-      <img *ngIf="step !== 2 && step !== 1" src="../../../../assets/icons/check_mark.svg">
-      <span *ngIf="step === 1">2</span>
+      <img *ngIf="currentPage === pages[1]" src="../../../../assets/icons/pen.svg">
+      <img *ngIf="currentPage !== pages[1] && currentPage !== pages[0]" src="../../../../assets/icons/check_mark.svg">
+      <span *ngIf="currentPage === pages[0]">2</span>
     </div>
     <div class="stepper__label">Passengers</div>
   </div>
@@ -28,11 +28,11 @@
 
   <div class="stepper__header">
     <div class="stepper__step"
-      [class.stepper__step_selected-step]="step === 3"
-      [class.stepper__step_completed-step]="step === 3"
+      [class.stepper__step_selected-step]="currentPage === pages[2]"
+      [class.stepper__step_completed-step]="currentPage === pages[2]"
     >
-      <img *ngIf="step === 3" src="../../../../assets/icons/pen.svg">
-      <span *ngIf="step !== 3">3</span>
+      <img *ngIf="currentPage === pages[2]" src="../../../../assets/icons/pen.svg">
+      <span *ngIf="currentPage !== pages[2]">3</span>
     </div>
     <div class="stepper__label">Review & Payment</div>
   </div>

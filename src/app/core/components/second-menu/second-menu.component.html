@@ -1,21 +1,23 @@
 <div class="container">
   <div class="flight__info">
     <div class="flight__destination">
-      <span>{{ flightInfo.from }}</span>
-      <img src="./assets/icons/return_trip.svg">
-      <span>{{ flightInfo.destination }}</span>
+      <span>{{ currentOrder.departurePoint?.city }}</span>
+      <mat-icon color="primary" svgIcon="return_trip"></mat-icon>
+      <span>{{ currentOrder.destinationPoint?.city }}</span>
     </div>
     <div class="flight__return">
       Return
       <span class="splitter"></span>
-      <span>{{ flightInfo.dates.boardingThere }}</span>
+      <!-- TODO Set accurate start - end dates -->
+      <span>{{ currentOrder.date.start }}</span>
       &nbsp;-&nbsp;
-      <span>{{ flightInfo.dates.arrivalBack }}</span>
+      <span>{{ currentOrder.date.end }}</span>
       <span class="splitter"></span>
-      <span>{{ flightInfo.passengers.length }}</span>
-      <img class="flight__icon-passenger" src="./assets/icons/account_fill.svg">
+      <span>{{ passengersCount }}</span>
+      <mat-icon class="flight__icon-passenger" svgIcon="account"></mat-icon>
     </div>
     <button class="flight__btn-edit"
+      *ngIf="currentPage === pages[0]"
       type="button"
       (click)="onToggleEdit()"
       >
