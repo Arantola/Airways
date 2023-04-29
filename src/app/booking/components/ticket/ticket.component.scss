@@ -1,0 +1,173 @@
+@import '../../../shared/styles/abstract';
+@import '../../../shared/styles/typography';
+
+.ticket {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  background-color: $neutral100;
+  margin-top: 8px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  &.ticket_selected {
+    justify-content: space-between;
+    & .ticket__flight-no {
+      justify-content: flex-end;
+      border-right: none;
+    }
+  }
+  &__flight-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    box-sizing: border-box;
+    padding: 27px 20px 27px 40px;
+  }
+  &__flight-no {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 15%;
+    border-right: dashed 2px #D0D9DF;
+  }
+  &__start-time-and-date {
+    width: 25%;
+  }
+  &__time-progress {
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
+  &__time-line {
+    flex: 1;
+  }
+  &__flight-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    @include label-small;
+    color: black;
+
+    &.ticket__flight-time_way-back img {
+      transform: scaleX(-1);
+    }
+  }
+  &__finish-time-and-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 25%;
+  }
+  &__date {
+    @include label-large;
+    color: $neutral30;
+  }
+  &__start-time, &__finish-time {
+    @include subtitle-large;
+    color: black;
+  }
+  &__start-time {
+    margin-right: 16px;
+  }
+  &__finish-time {
+    margin-left: 16px;
+  }
+  &__timezone {
+    @include body-xsmall;
+    color: $neutral30;
+  }
+  &__city {
+    @include body-small;
+    color: $neutral30;
+  }
+  &__time-and-timezone {
+    display: flex;
+    align-items: center;
+  }
+  &__flight-no-text {
+    @include body-medium;
+    color: $neutral30;
+  }
+  &__flight-no-fr {
+    @include body-medium;
+    color: black;
+    margin-left: 12px;
+  }
+  &__select-and-warning {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 40px;
+    width: 30%;
+  }
+  &__select-container {
+    display: flex;
+    box-sizing: border-box;
+    width: 88%;
+    padding: 15.5px 0;
+  }
+  &__select {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 45%;
+  }
+  &__price-and-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 55%;
+    @include subtitle-small;
+    color: $neutral30;
+  }
+  &__price {
+    @include subtitle-large;
+    color: $primary;
+  }
+  &__warning {
+    width: 100%;
+    text-align: end;
+    padding: 4px 8px 4px 0;
+    color: $neutral20;
+    @include subtitle-small;
+  }
+  &__time-line {
+    height: 2px;
+    background-color: #D0D9DF;
+  }
+  &__select-button {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    background: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
+    border: 1px solid $primary;
+  }
+  &__edit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 15%;
+    padding-right: 40px;
+  }
+  &__edit-button {
+    background: $secondary90;
+    color: $primary;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+  &__price-selected {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 15%;
+    @include subtitle-large;
+    color: #000000;
+  }
+}

@@ -13,5 +13,13 @@
     src="../../../../assets/icons/no-flight.svg"
     alt="no flight"
   >
-  <div *ngIf="isSelect" class="date-card__seat-indicator" appIndicatorColor [numberOfSeats]="flight.seats"></div>
+  <div
+    *ngIf="isSelect"
+    class="date-card__seat-indicator"
+    appIndicatorColor
+    [numberOfSeats]="flight.seats"
+    [fewSeatsColor]="'#B3261E'"
+    [enoughSeatsColor]="'#F1C933'"
+    [manySeatsColor]="'#7F8906'"
+  ></div>
 </div>
