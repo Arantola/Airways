@@ -1,10 +1,10 @@
 <div class="flight-information">
   <div class="flight-information__general">
-    <span class="flight-information__general-number">FR 1925</span>
-    <span class="flight-information__general-direction">Dublin — Warsaw Modlin</span>
+    <span class="flight-information__general-number">{{ flightInfo.numberFlight }}</span>
+    <span class="flight-information__general-direction">{{ flightInfo.departure }} — {{ flightInfo.arrival }}</span>
   </div>
   <div class="flight-information__departure">
-    <span class="flight-information__departure-date">Wednesday, 1 March, 2023</span>
-    <span class="flight-information__departure-time">8:40 — 12:00</span>
+    <span class="flight-information__departure-date">{{ flightInfo.date }}</span>
+    <span class="flight-information__departure-time">{{ flightInfo.departureTime }} — {{ flightInfo.arrivalTime }}</span>
   </div>
 </div>

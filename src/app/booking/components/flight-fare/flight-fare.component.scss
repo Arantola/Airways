@@ -3,7 +3,6 @@
 .fare {
   background-color: $neutral100;
   border-radius: 8px;
-  max-width: 551px;
   &__passenger {
     padding: 24px 72px 20px 40px;
     &-type {
@@ -24,7 +23,7 @@
     @include title-medium;
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid $secondary80;
+    border-top: 2px solid $secondary80;
     &-cost {
       color: $primary;
     }

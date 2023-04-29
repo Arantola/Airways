@@ -4,6 +4,11 @@
 </div>
 <div class="flight-info">
   <app-flight-info></app-flight-info>
+  <app-flight-info *ngIf="isRoundTrip"></app-flight-info>
+</div>
+<div
+  class="total-fare"
+  [ngClass]="{'total-fare_center' : !isRoundTrip}">
   <app-flight-fare></app-flight-fare>
 </div>
 <div class="buttons">

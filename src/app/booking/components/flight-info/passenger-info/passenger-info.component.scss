@@ -2,9 +2,9 @@
 
 .passenger {
   background-color: $neutral100;
-  max-width: 551px;
   padding: 20px 24px;
   border: 1px solid $secondary80;
+  max-width: 551px;
   @include body-large;
   &__baggage {
     list-style-type: none;
