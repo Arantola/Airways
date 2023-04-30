@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import phoneCode from 'src/app/shared/constants/CountryCodes.json';
 
 @Component({
@@ -14,6 +15,7 @@ export class PassengersPageComponent implements OnInit {
   countryCodeData = phoneCode;
 
   constructor(
+    private router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
@@ -54,5 +56,6 @@ export class PassengersPageComponent implements OnInit {
 
   submitForm() {
     console.log(this.passengersForm);
+    this.router.navigate(['booking', 'summary']);
   }
 }

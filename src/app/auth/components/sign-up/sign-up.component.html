@@ -3,7 +3,7 @@
   <div class="form-title__text">or sign up with your email</div>
   <div class="form-title__line"><hr></div>
 </div>
-<form class="form" [formGroup]="signUpForm" novalidate>
+<form class="form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()" novalidate>
   <mat-form-field class="form__field" appearance="outline">
     <mat-label>Email</mat-label>
     <input matInput formControlName="userEmail">
@@ -138,7 +138,10 @@
 
   <section class="form__agreement">
     <mat-checkbox color="primary"></mat-checkbox>
-    <span>I agree to Airway's <a class="form__agreement-link">Privacy Policy</a> and <a class="form__agreement-link">Terms of Use</a></span>
+    <span>I agree to Airway's
+      <a class="form__agreement-link">Privacy Policy</a> and
+      <a class="form__agreement-link">Terms of Use</a>
+    </span>
   </section>
 
   <button
