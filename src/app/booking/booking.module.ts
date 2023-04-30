@@ -10,20 +10,29 @@ import { DateCardComponent } from './components/date-card/date-card.component';
 import { DateCarouselComponent } from './components/date-carousel/date-carousel.component';
 import { IndicatorColorDirective } from './directives/indicator-color.directive';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
+import { TicketComponent } from './components/ticket/ticket.component';
+import { WayComponent } from './components/way/way.component';
 
 const BookingComponents = [
-  PassengersPageComponent,
   PassengerListComponent,
-  FlightSelectionPageComponent,
-  SummaryPageComponent,
-  PassengersPageComponent,
   DateCardComponent,
   DateCarouselComponent,
+  TicketComponent,
+  WayComponent,
+  FlightSelectionPageComponent,
+  SummaryPageComponent,
+  PassengersPageComponent
 ];
 
 @NgModule({
   declarations: [BookingComponents, IndicatorColorDirective],
   exports: [BookingComponents],
-  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule, BookingRoutingModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BookingRoutingModule,
+  ],
 })
 export class BookingModule {}

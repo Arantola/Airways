@@ -1,5 +1,6 @@
 <div class="container">
-  <app-date-carousel></app-date-carousel>
+  <app-way></app-way>
+  <app-way [isWayBack]="true"></app-way>
   <!-- TO DO Delete temporaraly link -->
   <a class="temp-link" [routerLink]="['/booking', 'passengers']" (click)="onSubmit()">Next page</a>
 </div>
