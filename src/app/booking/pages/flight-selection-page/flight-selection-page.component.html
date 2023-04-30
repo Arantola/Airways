@@ -1,6 +1,15 @@
-<div class="container">
+<div class="flight-selection">
   <app-way></app-way>
   <app-way [isWayBack]="true"></app-way>
-  <!-- TO DO Delete temporaraly link -->
-  <a class="temp-link" [routerLink]="['/booking', 'passengers']">Next page</a>
+  <div class="flight-selection__buttons-group">
+    <a class="flight-selection__button flight-selection__button_back" [routerLink]="['/main']">Back</a>
+    <button
+      mat-flat-button
+      class="flight-selection__button"
+      color="primary"
+      (click)="saveTicket()"
+    >
+      Continue
+    </button>
+  </div>
 </div>
