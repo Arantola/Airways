@@ -7,5 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./flight-selection-page.component.scss'],
 })
 export class FlightSelectionPageComponent {
-  constructor(router: Router) {}
+  constructor(private router: Router) {}
+
+  saveTicket() {
+    this.router.navigate(['booking', 'passengers']);
+  }
 }
