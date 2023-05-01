@@ -1,6 +1,6 @@
 <div class="cart-trip">
   <div class="cart-trip__checkbox">
-    <mat-checkbox class="example-margin" color="primary"></mat-checkbox>
+    <mat-checkbox class="card-trip__mat-checkbox_position" color="primary"></mat-checkbox>
   </div>
   <div class="cart-trip__info">
     <div class="cart-trip__no">
@@ -32,7 +32,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>Delete</button>
-      <button mat-menu-item>Edit</button>
+      <button mat-menu-item (click)="editTrip()">Edit</button>
     </mat-menu>
   </div>
 </div>

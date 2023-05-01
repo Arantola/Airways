@@ -68,3 +68,7 @@
 @mixin button-font {
   @include _text-settings(16px, 20px, 400, 0.1px)
 }
+
+@mixin button-font-bold {
+  @include _text-settings(16px, 20px, 500, 0.1px)
+}

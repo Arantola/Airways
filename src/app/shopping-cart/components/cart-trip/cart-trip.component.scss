@@ -4,21 +4,21 @@
 .cart-trip {
   display: flex;
   justify-content: space-around;
-  width: 97%;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 0 36px 0 30px;
   padding: 30px 0;
   border-bottom: solid 1px $secondary50;
   &__checkbox {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 5%;
+  }
+  &__mat-checkbox_position {
+    position: relative;
+    left: -20px;
   }
   &__info {
     display: flex;
-    width: 90%;
-    
+    width: 100%;
     div {
       display: flex;
       align-items: center;
@@ -29,25 +29,24 @@
     @include title-medium;
     color: $accent;
   }
-  &__flight {
-    width: 20%;
+  &__flight,
+  &__type-trip,
+  &__data-time,
+  &__passengers {
     @include body-xlarge;
     color: $neutral110;
   }
+  &__flight {
+    width: 20%;
+  }
   &__type-trip {
-    width: 15%;
-    @include body-xlarge;
-    color: $neutral110;
+    width: 13%;
   }
   &__data-time {
     width: 30%;
-    @include body-xlarge;
-    color: $neutral110;
   }
   &__passengers {
-    width: 11%;
-    @include body-xlarge;
-    color: $neutral110;
+    width: 13%;
   }
   &__price {
     width: 9%;
@@ -58,11 +57,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 5%;
   }
   &__button {
+    position: relative;
+    left: 20px;
     width: 40px;
     height: 40px;
+    padding: 8px;
     color: $neutral30;
   }
 }

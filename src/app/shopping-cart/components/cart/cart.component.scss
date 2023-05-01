@@ -1,0 +1,133 @@
+@import '../../../shared/styles/abstract';
+@import '../../../shared/styles/typography';
+
+.cart {
+  width: 100%;
+  margin: 36px 0 103px;
+  box-sizing: border-box;
+  padding: 33px 0px 40px;
+  border-radius: 8px;
+  background-color: $neutral100;
+  &__title {
+    margin-left: 30px;
+    @include title-large;
+    color: $primary;
+  }
+  &__header {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 0;
+    margin-top: 27px;
+    background-color: $secondary110;
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__header-titles {
+    width: 100%;
+    margin: 0 72px;
+  }
+  &__no,
+  &__flight,
+  &__type-trip,
+  &__data-time,
+  &__passengers,
+  &__price {
+    @include body-xlarge;
+    color: $neutral110;
+  }
+  &__no {
+    width: 15%;
+  }
+  &__flight {
+    width: 20%;
+  }
+  &__type-trip {
+    width: 13%;
+  }
+  &__data-time {
+    width: 30%;
+  }
+  &__passengers {
+    width: 13%;
+  }
+  &__price {
+    width: 9%;
+  }
+  &__select-all {
+    margin: 10px 0 0 16px;
+    @include body-xlarge;
+    color: $neutral110;
+  }
+  &__sum-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40px 0px 28px;
+    margin: 0 36px 0 30px;
+    border-bottom: solid 1px $secondary50;
+  }
+  &__add-trip-button {
+    background-color: $secondary90;
+    color: $primary;
+    @include button-font-bold;
+  }
+  &__sum {
+    display: flex;
+    align-items: center;
+    color: $neutral110;
+    @include subtitle-medium;
+    span {
+      margin-left: 20px;
+      @include subtitle-large;
+      color: $primary;
+      background: linear-gradient(90deg, #11397E 0%, #005ABC 100%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  &__payment-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 36px 0 30px;
+    padding-top: 40px;
+  }
+  &__promo-code-icon {
+    width: 55px;
+    height: 16px;
+    font-family: 'Roboto';
+    color: $primary;
+    @include button-font-bold;
+  }
+  &__payment-button {
+    width: 126px;
+    height: 60px;
+    margin-left: 38px;
+    @include button-font-bold;
+  }
+  &__selected-and-payment {
+    color: $neutral30;
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-form-field-infix {
+    width: 275px;
+  }
+  .mat-mdc-form-field {
+    height: 48px;
+  }
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .mat-mdc-form-field-flex {
+    height: 48px;
+  }
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+  }
+}
