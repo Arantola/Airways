@@ -68,3 +68,11 @@
 @mixin button-font {
   @include _text-settings(16px, 20px, 400, 0.1px)
 }
+
+@mixin error-large {
+  @include _text-settings(80px, 80px, 700)
+}
+
+@mixin error-medium {
+  @include _text-settings(60px, 80px, 700, 1px)
+}
