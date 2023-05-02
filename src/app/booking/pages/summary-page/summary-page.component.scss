@@ -1,0 +1,92 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  max-width: 1128px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: $primary;
+  margin-top: 48px;
+  &__name {
+    @include title-large;
+    margin: 0;
+  }
+}
+
+.flight-info {
+  display: flex;
+  gap: 25px;
+  margin-top: 28px;
+  app-flight-info {
+    flex: 1;
+    max-width: 551px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.total-fare {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  app-flight-fare {
+    margin-left: 25px;
+    flex: 0.5;
+    border: 1px $secondary80 solid;
+    border-radius: 8px;
+    max-width: 551px;
+  }
+  &_center{
+    justify-content: center;
+    app-flight-fare {
+      margin-left: 0;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 40px 0 48px;
+
+  &__back {
+    text-decoration: none;
+    color: $primary;
+  }
+
+  &__add {
+    color: $primary;
+    border-radius: 4px;
+    border: 1px solid $primary;
+    width: 170px;
+    height: 60px;
+    margin-left: 85px;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
+
+  &__buy {
+    background-color: $primary;
+    color: $neutral100;
+    border-radius: 4px;
+    width: 126px;
+    height: 60px;
+    margin-left: 40px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+}
