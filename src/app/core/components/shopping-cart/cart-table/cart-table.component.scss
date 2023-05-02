@@ -1,0 +1,41 @@
+@import '../../../../shared/styles/abstract';
+@import '../../../../shared/styles/typography';
+
+.cart-table {
+  &.cart-table_account {
+    margin-top: 36px;
+  }
+  th {
+    @include body-xlarge;
+    color: $neutral110;
+  }
+  &__td {
+    @include body-xlarge;
+    color: $neutral110;
+    &.cart-table__td_no {
+      @include title-medium;
+      color: $accent;
+    }
+    &.cart-table__td_price {
+      color: $highlight-green;
+    }
+    &.cart-table__td_link {
+      text-decoration: dashed;
+      a {
+        color: $neutral110;
+      }
+    }
+  }
+  &__td-content {
+    padding: 30px 0;
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-table .mat-mdc-header-cell {
+    background: $secondary110;
+  }
+  .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none;
+  }
+}

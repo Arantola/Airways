@@ -21,12 +21,10 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
-import { CartTripComponent } from './shopping-cart/components/cart-trip/cart-trip.component';
-import { CartComponent } from './shopping-cart/components/cart/cart.component';
 
 
 @NgModule({
-  declarations: [AppComponent, CartTripComponent, CartComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
