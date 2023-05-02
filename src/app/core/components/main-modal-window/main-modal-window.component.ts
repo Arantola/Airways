@@ -3,6 +3,16 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import {
+  appSettingsActions,
+  bookingActions,
+} from 'src/app/redux/actions/app.actions';
+import {
+  BOOKING_PAGES,
+  PASSENGERS_LIST,
+} from 'src/app/shared/constants/constants';
+import { Airport } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-main-modal-window',
@@ -10,36 +20,37 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-modal-window.component.scss'],
 })
 export class MainModalWindowComponent implements OnInit, OnDestroy {
+  currentPage: string = 'main';
+
   initialForm!: FormGroup;
 
   isRounded: boolean = true;
 
-  passengersList = [
-    ['adults', '14+ years'],
-    ['child', '2-14 years'],
-    ['infant', '0-2 years'],
-  ];
+  readonly passengersList = PASSENGERS_LIST;
 
   passengersDisplay: string = '1 Adult';
 
   isPassengersMenuOpened: boolean = false;
   // TODO replace mock data with data from api request
-  places = [
+  airports: Airport[] = [
     {
       city: 'Amsterdam',
       iata: 'AMS',
-      airport: 'Dyce',
+      name: 'Dyce',
       country: 'United Kingdom',
+      UTC: '+2',
     },
     {
       city: 'Baku',
       iata: 'GYD',
-      airport: 'Heydar Aliyev',
+      name: 'Heydar Aliyev',
       country: 'Azerbaijan',
+      UTC: '+4',
     },
   ];
 
   constructor(
+    private store: Store,
     private router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
@@ -74,31 +85,35 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   private initForm() {
     this.initialForm = new FormGroup({
       type: new FormControl('rounded'),
-      from: new FormControl(''),
-      destination: new FormControl(''),
+      departurePoint: new FormControl(''),
+      destinationPoint: new FormControl(''),
       date: new FormGroup({
         start: new FormControl<Date | null>(null),
         end: new FormControl<Date | null>(null),
       }),
       singleDate: new FormControl<Date | null>(null),
-      passengers: new FormGroup({
+      passengersCompound: new FormGroup({
         adults: new FormControl(1),
-        child: new FormControl(0),
-        infant: new FormControl(0),
+        children: new FormControl(0),
+        infants: new FormControl(0),
       }),
     });
   }
 
-  private setPassengersDisplay(adults: number, child: number, infant: number) {
+  private setPassengersDisplay(
+    adults: number,
+    children: number,
+    infants: number
+  ) {
     this.passengersDisplay = `
     ${adults > 1 ? `${adults} Adults` : '1 Adult'}${
-      child > 0 ? `, ${child} Child${child > 1 ? 'ren' : ''}` : ''
-    }${infant > 0 ? `, ${infant} Infant${infant > 1 ? 's' : ''}` : ''}`;
+      children > 0 ? `, ${children} Child${children > 1 ? 'ren' : ''}` : ''
+    }${infants > 0 ? `, ${infants} Infant${infants > 1 ? 's' : ''}` : ''}`;
   }
 
   private patchPassanges(form: FormGroup, field: string, value: number = 1) {
     this.initialForm.patchValue({
-      passengers: {
+      passengersCompound: {
         [field]: form?.value[field] + value,
       },
     });
@@ -116,9 +131,13 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // TODO add dato to store
-    console.log(this.initialForm);
-    this.router.navigate(['booking', 'flight-selection']);
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
+    );
+    this.store.dispatch(
+      bookingActions.updateFirstForm({ currentOrder: this.initialForm.value })
+    );
+    this.router.navigate(['booking', BOOKING_PAGES[0]]);
   }
 
   togglePassengerMenu() {
@@ -126,28 +145,28 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   getColor(type: string) {
-    return this.initialForm.get('passengers')?.value[type]
+    return this.initialForm.get('passengersCompound')?.value[type]
       ? '#11397E'
       : '#1C1B1F';
   }
 
   onChangeNumber(fieldName: string, operation: string) {
-    const form = <FormGroup>this.initialForm.get('passengers');
+    const form = <FormGroup>this.initialForm.get('passengersCompound');
     if (operation === 'plus' && form?.value[fieldName] < 10) {
       this.patchPassanges(form, fieldName, 1);
     }
     if (operation === 'minus') {
       if (fieldName === 'adults' && form?.value[fieldName] > 1) {
         this.patchPassanges(form, fieldName, -1);
-      } else if (form?.value[fieldName] > 0) {
+      } else if (fieldName !== 'adults' && form?.value[fieldName] > 0) {
         this.patchPassanges(form, fieldName, -1);
       }
     }
 
     this.setPassengersDisplay(
       form?.value.adults,
-      form?.value.child,
-      form?.value.infant
+      form?.value.children,
+      form?.value.infants
     );
   }
 }

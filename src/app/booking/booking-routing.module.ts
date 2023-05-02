@@ -3,18 +3,19 @@ import { Routes, RouterModule } from '@angular/router';
 import { FlightSelectionPageComponent } from './pages/flight-selection-page/flight-selection-page.component';
 import { SummaryPageComponent } from './pages/summary-page/summary-page.component';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
+import { BOOKING_PAGES } from '../shared/constants/constants';
 
 const routes: Routes = [
   {
-    path: 'flight-selection',
+    path: BOOKING_PAGES[0],
     component: FlightSelectionPageComponent,
   },
   {
-    path: 'passengers',
+    path: BOOKING_PAGES[1],
     component: PassengersPageComponent,
   },
   {
-    path: 'summary',
+    path: BOOKING_PAGES[2],
     component: SummaryPageComponent,
   },
 ];
@@ -23,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class BookingRoutingModule { }
+export class BookingRoutingModule {}

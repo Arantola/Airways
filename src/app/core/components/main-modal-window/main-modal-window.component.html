@@ -13,15 +13,15 @@
       <mat-label>From</mat-label>
       <mat-select
         placeholder="Choose a departure point"
-        formControlName="from"
+        formControlName="departurePoint"
         >
         <mat-option
-          *ngFor="let fromPlace of places"
-          [value]="fromPlace"
+          *ngFor="let from of airports"
+          [value]="from"
           >
           <div class="place-options__group">
-            <span class="place-options__top">{{ fromPlace.city }} ({{ fromPlace.iata }}) </span>
-            <span class="place-options__bottom">{{ fromPlace.airport }}, {{ fromPlace.country }}</span>
+            <span class="place-options__top">{{ from.city }} ({{ from.iata }}) </span>
+            <span class="place-options__bottom">{{ from.name }}, {{ from.country }}</span>
           </div>
         </mat-option>
       </mat-select>
@@ -31,15 +31,15 @@
       <mat-label>Destination</mat-label>
       <mat-select
         placeholder="Choose your destination"
-        formControlName="destination"
+        formControlName="destinationPoint"
         >
         <mat-option
-          *ngFor="let toPlace of places"
-          [value]="toPlace"
+          *ngFor="let to of airports"
+          [value]="to"
           >
           <div class="place-options">
-            <span class="place-options__top">{{ toPlace.city }} ({{ toPlace.iata }}) </span>
-            <span class="place-options__bottom">{{ toPlace.airport }}, {{ toPlace.country }}</span>
+            <span class="place-options__top">{{ to.city }} ({{ to.iata }}) </span>
+            <span class="place-options__bottom">{{ to.name }}, {{ to.country }}</span>
           </div>
         </mat-option>
       </mat-select>
@@ -97,7 +97,7 @@
       </button>
       <div class="passengers__select"
         *ngIf="isPassengersMenuOpened"
-        formGroupName="passengers"
+        formGroupName="passengersCompound"
         >
         <div class="option" *ngFor="let passengerType of passengersList">
           <div class="option__info">

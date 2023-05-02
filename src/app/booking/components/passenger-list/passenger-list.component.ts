@@ -9,15 +9,11 @@ import {
 } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
+import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
+import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
 import { FormControlValueAccessorAdapter } from './form-control-value-accessor-adapter';
 
-interface PassengerInfo {
-  firstName: string;
-  lastName: string;
-  gender: 'male' | 'female';
-  birthday: Date | string;
-  assistance: boolean;
-}
 
 @Component({
   selector: 'app-passenger-list',
@@ -40,13 +36,12 @@ export class PassengerListComponent
   extends FormControlValueAccessorAdapter
   implements OnInit
 {
-  passengersList = ['audit', 'child', 'infant'];
+  passengerList!: string[];
 
-  formGroup = new FormGroup({
-    passengers: this.fb.array([]),
-  });
+  formGroup!: FormGroup;
 
   constructor(
+    private store: Store,
     private fb: FormBuilder,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
@@ -61,15 +56,35 @@ export class PassengerListComponent
   }
 
   ngOnInit() {
+    this.initForm();
+    this.getPassengerList();
     this.addPassengerForms();
   }
 
-  get passengers() {
-    return this.formGroup.controls['passengers'] as FormArray;
+  private initForm() {
+    this.formGroup = new FormGroup({
+      passengers: this.fb.array([]),
+    });
+  }
+
+  private getPassengerList() {
+    this.store.select(selectPassengersCompound).subscribe((compound) => {
+      this.passengerList = this.transformObjectToArray(compound);
+    });
+  }
+
+  private transformObjectToArray(compound: PassengersCompound) {
+    const passengers = [];
+    for (let [key, value] of Object.entries(compound)) {
+      for (let i = 0; i < value; i++) {
+        passengers.push(key);
+      }
+    }
+    return passengers;
   }
 
   private addPassengerForms() {
-    for (const passanger of this.passengersList) {
+    while (this.passengers.length === this.passengerList.length) {
       const passengerForm = new FormGroup({
         firstName: new FormControl(),
         lastName: new FormControl(),
@@ -79,5 +94,9 @@ export class PassengerListComponent
       });
       this.passengers.push(passengerForm);
     }
+  }
+
+  get passengers() {
+    return this.formGroup.controls['passengers'] as FormArray;
   }
 }

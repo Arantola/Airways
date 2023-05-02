@@ -1,15 +1,22 @@
 {
   "env": {
-      "browser": true,
-      "es2021": true,
-      "es6": true
+    "browser": true,
+    "es2021": true,
+    "es6": true
   },
-  "extends": ["airbnb-base", "prettier"],
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.(app|spec).json"]
+        "project": [
+          "tsconfig.(app|spec).json"
+        ]
       },
       "extends": [
         "eslint:recommended",
@@ -42,17 +49,31 @@
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
       "rules": {}
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended-requiring-type-checking"
+      ]
     }
   ],
   "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": "error"
   },
-  "plugins": ["prettier"]
+  "plugins": [
+    "prettier"
+  ]
 }

@@ -1,31 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
+import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.scss'],
 })
-export class StepperComponent {
-  static readonly FIRST_STEP = 1;
-  static readonly THIRD_STEP = 3;
+export class StepperComponent implements OnInit {
+  currentPage: string = 'main';
+  pages = BOOKING_PAGES;
 
-  constructor() {}
+  constructor(private store: Store) {}
 
-  public step = StepperComponent.FIRST_STEP;
-
-  goNextStep() {
-    if (this.step < StepperComponent.THIRD_STEP) {
-      this.step++;
-    } else {
-      return;
-    }
+  ngOnInit(): void {
+    this.trackPage();
   }
 
-  goBackStep() {
-    if (this.step > StepperComponent.FIRST_STEP) {
-      this.step--;
-    } else {
-      return;
-    }
+  private trackPage() {
+    this.store.select(selectCurrentPage).subscribe((currentPage) => {
+      this.currentPage = currentPage;
+    });
   }
 }
