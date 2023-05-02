@@ -1,5 +1,5 @@
 <div class="background" [ngClass]="{'background-img': currentPage === 'main'}">
-  <app-second-menu *ngIf="currentPage !== 'main'"></app-second-menu>
+  <app-second-menu *ngIf="currentPage !== 'main' && currentPage !== 'admin' "></app-second-menu>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
