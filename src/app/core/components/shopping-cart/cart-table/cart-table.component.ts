@@ -2,13 +2,16 @@ import { AfterViewInit, Component, ViewChild, Input } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Router } from '@angular/router';
+import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
+import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
 
 export interface PeriodicElement {
   no: string;
   flight: string[];
   typeTrip: string;
   dataTime: string[];
-  passengers: string[];
+  passengers: PassengersCompound;
   price: number;
 }
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -17,16 +20,36 @@ const ELEMENT_DATA: PeriodicElement[] = [
     flight: ['Dublin — Warsaw', 'Modlin — Dublin'],
     typeTrip: 'Round Trip',
     dataTime: ['1 Mar, 2023, 8:40 — 12:00', '18 Mar, 2023, 7:40 — 11:00'],
-    passengers: ['1 x Adult', '1 x Child', '1 x Infant'],
-    price: 551,
+    passengers: {
+      adults: 1,
+      children: 1,
+      infants: 1,
+    },
+    price: 351,
   },
   {
-    no: 'FR 1922',
+    no: 'FR 1920',
     flight: ['Modlin — Dublin', 'Dublin — Warsaw'],
     typeTrip: 'Round Trip',
     dataTime: ['2 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
-    passengers: ['1 x Adult', '1 x Child', '1 x Infant'],
+    passengers: {
+      adults: 1,
+      children: 2,
+      infants: 0,
+    },
     price: 651,
+  },
+  {
+    no: 'FR 1922',
+    flight: ['Aodlin — Dublin', 'Dublin — Warsaw'],
+    typeTrip: 'Round Trip',
+    dataTime: ['6 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
+    passengers: {
+      adults: 1,
+      children: 2,
+      infants: 0,
+    },
+    price: 551,
   },
 ];
 
@@ -45,30 +68,31 @@ export class CartTableComponent implements AfterViewInit{
   @ViewChild(MatSort)
   sort?: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) { }
+
 
   public get displayedColumns(): string[] {
     let columns = [
-      'No',
-      'Flight',
-      'Type trip',
-      'Data & time',
-      'Passengers',
-      'Price',
+      'no',
+      'flight',
+      'typeTrip',
+      'dataTime',
+      'passengers',
+      'price',
     ];
 
     if(this.showLink) {
       columns = [
         ...columns,
-        'Link',
+        'link',
       ]
     }
 
     if (this.showControls) {
       columns = [
-        'Checkbox',
+        'checkbox',
         ...columns,
-        'Menu',
+        'menu',
       ]
     }
 
@@ -87,5 +111,9 @@ export class CartTableComponent implements AfterViewInit{
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  public editTicket() {
+    this.router.navigate(['/booking', BOOKING_PAGES[0]])
   }
 }

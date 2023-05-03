@@ -24,12 +24,6 @@
     justify-content: center;
     align-items: center;
   }
-  &__button {
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    color: $neutral30;
-  }
   &__sum-footer {
     display: flex;
     justify-content: space-between;
@@ -62,6 +56,8 @@
   &__payment-footer {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
     margin: 0 36px 0 30px;
     padding-top: 40px;
   }
@@ -81,6 +77,32 @@
   &__selected-and-payment {
     color: $neutral30;
   }
+  @media(max-width: 1128px) {
+    width: 97%;
+    margin: 36px auto 103px;
+  }
+  @media(max-width: 768px) {
+    &__payment-button {
+      width: 106px;
+      height: 56px;
+    }
+  }
+  @media(max-width: 589px) {
+    &__payment-footer {
+      justify-content: center;
+    }
+    &__payment-button {
+      margin-left: 80px;
+    }
+  }
+  @media(max-width: 420px) {
+    &__sum {
+      span {
+        margin-left: 10px;
+        @include subtitle-medium;
+      }
+    }
+  }
 }
 
 :host ::ng-deep {
@@ -93,5 +115,10 @@
   }
   .mat-mdc-form-field-subscript-wrapper {
     height: 0;
+  }
+  @media(max-width: 768px) {
+    .mat-mdc-form-field-infix {
+      width: 155px;
+    }
   }
 }

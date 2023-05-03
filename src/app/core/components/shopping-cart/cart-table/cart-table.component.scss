@@ -1,7 +1,13 @@
 @import '../../../../shared/styles/abstract';
 @import '../../../../shared/styles/typography';
 
+
+.table-wrap {
+  overflow: auto;
+}
 .cart-table {
+  min-width: 800px;
+  width: 100%;
   &.cart-table_account {
     margin-top: 36px;
   }
@@ -26,8 +32,32 @@
       }
     }
   }
+  &__button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    color: $neutral30;
+  }
   &__td-content {
     padding: 30px 0;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style-type: none;
+    }
+  }
+  @media(max-width: 992px) {
+    th {
+      @include body-large;
+    }
+    &__td {
+      @include body-large;
+      &.cart-table__td_no {
+        @include body-large;
+      }
+    }
   }
 }
 
