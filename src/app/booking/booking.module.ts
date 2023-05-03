@@ -12,6 +12,10 @@ import { IndicatorColorDirective } from './directives/indicator-color.directive'
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
+import { FlightInfoComponent } from './components/flight-info/flight-info.component';
+import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
+import { FlightDirectionComponent } from './components/flight-info/flight-direction/flight-direction.component';
+import { PassengerInfoComponent } from './components/flight-info/passenger-info/passenger-info.component';
 
 const BookingComponents = [
   PassengerListComponent,
@@ -21,7 +25,11 @@ const BookingComponents = [
   WayComponent,
   FlightSelectionPageComponent,
   SummaryPageComponent,
-  PassengersPageComponent
+  PassengersPageComponent,
+  FlightInfoComponent,
+  FlightFareComponent,
+  FlightDirectionComponent,
+  PassengerInfoComponent
 ];
 
 @NgModule({

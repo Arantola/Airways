@@ -3,7 +3,7 @@
     <ng-container *ngFor="let passengerForm of passengers.controls; let i = index">
 
       <div class="passanger__card" [formGroupName]="i">
-        <h3 class="passanger__title">{{ i + 1}}. {{ passengerList[i] | titlecase}}</h3>
+        <h3 class="passanger__title">{{ i + 1}}. {{ passengerList[i] | titlecase }}</h3>
         <div class="passanger__form-main">
 
           <mat-form-field appearance="outline">

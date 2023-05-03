@@ -1,3 +1,4 @@
+import { ErrorComponent } from './core/components/error/error.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainModalWindowComponent } from './core/components/main-modal-window/main-modal-window.component';

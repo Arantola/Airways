@@ -69,11 +69,11 @@ export class PassengerListComponent
 
   private getPassengerList() {
     this.store.select(selectPassengersCompound).subscribe((compound) => {
-      this.passengerList = this.transformObjctToArray(compound);
+      this.passengerList = this.transformObjectToArray(compound);
     });
   }
 
-  private transformObjctToArray(compound: PassengersCompound) {
+  private transformObjectToArray(compound: PassengersCompound) {
     const passengers = [];
     for (let [key, value] of Object.entries(compound)) {
       for (let i = 0; i < value; i++) {
@@ -84,7 +84,7 @@ export class PassengerListComponent
   }
 
   private addPassengerForms() {
-    for (const _ of this.passengerList) {
+    while (this.passengers.length === this.passengerList.length) {
       const passengerForm = new FormGroup({
         firstName: new FormControl(),
         lastName: new FormControl(),
