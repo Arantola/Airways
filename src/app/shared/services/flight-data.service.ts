@@ -27,14 +27,17 @@ export class FlightDataService {
       .subscribe((response) => console.log(response));
   }
 
-  getFlightsByIATA(iata: string) {
+  getFlightsByIATA(departureIata: string, destinationIata: string) {
     this.flightsByIATA = [];
     this.http
       .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
       .pipe(
         map((flights) => {
           for (let value of Object.values(flights)) {
-            if (value.departurePoint.iata === iata) {
+            if (
+              value.departurePoint.iata === departureIata &&
+              value.destinationPoint.iata === destinationIata
+            ) {
               this.flightsByIATA.push(value);
             }
           }
