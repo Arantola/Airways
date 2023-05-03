@@ -1,3 +1,4 @@
+import { ErrorComponent } from './core/components/error/error.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainModalWindowComponent } from './core/components/main-modal-window/main-modal-window.component';
@@ -9,7 +10,7 @@ const routes: Routes = [
     path: 'booking',
     loadChildren: () => import('./booking/booking.module').then((m) => m.BookingModule)
   },
-  { path: '**', redirectTo: 'main' },
+  { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({
