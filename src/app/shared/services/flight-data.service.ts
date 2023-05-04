@@ -1,14 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Flight } from '../interfaces/interfaces';
-import { getDatabase, ref, push, set } from 'firebase/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { filter, map, Observable } from 'rxjs';
-import {
-  AngularFireDatabase,
-  AngularFireList,
-  AngularFireObject,
-} from '@angular/fire/compat/database';
+import { FirebaseFlight, Flight } from '../interfaces/interfaces';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +13,18 @@ export class FlightDataService {
 
   addFlight(flight: Flight) {
     return this.http
-      .post(
+      .post<FirebaseFlight>(
         'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json',
         flight
+      )
+      .subscribe((response) => console.log(response));
+  }
+
+  resetDB() {
+    return this.http
+      .put<FirebaseFlight>(
+        'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json',
+        {}
       )
       .subscribe((response) => console.log(response));
   }
@@ -30,7 +32,9 @@ export class FlightDataService {
   getFlightsByIATA(departureIata: string, destinationIata: string) {
     this.flightsByIATA = [];
     this.http
-      .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
+      .get<FirebaseFlight>(
+        'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json'
+      )
       .pipe(
         map((flights) => {
           for (let value of Object.values(flights)) {

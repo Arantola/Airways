@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { AIRPORTS } from '../../airports';
+import { FlightDataService } from 'src/app/shared/services/flight-data.service';
+import { FlightsGeneratorService } from './flights-generator';
 
 @Component({
   selector: 'app-admin-page',
@@ -13,9 +14,14 @@ import { AIRPORTS } from '../../airports';
 export class AdminPageComponent implements OnInit {
   flightForm!: FormGroup;
   airports = AIRPORTS;
-  iata: string = '';
+  departureIata: string = '';
+  destinationIata: string = '';
 
-  constructor(private flightService: FlightDataService, private store: Store) {}
+  constructor(
+    private flightService: FlightDataService,
+    private store: Store,
+    private generator: FlightsGeneratorService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -46,10 +52,20 @@ export class AdminPageComponent implements OnInit {
   }
 
   onGetFlightByIATA() {
-    console.log('ByIATA: ', this.flightService.getFlightsByIATA(this.iata));
+    console.log(
+      'ByIATA: ',
+      this.flightService.getFlightsByIATA(
+        this.departureIata,
+        this.destinationIata
+      )
+    );
   }
 
   onGetFlights() {
     this.flightService.getAllFlights();
+  }
+
+  generateFlights() {
+    this.generator.generateFlights(this.airports);
   }
 }
