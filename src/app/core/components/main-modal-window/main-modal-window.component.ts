@@ -4,6 +4,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AIRPORTS } from 'src/app/admin/airports';
 import {
   appSettingsActions,
   bookingActions,
@@ -31,23 +32,8 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   passengersDisplay: string = '1 Adult';
 
   isPassengersMenuOpened: boolean = false;
-  // TODO replace mock data with data from api request
-  airports: Airport[] = [
-    {
-      city: 'Amsterdam',
-      iata: 'AMS',
-      name: 'Dyce',
-      country: 'United Kingdom',
-      UTC: '+2',
-    },
-    {
-      city: 'Baku',
-      iata: 'GYD',
-      name: 'Heydar Aliyev',
-      country: 'Azerbaijan',
-      UTC: '+4',
-    },
-  ];
+
+  airports: Airport[] = AIRPORTS;
 
   constructor(
     private store: Store,
@@ -124,10 +110,10 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   onClickSwitch() {
-    const fromCurrentValue = this.initialForm.get('from')?.value;
-    const destinationCurrentValue = this.initialForm.get('destination')?.value;
-    this.initialForm.get('from')?.setValue(destinationCurrentValue);
-    this.initialForm.get('destination')?.setValue(fromCurrentValue);
+    const departureValue = this.initialForm.get('departurePoint')?.value;
+    const destinationValue = this.initialForm.get('destinationPoint')?.value;
+    this.initialForm.get('departurePoint')?.setValue(destinationValue);
+    this.initialForm.get('destinationPoint')?.setValue(departureValue);
   }
 
   onSubmit() {
