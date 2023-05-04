@@ -84,7 +84,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.initialForm = new FormGroup({
-      type: new FormControl('rounded'),
+      isRounded: new FormControl(true),
       departurePoint: new FormControl(''),
       destinationPoint: new FormControl(''),
       date: new FormGroup({

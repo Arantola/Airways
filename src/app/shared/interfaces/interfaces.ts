@@ -14,10 +14,10 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom: Flight | undefined;
-  selectedFlightBack: Flight | undefined;
-  passengersInfo: Passenger[];
-  contacts: Contacts;
+  selectedFlightFrom?: Flight | undefined;
+  selectedFlightBack?: Flight | undefined;
+  passengersInfo?: Passenger[];
+  contacts?: Contacts;
 }
 
 interface PassengersCompound {
@@ -66,6 +66,10 @@ interface Country {
   code: string;
 }
 
+interface FirebaseFlight {
+  [key: string]: Flight;
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -75,4 +79,5 @@ export {
   Airport,
   Contacts,
   Country,
+  FirebaseFlight,
 };

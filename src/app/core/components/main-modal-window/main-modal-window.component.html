@@ -1,11 +1,11 @@
 <form [formGroup]='initialForm' (ngSubmit)="onSubmit()">
 
   <mat-radio-group
-    formControlName="type"
+    formControlName="isRounded"
     (change)="onRadioChange()"
     >
-    <mat-radio-button value="rounded" selected>Round Trip</mat-radio-button>
-    <mat-radio-button value="oneway">One Way</mat-radio-button>
+    <mat-radio-button [value]="true" selected>Round Trip</mat-radio-button>
+    <mat-radio-button [value]="false">One Way</mat-radio-button>
   </mat-radio-group>
 
   <div class="place-options">
