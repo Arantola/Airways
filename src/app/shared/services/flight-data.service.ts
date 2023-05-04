@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseFlight, Flight } from '../interfaces/interfaces';
-import { map } from 'rxjs';
 import { FIREBASE_FLIGHTS } from '../constants/constants';
+import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +24,15 @@ export class FlightDataService {
       .subscribe((response) => console.log(response));
   }
 
-  getFlightsByIATA(departureIata: string, destinationIata: string) {
+  getFlightsByIATA(departureIata: string, destinationIata: string): Observable<Flight[]> {
     return this.http
-      .get<FirebaseFlight>(FIREBASE_FLIGHTS)
+      .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
       .pipe(
+        tap((flights) => console.log(flights)),
         map((flights) => {
           this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
+            console.log(value.departurePoint.iata, value.destinationPoint.iata)
             if (
               value.departurePoint.iata === departureIata &&
               value.destinationPoint.iata === destinationIata
@@ -38,10 +40,10 @@ export class FlightDataService {
               this.flightsByIATA.push(value);
             }
           }
+
           return this.flightsByIATA;
         })
-      )
-      .subscribe((data) => console.log(data));
+      );
   }
 
   getAllFlights() {

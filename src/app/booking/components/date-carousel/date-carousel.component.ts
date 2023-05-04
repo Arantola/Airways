@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 
 export interface CarouselItem {
   isSelect: boolean;

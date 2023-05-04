@@ -4,7 +4,7 @@ import { bookingActions } from '../actions/app.actions';
 
 const currentOrderState: CurrentOrder = {
   // main page
-  isRounded: true,
+  type: 'rounded',
   departurePoint: undefined,
   destinationPoint: undefined,
   singleDate: undefined,
