@@ -62,8 +62,7 @@ export class AdminPageComponent implements OnInit {
   }
 
   onGetFlights() {
-    console.log(this.flightService.getWeeklyArray());
-    // this.flightService.getAllFlights();
+    this.flightService.getAllFlights();
   }
 
   generateFlights() {

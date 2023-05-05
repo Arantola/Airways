@@ -11,7 +11,7 @@ export class FlightsGeneratorService {
   public generateFlights(airports: Airport[]) {
     for (const departure of airports) {
       for (const destination of airports) {
-        const unicDates = Array.from(new Set(this.formDatesArray(4)));
+        const unicDates = Array.from(new Set(this.formDatesArray(6)));
         for (const unicDate of unicDates) {
           const flight = this.formFlight(departure, destination, unicDate);
           this.fs.addFlight(flight);
@@ -28,7 +28,7 @@ export class FlightsGeneratorService {
       date: `${date}`,
       startTime: `${this.getRandomHours(24)}:${this.getRandomMinutes()}`,
       travelTime: `${this.getTravelTime()}`,
-      price: this.getRandomNumber(20, 300),
+      price: this.getRandomNumber(20, 301),
       avalibleTickets: this.getRandomNumber(1, 101),
     };
   }
@@ -75,6 +75,6 @@ export class FlightsGeneratorService {
   }
 
   private getRandomDate() {
-    return `${'2023-05-0' + this.getRandomNumber(1, 8)}`;
+    return `${'2023-05-0' + this.getRandomNumber(1, 7)}`;
   }
 }
