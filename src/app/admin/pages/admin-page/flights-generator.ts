@@ -75,6 +75,6 @@ export class FlightsGeneratorService {
   }
 
   private getRandomDate() {
-    return `${'2023-05-0' + this.getRandomNumber(0, 8)}`;
+    return `${'2023-05-0' + this.getRandomNumber(1, 8)}`;
   }
 }

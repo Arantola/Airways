@@ -38,9 +38,10 @@ interface Flight {
   id: string;
   departurePoint: Airport;
   destinationPoint: Airport;
-  startTime: Date | string | null;
-  travelTime: number | string;
-  price: number | string;
+  date: string;
+  startTime: string;
+  travelTime: string;
+  price: number;
   avalibleTickets: number;
 }
 
@@ -49,7 +50,7 @@ interface Airport {
   name: string;
   city: string;
   country: string;
-  UTC: number | string;
+  UTC: string;
 }
 
 interface Contacts {

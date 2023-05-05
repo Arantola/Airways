@@ -7,7 +7,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class FlightDataService {
-  flightsByIATA: any[] = [];
+  flightsByIATA: Flight[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -55,6 +55,15 @@ export class FlightDataService {
     this.http
       .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
       .subscribe((response) => console.log(response));
+  }
+
+  getWeeklyArray() {
+    const weeklyArray: Array<Array<Flight>> = [[], [], [], [], [], [], [], []];
+    for (let flight of this.flightsByIATA) {
+      const day = Number(flight.date.charAt(9));
+      weeklyArray[day - 1].push(flight);
+    }
+    return weeklyArray;
   }
 
   private errorHandler(error: Error) {
