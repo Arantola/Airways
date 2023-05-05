@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CarouselItem } from '../date-carousel/date-carousel.component';
+import { FirebaseFlight } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-date-card',

@@ -1,137 +1,22 @@
-import { Component, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit, OnInit } from '@angular/core';
+import { Flight } from 'src/app/shared/interfaces/interfaces';
 
 export interface CarouselItem {
   isSelect: boolean;
   isDisable: boolean;
   date: Date;
-  price: number;
+  price: number | string;
   seats: number;
   locale: string;
   currency: string;
-  wayTo: string,
-  wayFrom: string,
-  startTime: string,
-  finishTime: string,
-  utcTo: string,
-  utcFrom: string,
-  wayTime: string,
+  wayTo: string;
+  wayFrom: string;
+  startTime: Date | string | null;
+  finishTime: Date | string | null;
+  utcTo: number | string;
+  utcFrom: number | string;
+  wayTime: number | string;
 }
-
-const data: CarouselItem[] = [
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.04.2023"),
-    price: 130,
-    seats: 188,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: true,
-    date: new Date("03.05.2023"),
-    price: 120,
-    seats: 60,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '10:30',
-    finishTime: '12:20',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.06.2023"),
-    price: 90,
-    seats: 6,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '16:50',
-    finishTime: '18:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.07.2023"),
-    price: 160,
-    seats: 60,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '14:40',
-    finishTime: '16:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.08.2023"),
-    price: 110,
-    seats: 100,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '19:40',
-    finishTime: '21:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: true,
-    date: new Date("03.09.2023"),
-    price: 130,
-    seats: 8,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.10.2023"),
-    price: 160,
-    seats: 8,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  }
-]
-
 
 enum Animations {
   NONE,
@@ -139,30 +24,46 @@ enum Animations {
   PREV,
 }
 
+const blankObject: CarouselItem = {
+  isSelect: false,
+  isDisable: true,
+  date: new Date,
+  price: '',
+  seats: 0,
+  locale: 'en',
+  currency: '$',
+  wayTo: '',
+  wayFrom: '',
+  startTime: null,
+  finishTime: null,
+  utcTo: 0,
+  utcFrom: 0,
+  wayTime: 0,
+}
+
 @Component({
   selector: 'app-date-carousel',
   templateUrl: './date-carousel.component.html',
   styleUrls: ['./date-carousel.component.scss']
 })
-export class DateCarouselComponent {
-  @Output() itemSelected = new EventEmitter<CarouselItem>();
-
-  @Input() selectedTicket?: boolean;
+export class DateCarouselComponent implements OnInit {
 
   public static readonly NUMBER_OF_SLIDES = 5;
+  public static readonly NUMBER_OF_DAYS = 7;
+
+  @Output() itemSelected = new EventEmitter<CarouselItem>();
+  @Input() selectedTicket?: boolean;
+  @Input() orderDate?: string | Date | undefined;
 
   public animation = Animations.NONE;
-
   public isAnimationProcess = false;
-
   public selectedItemIndex = 3;
-
   public leftItemIndex = 0;
-
   public displayedItems = this.createDisplayedItems();
+  public data: CarouselItem[] = [];
 
   public get selectedItem() {
-    return data[this.selectedItemIndex]
+    return this.data[this.selectedItemIndex]
   }
 
   public get isNextAnimation(): boolean {
@@ -181,9 +82,69 @@ export class DateCarouselComponent {
     return this.isPrevAnimation && this.isAnimationProcess;
   }
 
+  @Input() public set tripData(value: Flight[] | undefined) {
+    console.log('start set trip data');
+    if (value === undefined) {
+      return;
+    }
+
+    let orderDate = this.orderDate;
+    if (orderDate === undefined) {
+      return;
+    }
+
+    if (typeof orderDate === 'string') {
+      orderDate = new Date(orderDate);
+    }
+
+    const orderDay = orderDate.getDate();
+
+    const dateArray = [
+      new Date(orderDate.setDate(orderDay - 3)),
+      new Date(orderDate.setDate(orderDay - 2)),
+      new Date(orderDate.setDate(orderDay - 1)),
+      new Date(orderDate.setDate(orderDay)),
+      new Date(orderDate.setDate(orderDay + 1)),
+      new Date(orderDate.setDate(orderDay + 2)),
+      new Date(orderDate.setDate(orderDay + 3)),
+    ]
+
+    console.log('value', value)
+
+    const activeDates: CarouselItem[] = value.map((item) => ({
+      isSelect: false,
+      isDisable: false,
+      date: new Date(item.date),
+      price: item.price,
+      seats: item.availableTickets,
+      locale: 'en',
+      currency: '$',
+      wayTo: item.destinationPoint.city,
+      wayFrom: item.departurePoint.city,
+      startTime: item.startTime,
+      finishTime: '12:00',
+      utcTo: item.destinationPoint.UTC,
+      utcFrom: item.departurePoint.UTC,
+      wayTime: item.travelTime,
+    }))
+
+    const length = DateCarouselComponent.NUMBER_OF_DAYS - activeDates.length;
+
+    for(let i = 0; i < length; i++) {
+      activeDates.push(Object.assign({}, blankObject))
+    }
+
+    this.data = activeDates.map((item, index) => {
+      item.date = dateArray[index];
+      return item;
+    })
+
+    console.log('data', this.data)
+  }
+
   public next(): void {
     const itemIndex = this.leftItemIndex + DateCarouselComponent.NUMBER_OF_SLIDES;
-    const item = data[itemIndex];
+    const item = this.data[itemIndex];
     if (item === undefined) {
       return;
     }
@@ -198,7 +159,7 @@ export class DateCarouselComponent {
 
   public prev(): void {
     const itemIndex = this.leftItemIndex - 1;
-    const item = data[itemIndex];
+    const item = this.data[itemIndex];
     if (item === undefined) {
       return;
     }
@@ -216,7 +177,7 @@ export class DateCarouselComponent {
       return;
     }
 
-    this.selectedItemIndex = data.indexOf(item);
+    this.selectedItemIndex = this.data.indexOf(item);
     this.itemSelected.emit(item);
   }
 
@@ -235,11 +196,18 @@ export class DateCarouselComponent {
   }
 
   public createDisplayedItems(): CarouselItem[] {
-    let count = data.length - this.leftItemIndex;
+    if (this.data === undefined) {
+      return [];
+    }
+
+    let count = this.data.length - this.leftItemIndex;
     if (count > DateCarouselComponent.NUMBER_OF_SLIDES) {
       count = DateCarouselComponent.NUMBER_OF_SLIDES;
     }
+    return this.data.slice(this.leftItemIndex, this.leftItemIndex + count);
+  }
 
-    return data.slice(this.leftItemIndex, this.leftItemIndex + count);
+  ngOnInit() {
+    console.log('start carousel init')
   }
 }

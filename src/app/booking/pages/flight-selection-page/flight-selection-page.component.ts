@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { Flight } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder, Flight } from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 
 @Component({
@@ -17,24 +18,38 @@ export class FlightSelectionPageComponent implements OnInit {
 
   public wayData?: Flight[];
 
+  public wayBackData?: Flight[];
+
+  public order?: CurrentOrder;
+
   public isRounded = true;
 
-  constructor(private router: Router, private store: Store, private flightService: FlightDataService) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+    private flightService: FlightDataService) {}
 
   saveTicket() {
     this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 
   ngOnInit() {
-
+    console.log('start flight selection')
     this.order$.subscribe((order) => {
-      console.log(order.departurePoint?.iata, order.destinationPoint?.iata)
+      console.log(order.isRounded)
+      this.order = order;
+      this.isRounded = order.isRounded;
 
-      this.isRounded = order.type === 'rounded';
-
-      if (order.departurePoint?.city !== undefined && order.destinationPoint?.city !== undefined) {
+      if (order.departurePoint?.city !== undefined &&
+        order.destinationPoint?.city !== undefined) {
         this.flightService.getFlightsByIATA(order.departurePoint.iata, order.destinationPoint.iata)
           .subscribe((response) => { console.log(response); this.wayData = response; })
+      }
+      if (order.isRounded === true &&
+        order.departurePoint?.city !== undefined &&
+        order.destinationPoint?.city !== undefined) {
+        this.flightService.getFlightsByIATA(order.destinationPoint.iata, order.departurePoint.iata)
+          .subscribe((response) => { console.log(response); this.wayBackData = response; })
       }
     })
   }

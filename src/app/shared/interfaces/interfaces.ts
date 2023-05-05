@@ -5,7 +5,7 @@ interface AppSettings {
 }
 
 interface CurrentOrder {
-  type: string;
+  isRounded: boolean;
   departurePoint: Airport | undefined;
   destinationPoint: Airport | undefined;
   singleDate: Date | string | undefined;
@@ -36,9 +36,9 @@ interface Passenger {
 
 interface Flight {
   id: string;
+  date: string;
   departurePoint: Airport;
   destinationPoint: Airport;
-  date: string;
   startTime: string;
   travelTime: string;
   price: number;

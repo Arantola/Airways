@@ -1,6 +1,16 @@
 <div class="flight-selection">
-  <app-way></app-way>
-  <app-way *ngIf="isRounded" [isWayBack]="true"></app-way>
+  <app-way
+    [order]="order"
+    [orderDate]="order?.date?.start"
+    [tripData]="wayData"
+  ></app-way>
+  <app-way
+    [order]="order"
+    [orderDate]="order?.date?.end"
+    [tripBackData]="wayBackData"
+    *ngIf="isRounded"
+    [isWayBack]="true"
+  ></app-way>
   <div class="flight-selection__buttons-group">
     <a class="flight-selection__button flight-selection__button_back" [routerLink]="['/main']">Back</a>
     <button

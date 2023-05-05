@@ -32,7 +32,6 @@ export class FlightDataService {
         map((flights) => {
           this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
-            console.log(value.departurePoint.iata, value.destinationPoint.iata)
             if (
               value.departurePoint.iata === departureIata &&
               value.destinationPoint.iata === destinationIata
