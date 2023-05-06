@@ -1,0 +1,71 @@
+@import '../../../../shared/styles/abstract';
+@import '../../../../shared/styles/typography';
+
+
+.table-wrap {
+  overflow: auto;
+}
+.cart-table {
+  min-width: 800px;
+  width: 100%;
+  &.cart-table_account {
+    margin-top: 36px;
+  }
+  th {
+    @include body-xlarge;
+    color: $neutral0;
+  }
+  &__td {
+    @include body-xlarge;
+    color: $neutral0;
+    &.cart-table__td_no {
+      @include title-medium;
+      color: $accent;
+    }
+    &.cart-table__td_price {
+      color: $highlight-green;
+    }
+    &.cart-table__td_link {
+      text-decoration: dashed;
+      a {
+        color: $neutral0;
+      }
+    }
+  }
+  &__button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    color: $neutral30;
+  }
+  &__td-content {
+    padding: 30px 0;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style-type: none;
+    }
+  }
+  @media(max-width: 992px) {
+    th {
+      @include body-large;
+    }
+    &__td {
+      @include body-large;
+      &.cart-table__td_no {
+        @include body-large;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-table .mat-mdc-header-cell {
+    background: $secondary85;
+  }
+  .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none;
+  }
+}
