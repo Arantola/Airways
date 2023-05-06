@@ -44,6 +44,15 @@ interface Flight {
   avalibleTickets: number;
 }
 
+interface PeriodicElement {
+  no: string;
+  flight: string[];
+  typeTrip: string;
+  dataTime: string[];
+  passengers: PassengersCompound;
+  price: number;
+}
+
 interface Airport {
   iata: string;
   name: string;
@@ -75,4 +84,5 @@ export {
   Airport,
   Contacts,
   Country,
+  PeriodicElement
 };

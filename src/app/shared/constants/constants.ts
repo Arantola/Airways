@@ -14,4 +14,13 @@ const BOOKING_PAGES = [
   'summary'
 ]
 
-export { DATE_FORMATS, CURRENCIES, PASSENGERS_LIST, BOOKING_PAGES };
+const CART_COLUMNS = [
+  'no',
+  'flight',
+  'typeTrip',
+  'dataTime',
+  'passengers',
+  'price',
+];
+
+export { DATE_FORMATS, CURRENCIES, PASSENGERS_LIST, BOOKING_PAGES, CART_COLUMNS };

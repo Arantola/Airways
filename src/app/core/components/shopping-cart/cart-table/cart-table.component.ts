@@ -3,17 +3,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Router } from '@angular/router';
-import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
+import { BOOKING_PAGES, CART_COLUMNS } from 'src/app/shared/constants/constants';
+import { PeriodicElement } from 'src/app/shared/interfaces/interfaces';
 
-export interface PeriodicElement {
-  no: string;
-  flight: string[];
-  typeTrip: string;
-  dataTime: string[];
-  passengers: PassengersCompound;
-  price: number;
-}
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     no: 'FR 1925',
@@ -72,14 +64,7 @@ export class CartTableComponent implements AfterViewInit{
 
 
   public get displayedColumns(): string[] {
-    let columns = [
-      'no',
-      'flight',
-      'typeTrip',
-      'dataTime',
-      'passengers',
-      'price',
-    ];
+    let columns = CART_COLUMNS;
 
     if(this.showLink) {
       columns = [

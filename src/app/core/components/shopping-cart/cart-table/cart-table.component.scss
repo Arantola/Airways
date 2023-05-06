@@ -13,11 +13,11 @@
   }
   th {
     @include body-xlarge;
-    color: $neutral110;
+    color: $neutral0;
   }
   &__td {
     @include body-xlarge;
-    color: $neutral110;
+    color: $neutral0;
     &.cart-table__td_no {
       @include title-medium;
       color: $accent;
@@ -28,7 +28,7 @@
     &.cart-table__td_link {
       text-decoration: dashed;
       a {
-        color: $neutral110;
+        color: $neutral0;
       }
     }
   }
@@ -63,7 +63,7 @@
 
 :host ::ng-deep {
   .mat-mdc-table .mat-mdc-header-cell {
-    background: $secondary110;
+    background: $secondary85;
   }
   .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
     box-shadow: none;
