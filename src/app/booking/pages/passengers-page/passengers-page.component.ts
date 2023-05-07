@@ -42,6 +42,9 @@ export class PassengersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
+    );
   }
 
   private initForm(): void {
@@ -71,9 +74,6 @@ export class PassengersPageComponent implements OnInit {
 
   submitForm() {
     this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
-    );
-    this.store.dispatch(
       bookingActions.updatePassengersInfo({
         passengersInfo: this.passengersList,
       })
@@ -81,6 +81,6 @@ export class PassengersPageComponent implements OnInit {
     this.store.dispatch(
       bookingActions.updateContacts({ contacts: this.contacts })
     );
-    this.router.navigate(['booking', 'summary']);
+    this.router.navigate(['booking', BOOKING_PAGES[2]]);
   }
 }

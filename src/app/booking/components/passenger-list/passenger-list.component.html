@@ -1,9 +1,9 @@
 <div class="passanger__list" [formGroup]="formGroup">
   <ng-container formArrayName="passengers">
-    <ng-container *ngFor="let passengerForm of passengers.controls; let i = index">
+    <ng-container *ngFor="let passengerForm of passengersFormArray.controls; let i = index">
 
       <div class="passanger__card" [formGroupName]="i">
-        <h3 class="passanger__title">{{ i + 1}}. {{ passengerList[i] | titlecase }}</h3>
+        <h3 class="passanger__title">{{ i + 1}}. {{ passengersArray[i] | titlecase }}</h3>
         <div class="passanger__form-main">
 
           <mat-form-field appearance="outline">
@@ -56,7 +56,7 @@
 
         </div>
 
-        <div class="toggle__group" *ngIf="passengerList[i] !== 'infant'">
+        <div class="toggle__group" *ngIf="passengersArray[i] !== 'infant'">
           <mat-slide-toggle formControlName="assistance" color="primary"></mat-slide-toggle>
           <mat-icon class="toggle__icon" svgIcon="wheelchair" color="black"></mat-icon>
           <span class="toggle__label">Need special assistance?</span>

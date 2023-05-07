@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
-
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +45,7 @@ import { BookingModule } from './booking/booking.module';
     MaterialModule,
     BookingModule,
     HttpClientModule,
+    AdminModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

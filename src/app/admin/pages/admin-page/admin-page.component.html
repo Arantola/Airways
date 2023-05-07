@@ -1,0 +1,82 @@
+<form class="form" [formGroup]='flightForm' (ngSubmit)="onAddFlight()">
+  <mat-form-field appearance="outline">
+    <mat-label>Flight ID</mat-label>
+    <input matInput formControlName="id" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>From</mat-label>
+    <mat-select formControlName="departurePoint" required>
+      <mat-option *ngFor="let from of airports" [value]="from">
+        <div class="place-options__group">
+          <span class="place-options__top">{{ from.city }} ({{ from.iata }}) </span>
+          <span class="place-options__bottom">{{ from.name }}, {{ from.country }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Destination</mat-label>
+    <mat-select formControlName="destinationPoint" required>
+      <mat-option *ngFor="let to of airports" [value]="to">
+        <div class="place-options">
+          <span class="place-options__top">{{ to.city }} ({{ to.iata }}) </span>
+          <span class="place-options__bottom">{{ to.name }}, {{ to.country }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="group">
+  <mat-form-field appearance="outline">
+    <mat-label>Start date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" required>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="time" appearance="outline">
+    <mat-label>Start time</mat-label>
+    <input type="time" matInput formControlName="startTime" required>
+  </mat-form-field>
+  </div>
+
+  <div class="group">
+    <mat-form-field class="time" appearance="outline">
+      <mat-label>Travel time</mat-label>
+      <input type="time" matInput formControlName="travelTime" required>
+    </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tickets</mat-label>
+    <input matInput formControlName="avalibleTickets" required>
+  </mat-form-field>
+  </div>
+
+  <button mat-flat-button color="primary" type="submit">Add to database</button>
+</form>
+
+<div class="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Departure IATA</mat-label>
+    <input matInput name="departureIata" [(ngModel)]="departureIata">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Destination IATA</mat-label>
+    <input matInput name="destinationIata" [(ngModel)]="destinationIata">
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="button" (click)="onGetFlightByIATA()">Get flight by IATA</button>
+
+  <button mat-flat-button color="primary" type="button" (click)="onGetFlights()">Get all flights</button>
+
+</div>
+
+
