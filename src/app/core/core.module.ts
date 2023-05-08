@@ -12,6 +12,9 @@ import { BookingModule } from '../booking/booking.module';
 import { MainModalWindowComponent } from './components/main-modal-window/main-modal-window.component';
 import { AuthModule } from '../auth/auth.module';
 import { ErrorComponent } from './components/error/error.component';
+import { UserAccountComponent } from './components/user-account/user-account.component';
+import { CartComponent } from './components/shopping-cart/cart/cart.component';
+import { CartTableComponent } from './components/shopping-cart/cart-table/cart-table.component';
 
 const CoreComponents = [
   HeaderComponent,
@@ -20,10 +23,14 @@ const CoreComponents = [
   SecondMenuComponent,
   MainModalWindowComponent,
   FooterComponent,
+  CartComponent,
+  UserAccountComponent,
+  CartTableComponent,
+  ErrorComponent,
 ];
 
 @NgModule({
-  declarations: [CoreComponents, ErrorComponent],
+  declarations: [CoreComponents],
   exports: [CoreComponents],
   imports: [
     CommonModule,

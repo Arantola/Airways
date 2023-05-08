@@ -45,6 +45,15 @@ interface Flight {
   availableTickets: number;
 }
 
+interface PeriodicElement {
+  no: string;
+  flight: string[];
+  typeTrip: string;
+  dataTime: string[];
+  passengers: PassengersCompound;
+  price: number;
+}
+
 interface Airport {
   iata: string;
   name: string;
@@ -81,4 +90,5 @@ export {
   Contacts,
   Country,
   FirebaseFlight,
+  PeriodicElement,
 };

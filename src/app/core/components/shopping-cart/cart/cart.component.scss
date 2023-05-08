@@ -1,0 +1,123 @@
+@import '../../../shared/styles/utils';
+
+.cart {
+  width: 100%;
+  margin: 36px 0 103px;
+  box-sizing: border-box;
+  padding: 33px 0px 40px;
+  border-radius: 8px;
+  background-color: $neutral100;
+  &__title {
+    margin-left: 30px;
+    @include title-large;
+    color: $primary;
+    box-shadow: 0;
+  }
+  &__select-all {
+    margin: 27px 0 27px 16px;
+    @include body-xlarge;
+    color: $neutral0;
+  }
+  &__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__sum-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40px 0px 28px;
+    margin: 0 36px 0 30px;
+    border-top: solid 1px $secondary50;
+    border-bottom: solid 1px $secondary50;
+  }
+  &__add-trip-button {
+    background-color: $secondary90;
+    color: $primary;
+    @include button-font-bold;
+  }
+  &__sum {
+    display: flex;
+    align-items: center;
+    color: $neutral0;
+    @include subtitle-medium;
+    span {
+      margin-left: 20px;
+      @include subtitle-large;
+      color: $primary;
+      background: linear-gradient(90deg, #11397E 0%, #005ABC 100%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  &__payment-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 0 36px 0 30px;
+    padding-top: 40px;
+  }
+  &__promo-code-icon {
+    width: 55px;
+    height: 16px;
+    font-family: 'Roboto';
+    color: $primary;
+    @include button-font-bold;
+  }
+  &__payment-button {
+    width: 126px;
+    height: 60px;
+    margin-left: 38px;
+    @include button-font-bold;
+  }
+  &__selected-and-payment {
+    color: $neutral30;
+  }
+  @media(max-width: 1128px) {
+    width: 97%;
+    margin: 36px auto 103px;
+  }
+  @media(max-width: 768px) {
+    &__payment-button {
+      width: 106px;
+      height: 56px;
+    }
+  }
+  @media(max-width: 589px) {
+    &__payment-footer {
+      justify-content: center;
+    }
+    &__payment-button {
+      margin-left: 80px;
+    }
+  }
+  @media(max-width: 420px) {
+    &__sum {
+      span {
+        margin-left: 10px;
+        @include subtitle-medium;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-form-field-infix {
+    width: 275px;
+  }
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .mat-mdc-form-field-subscript-wrapper {
+    height: 0;
+  }
+  @media(max-width: 768px) {
+    .mat-mdc-form-field-infix {
+      width: 155px;
+    }
+  }
+}
