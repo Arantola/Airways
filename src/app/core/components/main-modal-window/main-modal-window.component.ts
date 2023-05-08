@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
+import { transformMenu } from '@angular/material/menu';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AIRPORTS } from 'src/app/admin/airports';
 import {
   appSettingsActions,
   bookingActions,
@@ -20,8 +22,6 @@ import { Airport } from 'src/app/shared/interfaces/interfaces';
   styleUrls: ['./main-modal-window.component.scss'],
 })
 export class MainModalWindowComponent implements OnInit, OnDestroy {
-  currentPage: string = 'main';
-
   initialForm!: FormGroup;
 
   isRounded: boolean = true;
@@ -31,23 +31,8 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   passengersDisplay: string = '1 Adult';
 
   isPassengersMenuOpened: boolean = false;
-  // TODO replace mock data with data from api request
-  airports: Airport[] = [
-    {
-      city: 'Amsterdam',
-      iata: 'AMS',
-      name: 'Dyce',
-      country: 'United Kingdom',
-      UTC: '+2',
-    },
-    {
-      city: 'Baku',
-      iata: 'GYD',
-      name: 'Heydar Aliyev',
-      country: 'Azerbaijan',
-      UTC: '+4',
-    },
-  ];
+
+  airports: Airport[] = AIRPORTS;
 
   constructor(
     private store: Store,
@@ -68,6 +53,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     window.addEventListener('click', (e: Event) =>
       this.passengerFocusHandler(e)
     );
+    this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
   }
 
   ngOnDestroy() {
@@ -84,7 +70,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
 
   private initForm() {
     this.initialForm = new FormGroup({
-      type: new FormControl('rounded'),
+      isRounded: new FormControl(true),
       departurePoint: new FormControl(''),
       destinationPoint: new FormControl(''),
       date: new FormGroup({
@@ -123,25 +109,22 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.isRounded = !this.isRounded;
   }
 
+  onTogglePassengerMenu() {
+    this.isPassengersMenuOpened = !this.isPassengersMenuOpened;
+  }
+
   onClickSwitch() {
-    const fromCurrentValue = this.initialForm.get('from')?.value;
-    const destinationCurrentValue = this.initialForm.get('destination')?.value;
-    this.initialForm.get('from')?.setValue(destinationCurrentValue);
-    this.initialForm.get('destination')?.setValue(fromCurrentValue);
+    const departureValue = this.initialForm.get('departurePoint')?.value;
+    const destinationValue = this.initialForm.get('destinationPoint')?.value;
+    this.initialForm.get('departurePoint')?.setValue(destinationValue);
+    this.initialForm.get('destinationPoint')?.setValue(departureValue);
   }
 
   onSubmit() {
     this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
-    );
-    this.store.dispatch(
       bookingActions.updateFirstForm({ currentOrder: this.initialForm.value })
     );
     this.router.navigate(['booking', BOOKING_PAGES[0]]);
-  }
-
-  togglePassengerMenu() {
-    this.isPassengersMenuOpened = !this.isPassengersMenuOpened;
   }
 
   getColor(type: string) {

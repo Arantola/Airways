@@ -1,0 +1,31 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  margin: 20px auto;
+  display: flex;
+  justify-content:center;
+  gap: 20px;
+}
+
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 360px;
+  border-radius: 5px;
+  border: 1px solid $neutral10;
+}
+
+.group {
+  display: flex;
+  gap: 20px;
+}
+
+.time {
+  max-width: 100px;
+}
+
+button,
+mat-divider {
+  margin-bottom: 20px;
+}

@@ -132,6 +132,7 @@ const data: CarouselItem[] = [
   }
 ]
 
+
 enum Animations {
   NONE,
   NEXT,
@@ -147,7 +148,7 @@ export class DateCarouselComponent {
   @Output() itemSelected = new EventEmitter<CarouselItem>();
 
   @Input() selectedTicket?: boolean;
-  
+
   public static readonly NUMBER_OF_SLIDES = 5;
 
   public animation = Animations.NONE;

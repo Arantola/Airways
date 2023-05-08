@@ -50,7 +50,7 @@ export class HeaderComponent {
 
   private trackPage() {
     this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.IsMainPage = currentPage === 'main';
+      this.IsMainPage = currentPage === 'main' || currentPage === 'admin';
     });
   }
 

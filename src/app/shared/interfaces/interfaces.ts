@@ -14,10 +14,10 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom: Flight | undefined;
-  selectedFlightBack: Flight | undefined;
-  passengersInfo: Passenger[];
-  contacts: Contacts;
+  selectedFlightFrom?: Flight | undefined;
+  selectedFlightBack?: Flight | undefined;
+  passengersInfo?: Passenger[];
+  contacts?: Contacts;
 }
 
 interface PassengersCompound {
@@ -38,10 +38,11 @@ interface Flight {
   id: string;
   departurePoint: Airport;
   destinationPoint: Airport;
-  startTime: Date | string | null;
-  travelTime: number | string;
-  price: number | string;
-  avalibleTickets: number;
+  date: string;
+  startTime: string;
+  travelTime: string;
+  price: number;
+  availableTickets: number;
 }
 
 interface PeriodicElement {
@@ -58,7 +59,7 @@ interface Airport {
   name: string;
   city: string;
   country: string;
-  UTC: number | string;
+  UTC: string;
 }
 
 interface Contacts {
@@ -75,6 +76,10 @@ interface Country {
   code: string;
 }
 
+interface FirebaseFlight {
+  [key: string]: Flight;
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -84,5 +89,6 @@ export {
   Airport,
   Contacts,
   Country,
-  PeriodicElement
+  FirebaseFlight,
+  PeriodicElement,
 };

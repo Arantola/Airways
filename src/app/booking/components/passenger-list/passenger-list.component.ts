@@ -14,7 +14,6 @@ import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors'
 import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
 import { FormControlValueAccessorAdapter } from './form-control-value-accessor-adapter';
 
-
 @Component({
   selector: 'app-passenger-list',
   templateUrl: './passenger-list.component.html',
@@ -36,7 +35,7 @@ export class PassengerListComponent
   extends FormControlValueAccessorAdapter
   implements OnInit
 {
-  passengerList!: string[];
+  passengersArray!: string[];
 
   formGroup!: FormGroup;
 
@@ -57,7 +56,7 @@ export class PassengerListComponent
 
   ngOnInit() {
     this.initForm();
-    this.getPassengerList();
+    this.getPassengersArray();
     this.addPassengerForms();
   }
 
@@ -67,9 +66,9 @@ export class PassengerListComponent
     });
   }
 
-  private getPassengerList() {
+  private getPassengersArray() {
     this.store.select(selectPassengersCompound).subscribe((compound) => {
-      this.passengerList = this.transformObjectToArray(compound);
+      this.passengersArray = this.transformObjectToArray(compound);
     });
   }
 
@@ -84,7 +83,7 @@ export class PassengerListComponent
   }
 
   private addPassengerForms() {
-    while (this.passengers.length === this.passengerList.length) {
+    while (this.passengersFormArray.length < this.passengersArray.length) {
       const passengerForm = new FormGroup({
         firstName: new FormControl(),
         lastName: new FormControl(),
@@ -92,11 +91,11 @@ export class PassengerListComponent
         birthday: new FormControl(), // TODO add check birthday and passengerType accordance
         assistance: new FormControl<boolean>(false),
       });
-      this.passengers.push(passengerForm);
+      this.passengersFormArray.push(passengerForm);
     }
   }
 
-  get passengers() {
+  get passengersFormArray() {
     return this.formGroup.controls['passengers'] as FormArray;
   }
 }

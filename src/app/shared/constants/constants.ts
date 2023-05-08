@@ -8,11 +8,10 @@ const PASSENGERS_LIST = [
   ['infants', '0-2 years'],
 ];
 
-const BOOKING_PAGES = [
-  'flight-selection',
-  'passengers',
-  'summary'
-]
+const BOOKING_PAGES = ['flight-selection', 'passengers', 'summary'];
+
+const FIREBASE_ORIGIN = `https://airways-c7c03-default-rtdb.firebaseio.com/`;
+const FIREBASE_FLIGHTS = `${FIREBASE_ORIGIN}flights.json`;
 
 const CART_COLUMNS = [
   'no',
@@ -23,4 +22,11 @@ const CART_COLUMNS = [
   'price',
 ];
 
-export { DATE_FORMATS, CURRENCIES, PASSENGERS_LIST, BOOKING_PAGES, CART_COLUMNS };
+export {
+  DATE_FORMATS,
+  CURRENCIES,
+  PASSENGERS_LIST,
+  BOOKING_PAGES,
+  CART_COLUMNS,
+  FIREBASE_FLIGHTS,
+};
