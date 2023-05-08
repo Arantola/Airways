@@ -42,7 +42,7 @@ interface Flight {
   startTime: string;
   travelTime: string;
   price: number;
-  avalibleTickets: number;
+  availableTickets: number;
 }
 
 interface PeriodicElement {
@@ -89,6 +89,6 @@ export {
   Airport,
   Contacts,
   Country,
-  PeriodicElement,
   FirebaseFlight,
+  PeriodicElement,
 };

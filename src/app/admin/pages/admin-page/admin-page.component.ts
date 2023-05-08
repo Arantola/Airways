@@ -39,7 +39,7 @@ export class AdminPageComponent implements OnInit {
       startTime: new FormControl(),
       travelTime: new FormControl(''),
       price: new FormControl(''),
-      avalibleTickets: new FormControl(''),
+      availableTickets: new FormControl(''),
     });
   }
 
@@ -65,7 +65,11 @@ export class AdminPageComponent implements OnInit {
     this.flightService.getAllFlights();
   }
 
-  generateFlights() {
-    this.generator.generateFlights(this.airports);
+  onGenerateFlights() {
+    this.generator.generateFlights(this.airports, 40);
+  }
+
+  onDeleteFlights() {
+    this.flightService.resetDB();
   }
 }

@@ -55,7 +55,7 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Tickets</mat-label>
-    <input matInput formControlName="avalibleTickets" required>
+    <input matInput formControlName="availableTickets" required>
   </mat-form-field>
   </div>
 
@@ -74,9 +74,11 @@
   </mat-form-field>
 
   <button mat-flat-button color="primary" type="button" (click)="onGetFlightByIATA()">Get flight by IATA</button>
+  <mat-divider></mat-divider>
 
   <button mat-flat-button color="primary" type="button" (click)="onGetFlights()">Get all flights</button>
-
+  <button mat-flat-button color="warn" type="button" (click)="onGenerateFlights()">Generate flights</button>
+  <button mat-flat-button color="warn" type="button" (click)="onDeleteFlights()">Delete all flights</button>
 </div>
 
 

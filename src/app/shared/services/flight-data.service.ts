@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseFlight, Flight } from '../interfaces/interfaces';
 import { map } from 'rxjs';
+import { FIREBASE_FLIGHTS } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -13,30 +14,22 @@ export class FlightDataService {
 
   addFlight(flight: Flight) {
     return this.http
-      .post<FirebaseFlight>(
-        'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json',
-        flight
-      )
+      .post<FirebaseFlight>(FIREBASE_FLIGHTS, flight)
       .subscribe((response) => console.log(response));
   }
 
   resetDB() {
     return this.http
-      .put<FirebaseFlight>(
-        'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json',
-        {}
-      )
+      .put<FirebaseFlight>(FIREBASE_FLIGHTS, {})
       .subscribe((response) => console.log(response));
   }
 
   getFlightsByIATA(departureIata: string, destinationIata: string) {
-    this.flightsByIATA = [];
-    this.http
-      .get<FirebaseFlight>(
-        'https://airways-c7c03-default-rtdb.firebaseio.com/flights.json'
-      )
+    return this.http
+      .get<FirebaseFlight>(FIREBASE_FLIGHTS)
       .pipe(
         map((flights) => {
+          this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
             if (
               value.departurePoint.iata === departureIata &&
@@ -45,25 +38,16 @@ export class FlightDataService {
               this.flightsByIATA.push(value);
             }
           }
+          return this.flightsByIATA;
         })
       )
-      .subscribe();
-    return this.flightsByIATA;
+      .subscribe((data) => console.log(data));
   }
 
   getAllFlights() {
     this.http
-      .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
+      .get<FirebaseFlight>(FIREBASE_FLIGHTS)
       .subscribe((response) => console.log(response));
-  }
-
-  getWeeklyArray() {
-    const weeklyArray: Array<Array<Flight>> = [[], [], [], [], [], [], [], []];
-    for (let flight of this.flightsByIATA) {
-      const day = Number(flight.date.charAt(9));
-      weeklyArray[day - 1].push(flight);
-    }
-    return weeklyArray;
   }
 
   private errorHandler(error: Error) {
