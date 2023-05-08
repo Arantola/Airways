@@ -34,23 +34,49 @@ export class FlightSelectionPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('start flight selection')
     this.order$.subscribe((order) => {
-      console.log(order.isRounded)
       this.order = order;
       this.isRounded = order.isRounded;
 
       if (order.departurePoint?.city !== undefined &&
         order.destinationPoint?.city !== undefined) {
         this.flightService.getFlightsByIATA(order.departurePoint.iata, order.destinationPoint.iata)
-          .subscribe((response) => { console.log(response); this.wayData = response; })
+          .subscribe((response) => { console.log('response', response); this.wayData = response; })
       }
       if (order.isRounded === true &&
         order.departurePoint?.city !== undefined &&
         order.destinationPoint?.city !== undefined) {
         this.flightService.getFlightsByIATA(order.destinationPoint.iata, order.departurePoint.iata)
-          .subscribe((response) => { console.log(response); this.wayBackData = response; })
+          .subscribe((response) => { console.log('response', response); this.wayBackData = response; })
       }
     })
+  }
+
+  get startOrderDate(): Date {
+    let date = this.order?.date?.start;
+
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+
+    if (date === undefined) {
+      date = new Date();
+    }
+
+    return date;
+  }
+
+  get endOrderDate(): Date {
+    let date = this.order?.date?.end;
+
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+
+    if (date === undefined) {
+      date = new Date();
+    }
+
+    return date;
   }
 }

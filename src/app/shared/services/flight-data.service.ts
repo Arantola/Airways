@@ -30,6 +30,7 @@ export class FlightDataService {
       .pipe(
         tap((flights) => console.log(flights)),
         map((flights) => {
+          console.log(flights);
           this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
             if (
@@ -45,10 +46,25 @@ export class FlightDataService {
       );
   }
 
+  getGroupedFlightsByIATA(departureIata: string, destinationIata: string): Observable<Flight[][]> {
+    return this.getFlightsByIATA(departureIata, destinationIata).pipe(
+      map((flights) => this.getWeeklyArray())
+    );
+  }
+
   getAllFlights() {
     this.http
       .get<FirebaseFlight>(FIREBASE_FLIGHTS)
       .subscribe((response) => console.log(response));
+  }
+
+  getWeeklyArray() {
+    const weeklyArray: Array<Array<Flight>> = [[], [], [], [], [], [], []];
+    for (let flight of this.flightsByIATA) {
+      const day = Number(flight.date.charAt(9));
+      weeklyArray[day - 1].push(flight);
+    }
+    return weeklyArray;
   }
 
   private errorHandler(error: Error) {

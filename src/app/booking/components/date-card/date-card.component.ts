@@ -1,6 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { CarouselItem } from '../date-carousel/date-carousel.component';
-import { FirebaseFlight } from 'src/app/shared/interfaces/interfaces';
+
+export interface DateCard {
+  date: Date;
+  price: number;
+  locale: string;
+  currency: string;
+  seats: number;
+}
 
 @Component({
   selector: 'app-date-card',
@@ -8,9 +14,15 @@ import { FirebaseFlight } from 'src/app/shared/interfaces/interfaces';
   styleUrls: ['./date-card.component.scss']
 })
 export class DateCardComponent {
-  @Input()
-  public isSelect = false;
+  @Input() public date = new Date();
+  @Input() public isSelected = false;
+  @Input() public dateCard?: DateCard;
 
-  @Input()
-  public flight?: CarouselItem;
+  get isDisabled(): boolean {
+    return this.dateCard === undefined;
+  }
+
+  get seats(): number {
+    return this.dateCard?.seats ?? 0;
+  }
 }

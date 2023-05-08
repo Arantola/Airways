@@ -1,22 +1,5 @@
-import { Component, Output, EventEmitter, Input, AfterViewInit, OnInit } from '@angular/core';
-import { Flight } from 'src/app/shared/interfaces/interfaces';
-
-export interface CarouselItem {
-  isSelect: boolean;
-  isDisable: boolean;
-  date: Date;
-  price: number | string;
-  seats: number;
-  locale: string;
-  currency: string;
-  wayTo: string;
-  wayFrom: string;
-  startTime: Date | string | null;
-  finishTime: Date | string | null;
-  utcTo: number | string;
-  utcFrom: number | string;
-  wayTime: number | string;
-}
+import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { DateCard } from '../date-card/date-card.component';
 
 enum Animations {
   NONE,
@@ -24,21 +7,32 @@ enum Animations {
   PREV,
 }
 
-const blankObject: CarouselItem = {
-  isSelect: false,
-  isDisable: true,
-  date: new Date,
-  price: '',
-  seats: 0,
-  locale: 'en',
-  currency: '$',
-  wayTo: '',
-  wayFrom: '',
-  startTime: null,
-  finishTime: null,
-  utcTo: 0,
-  utcFrom: 0,
-  wayTime: 0,
+// const blankObject: Flight = {
+//   id: '0',
+//   date: '',
+//   departurePoint: {
+//     iata: '',
+//     name: '',
+//     city: '',
+//     country: '',
+//     UTC: '',
+//   },
+//   destinationPoint: {
+//     iata: '',
+//     name: '',
+//     city: '',
+//     country: '',
+//     UTC: '',
+//   },
+//   startTime: '',
+//   travelTime: '',
+//   price: 0,
+//   avalibleTickets: 0,
+// }
+
+export interface DateCarouselItem {
+  date: Date;
+  dateCard?: DateCard;
 }
 
 @Component({
@@ -46,25 +40,15 @@ const blankObject: CarouselItem = {
   templateUrl: './date-carousel.component.html',
   styleUrls: ['./date-carousel.component.scss']
 })
-export class DateCarouselComponent implements OnInit {
 
-  public static readonly NUMBER_OF_SLIDES = 5;
-  public static readonly NUMBER_OF_DAYS = 7;
-
-  @Output() itemSelected = new EventEmitter<CarouselItem>();
-  @Input() selectedTicket?: boolean;
-  @Input() orderDate?: string | Date | undefined;
+export class DateCarouselComponent implements OnChanges {
+  @Output() dateSelected = new EventEmitter<Date>();
+  @Input() public activeItems: DateCarouselItem[] = [];
+  @Input() public selectedDate = this.today();
 
   public animation = Animations.NONE;
   public isAnimationProcess = false;
-  public selectedItemIndex = 3;
-  public leftItemIndex = 0;
   public displayedItems = this.createDisplayedItems();
-  public data: CarouselItem[] = [];
-
-  public get selectedItem() {
-    return this.data[this.selectedItemIndex]
-  }
 
   public get isNextAnimation(): boolean {
     return this.animation === Animations.NEXT;
@@ -82,72 +66,31 @@ export class DateCarouselComponent implements OnInit {
     return this.isPrevAnimation && this.isAnimationProcess;
   }
 
-  @Input() public set tripData(value: Flight[] | undefined) {
-    console.log('start set trip data');
-    if (value === undefined) {
-      return;
-    }
+  public today(): Date {
+    const now = new Date();
 
-    let orderDate = this.orderDate;
-    if (orderDate === undefined) {
-      return;
-    }
+    const date = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
 
-    if (typeof orderDate === 'string') {
-      orderDate = new Date(orderDate);
-    }
+    return date;
+  }
 
-    const orderDay = orderDate.getDate();
-
-    const dateArray = [
-      new Date(orderDate.setDate(orderDay - 3)),
-      new Date(orderDate.setDate(orderDay - 2)),
-      new Date(orderDate.setDate(orderDay - 1)),
-      new Date(orderDate.setDate(orderDay)),
-      new Date(orderDate.setDate(orderDay + 1)),
-      new Date(orderDate.setDate(orderDay + 2)),
-      new Date(orderDate.setDate(orderDay + 3)),
-    ]
-
-    console.log('value', value)
-
-    const activeDates: CarouselItem[] = value.map((item) => ({
-      isSelect: false,
-      isDisable: false,
-      date: new Date(item.date),
-      price: item.price,
-      seats: item.availableTickets,
-      locale: 'en',
-      currency: '$',
-      wayTo: item.destinationPoint.city,
-      wayFrom: item.departurePoint.city,
-      startTime: item.startTime,
-      finishTime: '12:00',
-      utcTo: item.destinationPoint.UTC,
-      utcFrom: item.departurePoint.UTC,
-      wayTime: item.travelTime,
-    }))
-
-    const length = DateCarouselComponent.NUMBER_OF_DAYS - activeDates.length;
-
-    for(let i = 0; i < length; i++) {
-      activeDates.push(Object.assign({}, blankObject))
-    }
-
-    this.data = activeDates.map((item, index) => {
-      item.date = dateArray[index];
-      return item;
-    })
-
-    console.log('data', this.data)
+  ngOnChanges(changes: SimpleChanges): void {
+      const { selectedDate, activeItems } = changes;
+      if (selectedDate !== undefined || activeItems !== undefined) {
+        this.displayedItems = this.createDisplayedItems();
+      }
   }
 
   public next(): void {
-    const itemIndex = this.leftItemIndex + DateCarouselComponent.NUMBER_OF_SLIDES;
-    const item = this.data[itemIndex];
-    if (item === undefined) {
-      return;
-    }
+    const lastDate = this.displayedItems[this.displayedItems.length - 1].date;
+    const nextDate = new Date(lastDate.getTime());
+    nextDate.setDate(nextDate.getDate() + 1);
+
+    let item = this.createItemByDate(nextDate);
 
     this.displayedItems.push(item);
     this.animation = Animations.NEXT;
@@ -158,11 +101,11 @@ export class DateCarouselComponent implements OnInit {
   }
 
   public prev(): void {
-    const itemIndex = this.leftItemIndex - 1;
-    const item = this.data[itemIndex];
-    if (item === undefined) {
-      return;
-    }
+    const firstDate = this.displayedItems[0].date;
+    const prevDate = new Date(firstDate.getTime());
+    prevDate.setDate(prevDate.getDate() - 1);
+
+    let item = this.createItemByDate(prevDate);
 
     this.displayedItems.unshift(item);
     this.animation = Animations.PREV;
@@ -172,42 +115,62 @@ export class DateCarouselComponent implements OnInit {
     });
   }
 
-  public selectedDate(item: CarouselItem): void {
-    if (item.isDisable === true) {
+  private createItemByDate(date: Date): DateCarouselItem {
+    let item = this.activeItems.find((item) => {
+      return item.date.getTime() == date.getTime();
+    });
+    
+    if (item === undefined) {
+      item = { date };
+    }
+
+    return item;
+  }
+
+  public selectItem(item: DateCarouselItem): void {
+    if (item.dateCard === undefined) {
       return;
     }
 
-    this.selectedItemIndex = this.data.indexOf(item);
-    this.itemSelected.emit(item);
+    this.selectedDate = item.date;
+    this.dateSelected.emit(item.date);
   }
 
   public onTransitionEnd(): void {
     if (this.isNextAnimation) {
-      this.leftItemIndex++;
+      // this.leftItemIndex++;
+      this.displayedItems.shift();
     }
 
     if (this.isPrevAnimation) {
-      this.leftItemIndex--;
+      // this.leftItemIndex--;
+      this.displayedItems.pop();
     }
 
-    this.displayedItems = this.createDisplayedItems();
     this.animation = Animations.NONE;
     this.isAnimationProcess = false;
   }
+  // создание отображаемых айтемов в зависимости от даты (активная или нет)
+  public createDisplayedItems(): DateCarouselItem[] {
+    let date = new Date(this.selectedDate.getTime());
+    date.setDate(date.getDate() - 2);
 
-  public createDisplayedItems(): CarouselItem[] {
-    if (this.data === undefined) {
-      return [];
-    }
+    const dates = [
+      new Date(date.setDate(date.getDate())),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+    ]
 
-    let count = this.data.length - this.leftItemIndex;
-    if (count > DateCarouselComponent.NUMBER_OF_SLIDES) {
-      count = DateCarouselComponent.NUMBER_OF_SLIDES;
-    }
-    return this.data.slice(this.leftItemIndex, this.leftItemIndex + count);
+    return dates.map((date) => this.createItemByDate(date));
   }
 
-  ngOnInit() {
-    console.log('start carousel init')
+  public isItemSelected(item: DateCarouselItem): boolean {
+    return item.date.getTime() == this.selectedDate.getTime();
+  }
+
+  public toDateCard(item: DateCarouselItem): DateCard | undefined {
+    return item.dateCard;
   }
 }

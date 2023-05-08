@@ -1,13 +1,13 @@
 <div class="flight-selection">
   <app-way
     [order]="order"
-    [orderDate]="order?.date?.start"
+    [selectedDate]="startOrderDate"
     [tripData]="wayData"
   ></app-way>
   <app-way
     [order]="order"
-    [orderDate]="order?.date?.end"
-    [tripBackData]="wayBackData"
+    [selectedDate]="endOrderDate"
+    [tripData]="wayBackData"
     *ngIf="isRounded"
     [isWayBack]="true"
   ></app-way>

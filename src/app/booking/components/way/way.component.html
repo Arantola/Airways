@@ -1,41 +1,22 @@
-<div class="way" *ngIf="isWayBack">
-  <div class="way__direction way__direction_way-back">
+<div class="way">
+  <div
+    class="way__direction"
+    [class.way__direction_way-back]="isWayBack"
+  >
     <img src="../../../../assets/icons/airplane.svg" alt="airplane">
     <span class="way__direction-text">
-      {{order?.destinationPoint?.city}} to {{order?.departurePoint?.city}}
+      {{ departurePoint?.city }} to {{ destinationPoint?.city }}
     </span>
   </div>
   <app-date-carousel
-    [tripData]="tripBackData"
-    [orderDate]="orderDate"
-    [selectedTicket]="selectedTicket"
-    (itemSelected)="selectedItem = $event"
+    [activeItems]="activeItems"
+    [selectedDate]="selectedDate"
+    (dateSelected)="selectedDate = $event"
   ></app-date-carousel>
   <app-ticket
-    [tripData]="tripBackData"
+    *ngFor="let flight of getFlightsOnDay(selectedDate)"
     (ticketSelected)="selectedTicket = $event"
-    [flight]="selectedItem"
-    [isWayBack]="isWayBack"
-  ></app-ticket>
-</div>
-
-<div class="way" *ngIf="!isWayBack">
-  <div class="way__direction">
-    <img src="../../../../assets/icons/airplane.svg" alt="airplane">
-    <span class="way__direction-text">
-      {{order?.departurePoint?.city}} to {{order?.destinationPoint?.city}}
-    </span>
-  </div>
-  <app-date-carousel
-    [tripData]="tripData"
-    [orderDate]="orderDate"
-    [selectedTicket]="selectedTicket"
-    (itemSelected)="selectedItem = $event"
-  ></app-date-carousel>
-  <app-ticket
-    [tripData]="tripData"
-    (ticketSelected)="selectedTicket = $event"
-    [flight]="selectedItem"
+    [flight]="flight"
     [isWayBack]="isWayBack"
   ></app-ticket>
 </div>
