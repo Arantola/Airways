@@ -42,7 +42,7 @@ interface Flight {
   startTime: string;
   travelTime: string;
   price: number;
-  avalibleTickets: number;
+  availableTickets: number;
 }
 
 interface Airport {

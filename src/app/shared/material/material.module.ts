@@ -19,6 +19,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDividerModule } from '@angular/material/divider';
 
 const MaterialModules = [
   MatInputModule,
@@ -38,6 +39,7 @@ const MaterialModules = [
   MatCheckboxModule,
   MatTooltipModule,
   MatSlideToggleModule,
+  MatDividerModule
 ];
 
 @NgModule({

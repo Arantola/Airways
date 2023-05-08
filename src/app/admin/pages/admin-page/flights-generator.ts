@@ -8,10 +8,10 @@ import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 export class FlightsGeneratorService {
   constructor(private fs: FlightDataService) {}
 
-  public generateFlights(airports: Airport[]) {
+  public generateFlights(airports: Airport[], quantity: number) {
     for (const departure of airports) {
       for (const destination of airports) {
-        const unicDates = Array.from(new Set(this.formDatesArray(6)));
+        const unicDates = this.formDatesArray(quantity);
         for (const unicDate of unicDates) {
           const flight = this.formFlight(departure, destination, unicDate);
           this.fs.addFlight(flight);
@@ -22,28 +22,28 @@ export class FlightsGeneratorService {
 
   private formFlight(from: Airport, to: Airport, date: string) {
     return {
-      id: `${this.getRandomId()}`,
+      id: this.getRandomId(),
       departurePoint: from,
       destinationPoint: to,
-      date: `${date}`,
-      startTime: `${this.getRandomHours(24)}:${this.getRandomMinutes()}`,
-      travelTime: `${this.getTravelTime()}`,
-      price: this.getRandomNumber(20, 301),
-      avalibleTickets: this.getRandomNumber(1, 101),
+      date: date,
+      startTime: this.getStartTime(),
+      travelTime: this.getTravelTime(),
+      price: this.getNumber(20, 301),
+      availableTickets: this.getNumber(1, 101),
     };
   }
 
   private formDatesArray(quantity: number) {
     const datesArray = [];
     for (let i = 0; i < quantity; i++) {
-      datesArray.push(this.getRandomDate());
+      datesArray.push(this.getDate());
     }
-    return datesArray;
+    return Array.from(new Set(datesArray));
   }
 
   private getRandomId() {
     let result = `${this.getRandomCharacter()}${this.getRandomCharacter()}`;
-    result += Math.round(this.getRandomNumber(1000, 10000));
+    result += Math.round(this.getNumber(1000, 9999));
     return result;
   }
 
@@ -52,29 +52,34 @@ export class FlightsGeneratorService {
   }
 
   private getTravelTime() {
-    const hours = this.getRandomHours(3);
-    let minutes = this.getRandomMinutes();
-    if (hours === '00' && minutes === '00') {
+    const hours = this.getNumber(0, 3);
+    let minutes = this.getMinutes();
+    if (hours === 0 && minutes === '00') {
       minutes = '30';
     }
     return `${hours}:${minutes}`;
   }
 
-  private getRandomHours(max: number) {
+  private getStartTime() {
+    return `${this.getHours(24)}:${this.getMinutes()}`;
+  }
+
+  private getHours(max: number) {
     const number = Math.floor(Math.random() * max);
     return number < 10 ? `0${number}` : `${number}`;
   }
 
-  private getRandomMinutes() {
+  private getMinutes() {
     const number = Math.floor(Math.random() * 6);
     return `${number}0`;
   }
 
-  private getRandomNumber(min: number, max: number) {
+  private getNumber(min: number, max: number) {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  private getRandomDate() {
-    return `${'2023-05-0' + this.getRandomNumber(1, 7)}`;
+  private getDate() {
+    const day = this.getNumber(1, 30);
+    return '2023-05-' + `${day < 10 ? '0' + day : day}`;
   }
 }
