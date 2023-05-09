@@ -1,0 +1,26 @@
+@mixin adaptive-value($maxWidth, $property, $initialSize, $minSize) {
+  $addSize: $initialSize - $minSize;
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+      );
+}
+
+@mixin adaptive-value-less($width, $property, $initialSize, $minSize) {
+  $addSize: $initialSize - $minSize;
+  #{$property}: $initialSize + px;
+  @media (max-width: #{$width + px}) {
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$width - 320})
+      );
+  }
+}
+
+@mixin adaptive-value-more($width, $property, $initialSize, $minSize) {
+  $addSize: $initialSize - $minSize;
+  #{$property}: $initialSize + px;
+  @media (min-width: #{$width + px}) {
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$width - 320})
+      );
+  }
+}
