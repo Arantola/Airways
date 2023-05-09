@@ -94,12 +94,18 @@ export class DateCarouselComponent implements OnChanges {
   }
 
   private createItemByDate(date: Date): DateCarouselItem {
-    let item = this.activeItems.find((item) => {
-      return item.date.getTime() == date.getTime();
-    });
-    
-    if (item === undefined) {
-      item = { date };
+    let item: DateCarouselItem = { date };
+
+    if (date.getTime() - Date.now() < 0) {
+      return item;
+    }
+
+    const foundItem = this.activeItems.find(
+      (item) => item.date.getTime() == date.getTime()
+    );
+
+    if (foundItem !== undefined) {
+      item = foundItem
     }
 
     return item;
