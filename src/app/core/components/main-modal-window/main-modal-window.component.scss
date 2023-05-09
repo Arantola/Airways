@@ -1,27 +1,25 @@
 @import 'src/app/shared/styles/utils';
 
 :host {
-  height: 614px;
-  padding-top: 62px;
-  padding-bottom: 162px;
   display: block;
+  @include adaptive-value-less(620, padding-top, 62, 10);
+  @include adaptive-value-less(620, padding-bottom, 162, 10);
   form {
-    padding: 24px;
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 580px;
-    height: 390px;
+    max-width: 580px;
     background:rgba($neutral100, 0.85);
     border-radius: 8px;
+    @include adaptive-value-less(620, padding, 24, 5);
   }
   mat-radio-group {
     display: flex;
-    margin-bottom: 15px;
+    @include adaptive-value-less(620, margin-bottom, 15, 10);
   }
   mat-radio-button {
     @include button-font;
-    margin-right: 60px;
+    @include adaptive-value-less(620, margin-right, 60, 50);
   }
   mat-form-field {
     display: block;
@@ -30,19 +28,23 @@
   }
   .main-page {
     &__containter-bottom {
-      margin-top: 18px;
+      @include adaptive-value-less(620, margin-top, 18, 5);
       display: flex;
       justify-content: space-between;
       gap: 20px;
+      @media (max-width: 555px) {
+        flex-direction:column-reverse;
+        gap: 24px;
+      }
     }
     &__btn {
-      margin-top: auto;
       @include button-font;
       justify-self: end;
       max-width: 128px;
       height: 60px;
       padding: 20px 37.5px;
       align-self: flex-end;
+      @include adaptive-value-less(555, margin-top, 20, 10)
     }
   }
   .place-options {
@@ -100,7 +102,7 @@ input::-webkit-inner-spin-button {
     z-index: 2;
     margin-top: -5px;
     position: relative;
-    width: 240px;
+    min-width: 240px;
     height: 56px;
   }
   &__display {
