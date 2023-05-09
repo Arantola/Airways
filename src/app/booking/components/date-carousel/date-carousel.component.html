@@ -4,6 +4,7 @@
   [class.date-carousel_next-animation-process]="isNextAnimationProcess"
   [class.date-carousel_prev-animation]="isPrevAnimation"
   [class.date-carousel_prev-animation-process]="isPrevAnimationProcess"
+  *ngIf="!isSelectedTicket"
 >
   <div class="date-carousel__inner">
     <div class="date-carousel__cards" (transitionend)="onTransitionEnd()">

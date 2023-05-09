@@ -12,10 +12,11 @@
     [activeItems]="activeItems"
     [selectedDate]="selectedDate"
     (dateSelected)="selectedDate = $event"
+    [isSelectedTicket]="isSelectedTicket"
   ></app-date-carousel>
   <app-ticket
     *ngFor="let flight of getFlightsOnDay(selectedDate)"
-    (ticketSelected)="selectedTicket = $event"
+    (ticketSelected)="isSelectedTicket = $event"
     [flight]="flight"
     [isWayBack]="isWayBack"
     [currency]="currency"

@@ -80,6 +80,18 @@ interface FirebaseFlight {
   [key: string]: Flight;
 }
 
+interface Ticket {
+  isWayBack: boolean;
+  date: string | undefined;
+  startTime: string | undefined;
+  finishTime: string | undefined;
+  travelTime: string | undefined;
+  departurePoint: Airport | undefined;
+  destinationPoint: Airport | undefined;
+  flightNumber: string;
+  price: number | undefined;
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -91,4 +103,5 @@ export {
   Country,
   FirebaseFlight,
   PeriodicElement,
+  Ticket,
 };

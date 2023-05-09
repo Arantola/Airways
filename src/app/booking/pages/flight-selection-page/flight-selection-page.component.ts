@@ -41,13 +41,13 @@ export class FlightSelectionPageComponent implements OnInit {
       if (order.departurePoint?.city !== undefined &&
         order.destinationPoint?.city !== undefined) {
         this.flightService.getFlightsByIATA(order.departurePoint.iata, order.destinationPoint.iata)
-          .subscribe((response) => { console.log('response', response); this.wayData = response; })
+          .subscribe((response) => { this.wayData = response; })
       }
       if (order.isRounded === true &&
         order.departurePoint?.city !== undefined &&
         order.destinationPoint?.city !== undefined) {
         this.flightService.getFlightsByIATA(order.destinationPoint.iata, order.departurePoint.iata)
-          .subscribe((response) => { console.log('response', response); this.wayBackData = response; })
+          .subscribe((response) => { this.wayBackData = response; })
       }
     })
   }

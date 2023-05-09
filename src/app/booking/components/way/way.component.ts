@@ -16,7 +16,7 @@ export class WayComponent implements OnInit, OnChanges {
   @Input() public tripData?: Flight[];
   @Input() public order?: CurrentOrder;
 
-  public selectedTicket?: boolean;
+  public isSelectedTicket = false;
   public currency = 'EUR';
 
   private settings$ = this.store.select(selectSettingsState);
@@ -32,7 +32,7 @@ export class WayComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const { tripData } = changes;
 
-    if (tripData) {
+    if (tripData && tripData.currentValue) {
       const flights: Flight[] = tripData.currentValue;
 
       this.activeItems = flights.map((flight) => {

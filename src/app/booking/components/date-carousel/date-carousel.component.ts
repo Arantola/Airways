@@ -22,6 +22,7 @@ export class DateCarouselComponent implements OnChanges {
   @Output() dateSelected = new EventEmitter<Date>();
   @Input() public activeItems: DateCarouselItem[] = [];
   @Input() public selectedDate = this.today();
+  @Input() public isSelectedTicket = false;
 
   public animation = Animations.NONE;
   public isAnimationProcess = false;
