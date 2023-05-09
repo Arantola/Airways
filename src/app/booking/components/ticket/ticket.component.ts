@@ -11,6 +11,8 @@ export class TicketComponent {
 
   @Input() flight?: Flight;
 
+  @Input() currency = 'EUR';
+
   public selected = false;
 
   @Output() ticketSelected = new EventEmitter<boolean>();
@@ -41,9 +43,5 @@ export class TicketComponent {
 
   get travelMinutes() {
     return this.flight?.travelTime.split(':')[1];
-  }
-
-  get currency(): string {
-    return '$';
   }
 }

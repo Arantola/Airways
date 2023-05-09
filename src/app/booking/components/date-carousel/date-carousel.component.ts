@@ -7,29 +7,6 @@ enum Animations {
   PREV,
 }
 
-// const blankObject: Flight = {
-//   id: '0',
-//   date: '',
-//   departurePoint: {
-//     iata: '',
-//     name: '',
-//     city: '',
-//     country: '',
-//     UTC: '',
-//   },
-//   destinationPoint: {
-//     iata: '',
-//     name: '',
-//     city: '',
-//     country: '',
-//     UTC: '',
-//   },
-//   startTime: '',
-//   travelTime: '',
-//   price: 0,
-//   avalibleTickets: 0,
-// }
-
 export interface DateCarouselItem {
   date: Date;
   dateCard?: DateCard;
@@ -138,19 +115,17 @@ export class DateCarouselComponent implements OnChanges {
 
   public onTransitionEnd(): void {
     if (this.isNextAnimation) {
-      // this.leftItemIndex++;
       this.displayedItems.shift();
     }
 
     if (this.isPrevAnimation) {
-      // this.leftItemIndex--;
       this.displayedItems.pop();
     }
 
     this.animation = Animations.NONE;
     this.isAnimationProcess = false;
   }
-  // создание отображаемых айтемов в зависимости от даты (активная или нет)
+
   public createDisplayedItems(): DateCarouselItem[] {
     let date = new Date(this.selectedDate.getTime());
     date.setDate(date.getDate() - 2);

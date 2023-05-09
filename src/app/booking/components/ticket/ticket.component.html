@@ -72,7 +72,7 @@
         </div>
         Price
         <div class="ticket__price">
-          {{ currency }}{{ flight.price }}
+          {{ currency | currencySymbol }}{{ flight.price }}
         </div>
       </div>
       <div class="ticket__select">

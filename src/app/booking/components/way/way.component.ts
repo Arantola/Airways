@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DateCarouselItem } from '../date-carousel/date-carousel.component';
 import { Airport, CurrentOrder, Flight } from 'src/app/shared/interfaces/interfaces';
-import { FlightDataService } from 'src/app/shared/services/flight-data.service';
-
+import { Store } from '@ngrx/store';
+import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 @Component({
   selector: 'app-way',
   templateUrl: './way.component.html',
@@ -10,20 +10,23 @@ import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 })
 export class WayComponent implements OnInit, OnChanges {
   @Input() public isWayBack = false;
-
-  @Input() public tripData?: Flight[];
-
   @Input() public activeItems: DateCarouselItem[] = [];
-
-  @Input() public order?: CurrentOrder;
-
   @Input() public selectedDate = new Date();
 
-  public selectedTicket?: boolean;
+  @Input() public tripData?: Flight[];
+  @Input() public order?: CurrentOrder;
 
-  public constructor(
-    private flightService: FlightDataService,
-  ) {
+  public selectedTicket?: boolean;
+  public currency = 'EUR';
+
+  private settings$ = this.store.select(selectSettingsState);
+
+  public constructor(private store: Store) {
+    this.settings$.subscribe(
+      (settings) => {
+        this.currency = settings.currency;
+      }
+    )
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,7 +43,7 @@ export class WayComponent implements OnInit, OnChanges {
           date,
           dateCard: {
             date,
-            currency: '€',
+            currency: this.currency,
             locale: 'en',
             price: flight.price,
             seats: flight.availableTickets,
