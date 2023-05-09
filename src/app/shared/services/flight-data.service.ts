@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseFlight, Flight } from '../interfaces/interfaces';
 import { FIREBASE_FLIGHTS } from '../constants/constants';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +28,7 @@ export class FlightDataService {
     return this.http
       .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
       .pipe(
+        take(2),
         tap((flights) => console.log(flights)),
         map((flights) => {
           console.log(flights);

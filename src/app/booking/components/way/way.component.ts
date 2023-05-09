@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DateCarouselItem } from '../date-carousel/date-carousel.component';
 import { Airport, CurrentOrder, Flight } from 'src/app/shared/interfaces/interfaces';
 import { Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
   templateUrl: './way.component.html',
   styleUrls: ['./way.component.scss']
 })
-export class WayComponent implements OnInit, OnChanges {
+export class WayComponent implements OnChanges {
   @Input() public isWayBack = false;
   @Input() public activeItems: DateCarouselItem[] = [];
   @Input() public selectedDate = new Date();
@@ -69,13 +69,11 @@ export class WayComponent implements OnInit, OnChanges {
     return this.isWayBack ? this.order.destinationPoint : this.order.departurePoint;
   }
 
-  public ngOnInit(): void {
-  }
-
   public getFlightsOnDay(date: Date): Flight[] {
     return this.tripData?.filter((item) => {
       const itemDate = new Date(item.date);
       itemDate.setHours(0, 0, 0);
+
       return itemDate.getTime() == date.getTime();
     }) ?? [];
   }

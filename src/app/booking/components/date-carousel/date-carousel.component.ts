@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { DateCard } from '../date-card/date-card.component';
+import { DateCard } from 'src/app/shared/interfaces/interfaces';
 
 enum Animations {
   NONE,
@@ -19,7 +19,7 @@ export interface DateCarouselItem {
 })
 
 export class DateCarouselComponent implements OnChanges {
-  @Output() dateSelected = new EventEmitter<Date>();
+  @Output() public dateSelected = new EventEmitter<Date>();
   @Input() public activeItems: DateCarouselItem[] = [];
   @Input() public selectedDate = this.today();
   @Input() public isSelectedTicket = false;
@@ -57,10 +57,10 @@ export class DateCarouselComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-      const { selectedDate, activeItems } = changes;
-      if (selectedDate !== undefined || activeItems !== undefined) {
-        this.displayedItems = this.createDisplayedItems();
-      }
+    const { selectedDate, activeItems } = changes;
+    if (selectedDate !== undefined || activeItems !== undefined) {
+      this.displayedItems = this.createDisplayedItems();
+    }
   }
 
   public next(): void {

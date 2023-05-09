@@ -11,17 +11,15 @@ import { Flight } from 'src/app/shared/interfaces/interfaces';
   styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
-  @Input() isWayBack = false;
+  @Input() public isWayBack = false;
+  @Input() public flight?: Flight;
+  @Input() public currency = 'EUR';
 
-  @Input() flight?: Flight;
-
-  @Input() currency = 'EUR';
+  @Output() public ticketSelected = new EventEmitter<boolean>();
 
   public selected = false;
 
   private tickets$ = this.store.select(selectAllTickets);
-
-  @Output() ticketSelected = new EventEmitter<boolean>();
 
   constructor(private store: Store) {
   }
@@ -40,6 +38,7 @@ export class TicketComponent {
     this.store.dispatch(
       bookingActions.deletedTicket({id: this.flight.id})
     );
+
     this.tickets$.pipe(take(1)).subscribe((tickets) => {
       console.log(tickets)
     })
@@ -79,9 +78,12 @@ export class TicketComponent {
     const finishTime = new Date(startDateTime.getTime());
     finishTime.setHours(startDateTime.getHours() + hours, startDateTime.getMinutes() + minutes);
 
-    const hoursFinishTime = finishTime.getHours() < 10 ? `0${finishTime.getHours()}:`:`${finishTime.getHours()}:`;
-    const minutesFinishTime = finishTime.getMinutes() < 10 ? `0${finishTime.getMinutes()}`:`${finishTime.getMinutes()}`;
+    const hoursFinishTime =
+    finishTime.getHours() < 10 ? `0${finishTime.getHours()}:`:`${finishTime.getHours()}:`;
+    const minutesFinishTime =
+    finishTime.getMinutes() < 10 ? `0${finishTime.getMinutes()}`:`${finishTime.getMinutes()}`;
     const finishTimeString = hoursFinishTime + minutesFinishTime;
+
     return finishTimeString;
   }
 

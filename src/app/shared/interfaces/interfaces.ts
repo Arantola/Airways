@@ -92,6 +92,14 @@ interface Ticket {
   price: number | undefined;
 }
 
+interface DateCard {
+  date: Date;
+  price: number;
+  locale: string;
+  currency: string;
+  seats: number;
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -103,5 +111,6 @@ export {
   Country,
   FirebaseFlight,
   PeriodicElement,
+  DateCard,
   Ticket,
 };

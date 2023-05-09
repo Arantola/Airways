@@ -1,12 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-export interface DateCard {
-  date: Date;
-  price: number;
-  locale: string;
-  currency: string;
-  seats: number;
-}
+import { DateCard } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-date-card',
