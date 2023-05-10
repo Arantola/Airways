@@ -17,7 +17,8 @@
       mat-flat-button
       class="flight-selection__button"
       color="primary"
-      (click)="saveTicket()"
+      [disabled]="isContinueButtonDisabled$ | async"
+      (click)="toNextStep()"
     >
       Continue
     </button>

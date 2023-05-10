@@ -34,3 +34,8 @@ export const selectAllTickets = createSelector(
   selectTicketsState,
   selectAll,
 );
+
+export const selectTicketsTotal = createSelector(
+  selectTicketsState,
+  selectTotal
+);
