@@ -65,6 +65,9 @@ export class FlightSelectionPageComponent implements OnInit {
 
   get startOrderDate(): Date {
     let date = this.order?.date?.start;
+    if (!this.isRounded) {
+      date = this.order?.singleDate;
+    }
 
     if (typeof date === 'string') {
       date = new Date(date);
