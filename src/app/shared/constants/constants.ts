@@ -36,4 +36,5 @@ export {
   BOOKING_PAGES,
   CART_COLUMNS,
   FIREBASE_FLIGHTS,
+  CurrencySymbols,
 };

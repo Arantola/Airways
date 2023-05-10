@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs';
 import { bookingActions } from 'src/app/redux/actions/app.actions';
@@ -10,7 +10,7 @@ import { Flight } from 'src/app/shared/interfaces/interfaces';
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.scss']
 })
-export class TicketComponent {
+export class TicketComponent implements OnInit{
   @Input() public isWayBack = false;
   @Input() public flight?: Flight;
   @Input() public currency = 'EUR';
@@ -18,10 +18,15 @@ export class TicketComponent {
   @Output() public ticketSelected = new EventEmitter<boolean>();
 
   public selected = false;
+  public disable = false;
 
   private tickets$ = this.store.select(selectAllTickets);
 
   constructor(private store: Store) {
+  }
+
+  ngOnInit() {
+    this.disable = this.isDisableDate()
   }
 
   public toggleTicket() {
@@ -42,6 +47,14 @@ export class TicketComponent {
     this.tickets$.pipe(take(1)).subscribe((tickets) => {
       console.log(tickets)
     })
+  }
+
+  public isDisableDate(): boolean {
+    if (this.flight && (new Date(this.flight.date).getTime() - Date.now() < 0)) {
+      return true;
+    }
+
+    return false
   }
 
   public saveTicket() {

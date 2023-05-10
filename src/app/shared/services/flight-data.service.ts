@@ -31,7 +31,6 @@ export class FlightDataService {
         take(2),
         tap((flights) => console.log(flights)),
         map((flights) => {
-          console.log(flights);
           this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
             if (

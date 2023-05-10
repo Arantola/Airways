@@ -1,7 +1,7 @@
 <div
   class="ticket"
   [class.ticket_selected]="selected"
-  *ngIf="flight"
+  *ngIf="flight && !disable"
 >
   <div class="ticket__flight-info">
     <div class="ticket__start-time-and-date">
