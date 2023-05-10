@@ -23,4 +23,8 @@ export class StepperComponent implements OnInit {
       this.currentPage = currentPage;
     });
   }
+
+  isCurrentStep(step: number) {
+    return this.currentPage === this.pages[step];
+  }
 }

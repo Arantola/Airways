@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material/dialog';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -13,13 +13,11 @@ import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   public readonly dateFormats = DATE_FORMATS;
-
   public readonly currencies = CURRENCIES;
 
   public selectedDateFormat = this.dateFormats[0];
-
   public selectedCurrency = this.currencies[0];
 
   public IsMainPage = true;
@@ -59,12 +57,14 @@ export class HeaderComponent {
   }
 
   onChangeDateFormat(value: string) {
+    this.selectedDateFormat = value;
     this.store.dispatch(
       appSettingsActions.changeDateFormat({ dateFormat: value })
     );
   }
 
   onChangeCurrency(value: string) {
+    this.selectedCurrency = value;
     this.store.dispatch(appSettingsActions.changeCurrency({ currency: value }));
   }
 }
