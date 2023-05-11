@@ -2,6 +2,13 @@ const DATE_FORMATS = ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY/DD/MM', 'YYYY/MM/DD'];
 
 const CURRENCIES = ['EUR', 'USA', 'RUB', 'PLN'];
 
+enum CurrencySymbols {
+  EUR = '€',
+  USA = '$',
+  RUB = '₽',
+  PLN = 'zł',
+}
+
 const PASSENGERS_LIST = [
   ['adults', '14+ years'],
   ['children', '2-14 years'],
@@ -29,4 +36,5 @@ export {
   BOOKING_PAGES,
   CART_COLUMNS,
   FIREBASE_FLIGHTS,
+  CurrencySymbols,
 };

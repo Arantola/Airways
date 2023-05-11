@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { bookingActions } from '../actions/app.actions';
 
+
 const currentOrderState: CurrentOrder = {
   // main page
   isRounded: true,
@@ -28,7 +29,7 @@ const currentOrderState: CurrentOrder = {
       number: undefined,
     },
     email: undefined,
-  },
+  }
 };
 
 export const currentOrderReducer = createReducer(

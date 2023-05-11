@@ -1,13 +1,24 @@
 <div class="flight-selection">
-  <app-way></app-way>
-  <app-way [isWayBack]="true"></app-way>
+  <app-way
+    [order]="order"
+    [selectedDate]="startOrderDate"
+    [tripData]="wayData"
+  ></app-way>
+  <app-way
+    [order]="order"
+    [selectedDate]="endOrderDate"
+    [tripData]="wayBackData"
+    *ngIf="isRounded"
+    [isWayBack]="true"
+  ></app-way>
   <div class="flight-selection__buttons-group">
     <a class="flight-selection__button flight-selection__button_back" [routerLink]="['/main']">Back</a>
     <button
       mat-flat-button
       class="flight-selection__button"
       color="primary"
-      (click)="saveTicket()"
+      [disabled]="isContinueButtonDisabled$ | async"
+      (click)="toNextStep()"
     >
       Continue
     </button>

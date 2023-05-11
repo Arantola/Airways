@@ -4,6 +4,7 @@ import {
   Contacts,
   CurrentOrder,
   Passenger,
+  Ticket,
 } from 'src/app/shared/interfaces/interfaces';
 
 export const appSettingsActions = createActionGroup({
@@ -23,6 +24,8 @@ export const bookingActions = createActionGroup({
     'Update Passengers Info': props<{ passengersInfo: Passenger[] }>(),
     'Update Contacts': props<{ contacts: Contacts }>(),
     'Get Passengers Compound': props<{ contacts: Contacts }>(),
+    'Selected Ticket': props<{ ticket: Ticket }>(),
+    'Deleted Ticket': props<{ id: string }>(),
   },
 });
 

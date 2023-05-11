@@ -1,23 +1,24 @@
 <div
   class="date-card"
-  *ngIf="flight"
-  [class.date-card_select]="isSelect"
-  [class.date-card_disable]="flight.isDisable"
+  [class.date-card_select]="isSelected"
+  [class.date-card_disable]="isDisabled"
 >
-  <span class="date-card__month">{{ flight.date | date : 'd MMMM' }}</span>
-  <span class="date-card__day">{{ flight.date | date : 'EEEE' }}</span>
-  <span class="date-card__price" *ngIf="!flight.isDisable">{{ flight.price | currency : flight.locale : flight.currency }}</span>
+  <span class="date-card__month">{{ date | date : 'd MMMM' }}</span>
+  <span class="date-card__day">{{ date | date : 'EEEE' }}</span>
+  <span class="date-card__price" *ngIf="dateCard">
+    {{ dateCard.price | currency : dateCard.locale : (dateCard.currency | currencySymbol)}}
+  </span>
   <img
     class="date-card__icon"
-    *ngIf="flight.isDisable"
+    *ngIf="isDisabled"
     src="../../../../assets/icons/no-flight.svg"
-    alt="no flight"
+    alt="no dateCard"
   >
   <div
-    *ngIf="isSelect"
+    *ngIf="isSelected && !isDisabled"
     class="date-card__seat-indicator"
     appIndicatorColor
-    [numberOfSeats]="flight.seats"
+    [numberOfSeats]="seats"
     [fewSeatsColor]="'#B3261E'"
     [enoughSeatsColor]="'#F1C933'"
     [manySeatsColor]="'#7F8906'"

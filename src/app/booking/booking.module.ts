@@ -14,6 +14,7 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
+import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
 
 const BookingComponents = [
   PassengerListComponent,
@@ -29,7 +30,7 @@ const BookingComponents = [
 ];
 
 @NgModule({
-  declarations: [BookingComponents, IndicatorColorDirective],
+  declarations: [BookingComponents, IndicatorColorDirective, CurrencySymbolPipe],
   exports: [BookingComponents],
   imports: [
     CommonModule,

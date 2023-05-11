@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseFlight, Flight } from '../interfaces/interfaces';
-import { map } from 'rxjs';
 import { FIREBASE_FLIGHTS } from '../constants/constants';
+import { map, Observable, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +24,12 @@ export class FlightDataService {
       .subscribe((response) => console.log(response));
   }
 
-  getFlightsByIATA(departureIata: string, destinationIata: string) {
+  getFlightsByIATA(departureIata: string, destinationIata: string): Observable<Flight[]> {
     return this.http
-      .get<FirebaseFlight>(FIREBASE_FLIGHTS)
+      .get('https://airways-c7c03-default-rtdb.firebaseio.com/flights.json')
       .pipe(
+        take(2),
+        tap((flights) => console.log(flights)),
         map((flights) => {
           this.flightsByIATA = [];
           for (let value of Object.values(flights)) {
@@ -38,16 +40,31 @@ export class FlightDataService {
               this.flightsByIATA.push(value);
             }
           }
+
           return this.flightsByIATA;
         })
-      )
-      .subscribe((data) => console.log(data));
+      );
+  }
+
+  getGroupedFlightsByIATA(departureIata: string, destinationIata: string): Observable<Flight[][]> {
+    return this.getFlightsByIATA(departureIata, destinationIata).pipe(
+      map((flights) => this.getWeeklyArray())
+    );
   }
 
   getAllFlights() {
     this.http
       .get<FirebaseFlight>(FIREBASE_FLIGHTS)
       .subscribe((response) => console.log(response));
+  }
+
+  getWeeklyArray() {
+    const weeklyArray: Array<Array<Flight>> = [[], [], [], [], [], [], []];
+    for (let flight of this.flightsByIATA) {
+      const day = Number(flight.date.charAt(9));
+      weeklyArray[day - 1].push(flight);
+    }
+    return weeklyArray;
   }
 
   private errorHandler(error: Error) {
