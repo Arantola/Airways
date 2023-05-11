@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CarouselItem } from '../date-carousel/date-carousel.component';
+import { DateCard } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-date-card',
@@ -7,9 +7,15 @@ import { CarouselItem } from '../date-carousel/date-carousel.component';
   styleUrls: ['./date-card.component.scss']
 })
 export class DateCardComponent {
-  @Input()
-  public isSelect = false;
+  @Input() public date = new Date();
+  @Input() public isSelected = false;
+  @Input() public dateCard?: DateCard;
 
-  @Input()
-  public flight?: CarouselItem;
+  get isDisabled(): boolean {
+    return this.dateCard === undefined;
+  }
+
+  get seats(): number {
+    return this.dateCard?.seats ?? 0;
+  }
 }

@@ -5,9 +5,20 @@
   >
     <img src="../../../../assets/icons/airplane.svg" alt="airplane">
     <span class="way__direction-text">
-      Dublin to Warsaw Modlin
+      {{ departurePoint?.city }} to {{ destinationPoint?.city }}
     </span>
   </div>
-  <app-date-carousel [selectedTicket]="selectedTicket" (itemSelected)="selectedItem = $event"></app-date-carousel>
-  <app-ticket (ticketSelected)="selectedTicket = $event" [flight]="selectedItem" [isWayBack]="isWayBack"></app-ticket>
+  <app-date-carousel
+    [activeItems]="activeItems"
+    [selectedDate]="selectedDate"
+    (dateSelected)="selectedDate = $event"
+    [isSelectedTicket]="isSelectedTicket"
+  ></app-date-carousel>
+  <app-ticket
+    *ngFor="let flight of getFlightsOnDay(selectedDate)"
+    (ticketSelected)="isSelectedTicket = $event"
+    [flight]="flight"
+    [isWayBack]="isWayBack"
+    [currency]="currency"
+  ></app-ticket>
 </div>

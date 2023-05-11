@@ -1,137 +1,5 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-
-export interface CarouselItem {
-  isSelect: boolean;
-  isDisable: boolean;
-  date: Date;
-  price: number;
-  seats: number;
-  locale: string;
-  currency: string;
-  wayTo: string,
-  wayFrom: string,
-  startTime: string,
-  finishTime: string,
-  utcTo: string,
-  utcFrom: string,
-  wayTime: string,
-}
-
-const data: CarouselItem[] = [
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.04.2023"),
-    price: 130,
-    seats: 188,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: true,
-    date: new Date("03.05.2023"),
-    price: 120,
-    seats: 60,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '10:30',
-    finishTime: '12:20',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.06.2023"),
-    price: 90,
-    seats: 6,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '16:50',
-    finishTime: '18:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.07.2023"),
-    price: 160,
-    seats: 60,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '14:40',
-    finishTime: '16:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.08.2023"),
-    price: 110,
-    seats: 100,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '19:40',
-    finishTime: '21:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: true,
-    date: new Date("03.09.2023"),
-    price: 130,
-    seats: 8,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  },
-  {
-    isSelect: false,
-    isDisable: false,
-    date: new Date("03.10.2023"),
-    price: 160,
-    seats: 8,
-    locale: 'en',
-    currency: '$',
-    wayTo: 'Dublin',
-    wayFrom: 'Warsaw Modlin',
-    startTime: '8:40',
-    finishTime: '12:00',
-    utcTo: '+0',
-    utcFrom: '+1',
-    wayTime: '2h 50m',
-  }
-]
-
+import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { DateCard } from 'src/app/shared/interfaces/interfaces';
 
 enum Animations {
   NONE,
@@ -139,31 +7,26 @@ enum Animations {
   PREV,
 }
 
+export interface DateCarouselItem {
+  date: Date;
+  dateCard?: DateCard;
+}
+
 @Component({
   selector: 'app-date-carousel',
   templateUrl: './date-carousel.component.html',
   styleUrls: ['./date-carousel.component.scss']
 })
-export class DateCarouselComponent {
-  @Output() itemSelected = new EventEmitter<CarouselItem>();
 
-  @Input() selectedTicket?: boolean;
-
-  public static readonly NUMBER_OF_SLIDES = 5;
+export class DateCarouselComponent implements OnChanges {
+  @Output() public dateSelected = new EventEmitter<Date>();
+  @Input() public activeItems: DateCarouselItem[] = [];
+  @Input() public selectedDate = this.today();
+  @Input() public isSelectedTicket = false;
 
   public animation = Animations.NONE;
-
   public isAnimationProcess = false;
-
-  public selectedItemIndex = 3;
-
-  public leftItemIndex = 0;
-
   public displayedItems = this.createDisplayedItems();
-
-  public get selectedItem() {
-    return data[this.selectedItemIndex]
-  }
 
   public get isNextAnimation(): boolean {
     return this.animation === Animations.NEXT;
@@ -181,12 +44,31 @@ export class DateCarouselComponent {
     return this.isPrevAnimation && this.isAnimationProcess;
   }
 
-  public next(): void {
-    const itemIndex = this.leftItemIndex + DateCarouselComponent.NUMBER_OF_SLIDES;
-    const item = data[itemIndex];
-    if (item === undefined) {
-      return;
+  public today(): Date {
+    const now = new Date();
+
+    const date = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+    return date;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const { selectedDate, activeItems } = changes;
+    if (selectedDate !== undefined || activeItems !== undefined) {
+      this.displayedItems = this.createDisplayedItems();
     }
+  }
+
+  public next(): void {
+    const lastDate = this.displayedItems[this.displayedItems.length - 1].date;
+    const nextDate = new Date(lastDate.getTime());
+    nextDate.setDate(nextDate.getDate() + 1);
+
+    let item = this.createItemByDate(nextDate);
 
     this.displayedItems.push(item);
     this.animation = Animations.NEXT;
@@ -197,11 +79,11 @@ export class DateCarouselComponent {
   }
 
   public prev(): void {
-    const itemIndex = this.leftItemIndex - 1;
-    const item = data[itemIndex];
-    if (item === undefined) {
-      return;
-    }
+    const firstDate = this.displayedItems[0].date;
+    const prevDate = new Date(firstDate.getTime());
+    prevDate.setDate(prevDate.getDate() - 1);
+
+    let item = this.createItemByDate(prevDate);
 
     this.displayedItems.unshift(item);
     this.animation = Animations.PREV;
@@ -211,35 +93,66 @@ export class DateCarouselComponent {
     });
   }
 
-  public selectedDate(item: CarouselItem): void {
-    if (item.isDisable === true) {
+  private createItemByDate(date: Date): DateCarouselItem {
+    let item: DateCarouselItem = { date };
+
+    if (date.getTime() - Date.now() < 0) {
+      return item;
+    }
+
+    const foundItem = this.activeItems.find(
+      (item) => item.date.getTime() == date.getTime()
+    );
+
+    if (foundItem !== undefined) {
+      item = foundItem
+    }
+
+    return item;
+  }
+
+  public selectItem(item: DateCarouselItem): void {
+    if (item.dateCard === undefined) {
       return;
     }
 
-    this.selectedItemIndex = data.indexOf(item);
-    this.itemSelected.emit(item);
+    this.selectedDate = item.date;
+    this.dateSelected.emit(item.date);
   }
 
   public onTransitionEnd(): void {
     if (this.isNextAnimation) {
-      this.leftItemIndex++;
+      this.displayedItems.shift();
     }
 
     if (this.isPrevAnimation) {
-      this.leftItemIndex--;
+      this.displayedItems.pop();
     }
 
-    this.displayedItems = this.createDisplayedItems();
     this.animation = Animations.NONE;
     this.isAnimationProcess = false;
   }
 
-  public createDisplayedItems(): CarouselItem[] {
-    let count = data.length - this.leftItemIndex;
-    if (count > DateCarouselComponent.NUMBER_OF_SLIDES) {
-      count = DateCarouselComponent.NUMBER_OF_SLIDES;
-    }
+  public createDisplayedItems(): DateCarouselItem[] {
+    let date = new Date(this.selectedDate.getTime());
+    date.setDate(date.getDate() - 2);
 
-    return data.slice(this.leftItemIndex, this.leftItemIndex + count);
+    const dates = [
+      new Date(date.setDate(date.getDate())),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+      new Date(date.setDate(date.getDate() + 1)),
+    ]
+
+    return dates.map((date) => this.createItemByDate(date));
+  }
+
+  public isItemSelected(item: DateCarouselItem): boolean {
+    return item.date.getTime() == this.selectedDate.getTime();
+  }
+
+  public toDateCard(item: DateCarouselItem): DateCard | undefined {
+    return item.dateCard;
   }
 }

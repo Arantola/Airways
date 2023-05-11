@@ -36,9 +36,9 @@ interface Passenger {
 
 interface Flight {
   id: string;
+  date: string;
   departurePoint: Airport;
   destinationPoint: Airport;
-  date: string;
   startTime: string;
   travelTime: string;
   price: number;
@@ -80,6 +80,26 @@ interface FirebaseFlight {
   [key: string]: Flight;
 }
 
+interface Ticket {
+  isWayBack: boolean;
+  date: string | undefined;
+  startTime: string | undefined;
+  finishTime: string | undefined;
+  travelTime: string | undefined;
+  departurePoint: Airport | undefined;
+  destinationPoint: Airport | undefined;
+  flightNumber: string;
+  price: number | undefined;
+}
+
+interface DateCard {
+  date: Date;
+  price: number;
+  locale: string;
+  currency: string;
+  seats: number;
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -91,4 +111,6 @@ export {
   Country,
   FirebaseFlight,
   PeriodicElement,
+  DateCard,
+  Ticket,
 };
