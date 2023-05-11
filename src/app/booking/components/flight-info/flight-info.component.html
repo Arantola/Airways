@@ -1,3 +1,21 @@
-<app-flight-direction></app-flight-direction>
-<app-passenger-info></app-passenger-info>
-<app-passenger-info></app-passenger-info>
+<div class="flight-information">
+  <div class="flight-information__general">
+    <span class="flight-information__general-number">{{ flightInf.numberFlight }}</span>
+    <span class="flight-information__general-direction">{{ flightInfo.departurePoint?.city }} — {{ flightInfo.destinationPoint?.city }}</span>
+  </div>
+  <div class="flight-information__departure">
+    <span class="flight-information__departure-date">{{ flightInf.date }}</span>
+    <span class="flight-information__departure-time">{{ flightInf.departureTime }} — {{ flightInf.arrivalTime }}</span>
+  </div>
+</div>
+
+<div *ngFor="let person of flightInfo.passengersInfo">
+  <div class="passenger">
+    <div class="passenger__name">{{ person.firstName | uppercase }} {{ person.lastName | uppercase }}</div>
+    <ul class="passenger__baggage">
+      <li>1checked bag (total 23 kg) included</li>
+      <li>1 cabin bag + 1 personal item (max. 8 kg) included</li>
+      <li>Seat 19E</li>
+    </ul>
+  </div>
+</div>

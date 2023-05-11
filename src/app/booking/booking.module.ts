@@ -14,8 +14,6 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
-import { FlightDirectionComponent } from './components/flight-info/flight-direction/flight-direction.component';
-import { PassengerInfoComponent } from './components/flight-info/passenger-info/passenger-info.component';
 
 const BookingComponents = [
   PassengerListComponent,
@@ -28,8 +26,6 @@ const BookingComponents = [
   PassengersPageComponent,
   FlightInfoComponent,
   FlightFareComponent,
-  FlightDirectionComponent,
-  PassengerInfoComponent
 ];
 
 @NgModule({

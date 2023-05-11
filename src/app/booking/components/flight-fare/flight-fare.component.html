@@ -1,7 +1,7 @@
 <div class="fare">
   <div class="fare__passenger">
     <div class="fare__passenger-type">
-      <span>1 x Adult Fare</span>
+      <span> {{ flightInfo.passengersCompound.adults }} x Adult Fare</span>
       <span>€257.31</span>
     </div>
     <div class="fare__passenger-base">
@@ -14,9 +14,24 @@
     </div>
   </div>
 
-  <div class="fare__passenger">
+  <div class="fare__passenger" *ngIf="flightInfo.passengersCompound.children">
     <div class="fare__passenger-type">
-      <span>1 x Adult Fare</span>
+      <span> {{ flightInfo.passengersCompound.children }} x Child Fare</span>
+      <span>€257.31</span>
+    </div>
+    <div class="fare__passenger-base">
+      <span>Fare</span>
+      <span>€166.00</span>
+    </div>
+    <div class="fare__passenger-tax">
+      <span>Tax & Service Charge</span>
+      <span>€91.31</span>
+    </div>
+  </div>
+
+  <div class="fare__passenger" *ngIf="flightInfo.passengersCompound.infants">
+    <div class="fare__passenger-type">
+      <span> {{ flightInfo.passengersCompound.infants }} x Infant Fare</span>
       <span>€257.31</span>
     </div>
     <div class="fare__passenger-base">

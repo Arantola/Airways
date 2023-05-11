@@ -10,9 +10,6 @@ import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 })
 export class SummaryPageComponent implements OnInit {
   isRoundTrip = true;
-  // departureCity: string | undefined;
-  // arrivalCity: string | undefined;
-  // departureDate: string | Date |undefined;
   flightInfo!: CurrentOrder;
 
   constructor(
@@ -22,11 +19,7 @@ export class SummaryPageComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectCurrentOrder).subscribe((order) => {
       this.flightInfo = order;
-      // console.log(order);
-      // this.isRoundTrip = order.isRounded;
-      // this.departureCity = order.departurePoint?.city;
-      // this.arrivalCity = order.destinationPoint?.city;
-      // this.departureDate = order.date.start;
     })
+    this.isRoundTrip = this.flightInfo.isRounded;
   }
 }

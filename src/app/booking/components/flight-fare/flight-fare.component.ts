@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-flight-fare',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./flight-fare.component.scss']
 })
 export class FlightFareComponent {
+  @Input() flightInfo!: CurrentOrder;
 
 }

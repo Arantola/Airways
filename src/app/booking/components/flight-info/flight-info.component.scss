@@ -1,3 +1,49 @@
-app-passenger-info:last-child {
-  border-radius: 0 0 8px 8px;
+@import 'src/app/shared/styles/utils';
+
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: block;
+  max-width: 551px;
+}
+
+.flight-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: 100px;
+  padding: 20px 24px;
+  background-color: $secondary80;
+  border-radius: 8px 8px 0 0;
+  border-top: 3px solid $primary;
+  &__general {
+    @include title-medium;
+    &-number {
+      color: $primary;
+    }
+    &-direction {
+      margin-left: 20px;
+    }
+  }
+  &__departure {
+    @include body-large;
+    &-time {
+      margin-left: 36px;
+    }
+  }
+
+}
+
+
+.passenger {
+  background-color: $neutral100;
+  padding: 20px 24px;
+  border: 1px solid $secondary80;
+  max-width: 551px;
+  @include body-large;
+  &__baggage {
+    list-style-type: none;
+    padding-left: 28px;
+  }
 }
