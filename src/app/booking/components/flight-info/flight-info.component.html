@@ -1,21 +1,21 @@
 <div class="flight-information">
   <div class="flight-information__general">
-    <span class="flight-information__general-number">{{ flightInf.numberFlight }}</span>
-    <span class="flight-information__general-direction">{{ flightInfo.departurePoint?.city }} — {{ flightInfo.destinationPoint?.city }}</span>
+    <span class="flight-information__general-number">{{ ticketInfo.flightNumber }}</span>
+    <span class="flight-information__general-direction">{{ ticketInfo.departurePoint?.city }} — {{ ticketInfo.destinationPoint?.city }}</span>
   </div>
   <div class="flight-information__departure">
-    <span class="flight-information__departure-date">{{ flightInf.date }}</span>
-    <span class="flight-information__departure-time">{{ flightInf.departureTime }} — {{ flightInf.arrivalTime }}</span>
+    <span class="flight-information__departure-date">{{ ticketInfo.date | date: 'fullDate' }}</span>
+    <span class="flight-information__departure-time">{{ ticketInfo.startTime }} — {{ ticketInfo.finishTime }}</span>
   </div>
 </div>
 
-<div *ngFor="let person of flightInfo.passengersInfo">
+<div *ngFor="let person of flightInfo.passengersInfo; let i = index">
   <div class="passenger">
     <div class="passenger__name">{{ person.firstName | uppercase }} {{ person.lastName | uppercase }}</div>
     <ul class="passenger__baggage">
       <li>1checked bag (total 23 kg) included</li>
       <li>1 cabin bag + 1 personal item (max. 8 kg) included</li>
-      <li>Seat 19E</li>
+      <li *ngIf="numberSeats[i]">Seat {{ numberSeats[i] }}</li>
     </ul>
   </div>
 </div>

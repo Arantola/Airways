@@ -1,19 +1,37 @@
-import { Component, Input } from '@angular/core';
-import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { Component, Input, OnInit } from '@angular/core';
+import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-flight-info',
   templateUrl: './flight-info.component.html',
   styleUrls: ['./flight-info.component.scss']
 })
-export class FlightInfoComponent {
+export class FlightInfoComponent implements OnInit{
   @Input() flightInfo!: CurrentOrder;
-  flightInf = {
-    numberFlight: 'FR 1925',
-    departure: 'Dublin',
-    arrival: 'Warsaw Modlin',
-    date: 'Wednesday, 1 March, 2023',
-    departureTime: '8:40',
-    arrivalTime: '12:00',
+  @Input() ticketInfo!: Ticket;
+  numberSeats!: Array<string>;
+
+  ngOnInit(): void {
+    this.getRandomSeats();
+  }
+
+  getRandomSeats(): void {
+    const result = [];
+    const seatChar = ['A', 'B', 'C', 'D', 'E', 'F'];
+    const minValueRow = 5;
+    const maxValueRow = 20;
+    const numberOfPassengers = this.flightInfo.passengersCompound.adults + this.flightInfo.passengersCompound.children;
+    let rowNumber = Math.round(Math.random() * (maxValueRow - minValueRow) + minValueRow);
+    let indexChar = Math.round(Math.random() * (seatChar.length - 1));
+    for(let i = 0; i < numberOfPassengers; i++) {
+      if(indexChar > 5) {
+        indexChar = 0;
+        rowNumber++;
+      }
+      let seat = String(rowNumber) + seatChar[indexChar];
+      indexChar++;
+      result.push(seat);
+    }
+    this.numberSeats = result;
   }
 }

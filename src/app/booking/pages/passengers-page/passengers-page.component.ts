@@ -81,6 +81,9 @@ export class PassengersPageComponent implements OnInit {
     this.store.dispatch(
       bookingActions.updateContacts({ contacts: this.contacts })
     );
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
+    );
     this.router.navigate(['booking', BOOKING_PAGES[2]]);
   }
 }
