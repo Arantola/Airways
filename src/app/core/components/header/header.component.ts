@@ -10,6 +10,9 @@ import {
 } from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +34,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private iconService: IconService
+    private iconService: IconService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');

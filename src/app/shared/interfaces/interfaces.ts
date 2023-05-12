@@ -57,15 +57,6 @@ interface Ticket {
   finishTime?: string;
 }
 
-interface PeriodicElement {
-  no: string;
-  flight: string[];
-  typeTrip: string;
-  dataTime: string[];
-  passengers: PassengersCompound;
-  price: number;
-}
-
 interface Airport {
   iata: string;
   name: string;
@@ -130,7 +121,6 @@ export {
   Contacts,
   Country,
   FirebaseFlight,
-  PeriodicElement,
   DateCard,
   Ticket,
   DialogData,

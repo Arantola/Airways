@@ -4,46 +4,20 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Router } from '@angular/router';
 import { BOOKING_PAGES, CART_COLUMNS } from 'src/app/shared/constants/constants';
-import { PeriodicElement } from 'src/app/shared/interfaces/interfaces';
+import { Store } from '@ngrx/store';
+import { selectAllTickets } from 'src/app/redux/selectors/app.selectors';
+import { combineLatest } from 'rxjs';
+import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
+import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    no: 'FR 1925',
-    flight: ['Dublin — Warsaw', 'Modlin — Dublin'],
-    typeTrip: 'Round Trip',
-    dataTime: ['1 Mar, 2023, 8:40 — 12:00', '18 Mar, 2023, 7:40 — 11:00'],
-    passengers: {
-      adults: 1,
-      children: 1,
-      infants: 1,
-    },
-    price: 351,
-  },
-  {
-    no: 'FR 1920',
-    flight: ['Modlin — Dublin', 'Dublin — Warsaw'],
-    typeTrip: 'Round Trip',
-    dataTime: ['2 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
-    passengers: {
-      adults: 1,
-      children: 2,
-      infants: 0,
-    },
-    price: 651,
-  },
-  {
-    no: 'FR 1922',
-    flight: ['Aodlin — Dublin', 'Dublin — Warsaw'],
-    typeTrip: 'Round Trip',
-    dataTime: ['6 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
-    passengers: {
-      adults: 1,
-      children: 2,
-      infants: 0,
-    },
-    price: 551,
-  },
-];
+interface PeriodicElement {
+  no: string;
+  flight: string;
+  typeTrip: string;
+  dataTime: string[];
+  passengers: PassengersCompound;
+  price: number | undefined;
+}
 
 @Component({
   selector: 'app-cart-table',
@@ -51,19 +25,50 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./cart-table.component.scss']
 })
 export class CartTableComponent implements AfterViewInit{
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  ELEMENT_DATA: PeriodicElement[] = [];
+
+  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
 
   @Input() showControls = true;
 
   @Input() showLink = false;
 
+  @Input() currency = 'EUR';
+
+  private tickets$ = this.store.select(selectAllTickets);
+
+  private passengers$ = this.store.select(selectPassengersCompound);
+
+  private tableData$ = combineLatest([
+    this.tickets$,
+    this.passengers$,
+  ]).subscribe(([tickets, passengers]) => {
+
+    for (let ticket of tickets) {
+      let obj = {
+        no: ticket.flightNumber,
+        flight: `${ticket.departurePoint?.city} — ${ticket.destinationPoint?.city}`,
+        typeTrip: 'Round Trip',
+        dataTime: ['6 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
+        passengers,
+        price: ticket.price,
+      };
+
+      this.ELEMENT_DATA.push(obj);
+    }
+  })
+
   @ViewChild(MatSort)
   sort?: MatSort;
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private router: Router) { }
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router,
+    private store: Store
+  ) { }
 
 
-  public get displayedColumns(): string[] {
+  public get displayedColumns(): string[] { 
     let columns = CART_COLUMNS;
 
     if(this.showLink) {

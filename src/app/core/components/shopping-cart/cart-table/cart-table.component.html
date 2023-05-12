@@ -28,10 +28,7 @@
       </th>
       <td class="cart-table__td" mat-cell *matCellDef="let element">
         <div class="cart-table__td-content">
-          <ul>
-            <li *ngIf="element.flight[0]">{{element.flight[0]}}</li>
-            <li *ngIf="element.flight[1]">{{element.flight[1]}}</li>
-          </ul>
+            {{element.flight}}
         </div>
       </td>
     </ng-container>
@@ -62,7 +59,7 @@
     </ng-container>
 
     <ng-container matColumnDef="passengers">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by passengers">
+      <th mat-header-cell *matHeaderCellDef>
         Passengers
       </th>
       <td class="cart-table__td" mat-cell *matCellDef="let element">
@@ -82,7 +79,7 @@
       </th>
       <td class="cart-table__td cart-table__td_price" mat-cell *matCellDef="let element">
         <div class="cart-table__td-content">
-          €{{element.price}}
+          {{ currency | currencySymbol }}{{ element.price }}
         </div>
       </td>
     </ng-container>
