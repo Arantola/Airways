@@ -1,7 +1,9 @@
 import { selectCurrentOrder, selectAllTickets } from './../../../redux/selectors/app.selectors';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
+import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 
 @Component({
   selector: 'app-summary-page',
@@ -15,6 +17,7 @@ export class SummaryPageComponent implements OnInit {
 
   constructor(
     private store: Store,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -25,5 +28,21 @@ export class SummaryPageComponent implements OnInit {
       this.ticketInfoData = tickets;
     })
     this.isRoundTrip = this.flightInfo.isRounded;
+  }
+
+  addToCart() {
+    this.dialog.open(SummaryModalWindowComponent, {
+      data: {
+        type: 'cart',
+      },
+    });
+  }
+
+  payOrder() {
+    this.dialog.open(SummaryModalWindowComponent, {
+      data: {
+        type: 'booking',
+      },
+    });
   }
 }

@@ -100,6 +100,10 @@ interface DateCard {
   seats: number;
 }
 
+interface DialogData {
+  type: string
+}
+
 export {
   AppSettings,
   CurrentOrder,
@@ -113,4 +117,5 @@ export {
   PeriodicElement,
   DateCard,
   Ticket,
+  DialogData,
 };

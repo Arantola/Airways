@@ -1,0 +1,22 @@
+<div class="modal-wrapper" *ngIf="data.type === 'cart'">
+  <h1>Order successfully added to cart!</h1>
+  <button
+    mat-button
+    color="primary"
+    [routerLink]="['/shopping-cart']"
+    mat-dialog-close
+  >Go to Cart</button>
+  <button mat-button mat-dialog-close color="primary">Continue Booking</button>
+</div>
+
+<div  class="modal-wrapper" *ngIf="data.type === 'booking'">
+  <h1>Сonfirm Booking and proceed to Payment?</h1>
+  <button
+    mat-button
+    color="primary"
+    [routerLink]="['/shopping-cart']"
+    mat-dialog-close
+  >Payment</button>
+  <button mat-button mat-dialog-close color="primary">Close</button>
+</div>
+
