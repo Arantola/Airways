@@ -1,12 +1,11 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material/icon';
 import { CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
+import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
   selector: 'app-header',
@@ -25,21 +24,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private iconService: IconService
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'user',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/user.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'basket',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/shopping_basket.svg'
-      )
-    );
+    this.iconService.addPath('user', 'assets/icons/user.svg');
+    this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
   }
 
   ngOnInit() {

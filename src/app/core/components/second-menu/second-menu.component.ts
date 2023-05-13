@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import {
   selectCurrentOrder,
@@ -8,6 +6,7 @@ import {
 } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
   selector: 'app-second-menu',
@@ -20,23 +19,9 @@ export class SecondMenuComponent implements OnInit {
   isEditMode: boolean = false;
   currentOrder!: CurrentOrder;
 
-  constructor(
-    private store: Store,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
-    this.matIconRegistry.addSvgIcon(
-      'account',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/account.svg'
-      )
-    ),
-      this.matIconRegistry.addSvgIcon(
-        'return_trip',
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          '../../../../assets/icons/return_trip.svg'
-        )
-      );
+  constructor(private store: Store, private iconService: IconService) {
+    this.iconService.addPath('account', 'assets/icons/account.svg');
+    this.iconService.addPath('return_trip', 'assets/icons/return_trip.svg');
   }
 
   ngOnInit(): void {

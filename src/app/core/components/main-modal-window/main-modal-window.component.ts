@@ -1,8 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { transformMenu } from '@angular/material/menu';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AIRPORTS } from 'src/app/admin/airports';
@@ -15,6 +12,7 @@ import {
   PASSENGERS_LIST,
 } from 'src/app/shared/constants/constants';
 import { Airport } from 'src/app/shared/interfaces/interfaces';
+import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
   selector: 'app-main-modal-window',
@@ -37,15 +35,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private router: Router,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private iconService: IconService
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'switch',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/switch.svg'
-      )
-    );
+    this.iconService.addPath('switch', 'assets/icons/switch.svg');
   }
 
   ngOnInit() {
