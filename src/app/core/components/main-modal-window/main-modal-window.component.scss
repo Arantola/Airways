@@ -2,8 +2,8 @@
 
 :host {
   display: block;
-  @include adaptive-value-less(620, padding-top, 62, 10);
-  @include adaptive-value-less(620, padding-bottom, 162, 10);
+  @include adaptive-value-less(620, padding-top, 62, 5);
+  @include adaptive-value-less(620, padding-bottom, 162, 5);
   form {
     display: flex;
     flex-direction: column;

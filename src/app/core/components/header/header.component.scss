@@ -1,6 +1,13 @@
 @import '../../../shared/styles/utils';
 
+:host {
+  display: block;
+  max-width: 100%;
+  max-height: 88px;
+}
+
 .header{
+  max-width: 100vw;
   z-index: 10;
   position:fixed;
   top: 0;
@@ -31,37 +38,6 @@
       padding: 5px 0;
     }
   }
-  &__menu {
-    flex-grow: 1;
-    max-width: 550px;
-    display: flex;
-    justify-content: space-between;
-    @include adaptive-value-less(1440, gap, 40, 5);
-    @media (max-width: 1024px) {
-      align-self: flex-end;
-    }
-    @media (max-width: 620px) {
-      align-self: auto;
-      max-width: 100%;
-      gap: 5px;
-    }
-  }
-  &__group {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    gap: 30px;
-    @media (max-width: 1024px) {
-      justify-content: center;
-      flex-direction: column;
-      gap: 10px;
-    }
-  }
-  &__stepper {
-    @media (max-width: 1024px) {
-      order: 2;
-    }
-  }
   &__logo {
     margin-right: auto;
     @media (max-width: 620px) {
@@ -71,26 +47,61 @@
   &__slogan {
     display: flex;
     flex-direction: row-reverse;
-    // justify-items: flex-end;
     flex-grow: 3;
     @media (max-width: 900px) {
       display: none;
     }
   }
+  &__group {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    max-width: 100%;
+    @media (max-width: 1024px) {
+      justify-content: center;
+      flex-direction: column-reverse;
+      gap: 10px;
+    }
+  }
+  &__stepper-alt {
+    display: none;
+    @media (max-width: 620px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      height: 30px;
+      flex-grow: 1;
+      color: $primary;
+      @include title-small;
+    }
+  }
+}
+
+.menu {
+  flex-grow: 1;
+  max-width: 550px;
+  display: flex;
+  justify-content: space-between;
+  @include adaptive-value-less(1440, gap, 40, 5);
+  @media (max-width: 1024px) {
+    align-self: flex-end;
+  }
+  @media (max-width: 620px) {
+    align-self: auto;
+    max-width: 100%;
+    gap: 5px;
+  }
   &__item {
+    text-overflow: ellipsis;
     padding: 10px 16px;
     @media (max-width: 620px) {
       flex-grow: 1;
       height: 50px;
     }
-    &_select {
-      @media (max-width: 620px) {
-        max-width: 140px;
-      }
-    }
   }
   &__button {
-    text-overflow: ellipsis;
     &-date {
       flex-direction: row-reverse;
       overflow: hidden;
@@ -120,10 +131,6 @@
   }
 }
 
-@media (max-width: 1024px) {
-
-}
-
 .date-menu {
   width: 100px;
   &__option {
@@ -139,18 +146,8 @@
   &_black {
     color: $neutral10;
   }
-  &-date {
-    padding-top: 2px;
-    margin-left: -5px;
-    @media (max-width: 620px) {
-      display: none;
-    }
-  }
 }
-
 mat-icon.notranslate.icon.mat-icon-no-color {
-  height: 24px;
-  width: 24px;
   min-height: 24px;
   min-width: 24px;
 }
@@ -158,7 +155,6 @@ mat-icon.notranslate.icon.mat-icon-no-color {
 #date_icon {
   padding-top: 2px;
 }
-
 @media (max-width: 620px) {
   #date_display,
   #date_icon {
@@ -168,7 +164,6 @@ mat-icon.notranslate.icon.mat-icon-no-color {
     display: block;
   }
 }
-
 @media (min-width: 621px) {
   #date_placeholder {
     display: none;
@@ -187,14 +182,8 @@ mat-icon.notranslate.icon.mat-icon-no-color {
       display: none;
     }
   }
-  .header__button-currency .mdc-button__label {
-      width: 35px;
-    }
-  .mat-mdc-select-arrow svg {
-    fill: $neutral100;
-  }
-  .select_booking .mat-mdc-select-arrow svg {
-    fill: $neutral10;
+  .menu__button-currency .mdc-button__label {
+    width: 35px;
   }
   .mdc-notched-outline__trailing,
   .mat-mdc-outlined-button:not(:disabled) {

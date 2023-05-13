@@ -7,14 +7,14 @@
   .container {
     max-width: 1128px;
     margin: 0 auto;
+    @include adaptive-value-less(1128, padding-left, 20, 5);
+    @include adaptive-value-less(1128, padding-right, 20, 5);
   }
   .background {
     width: 100%;
     height: 100%;
     padding-top: 88px;
     background: $neutral80;
-    @include adaptive-value-less(1128, padding-left, 20, 5);
-    @include adaptive-value-less(1128, padding-right, 20, 5);
     &-img{
       background: center / cover no-repeat url(../../../../assets/Background.jpg);
     }

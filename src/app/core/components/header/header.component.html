@@ -7,77 +7,80 @@
     </a>
 
     <div class="header__slogan" *ngIf="IsMainPage">
-      <span class="slogan">Book&nbsp;flights</span>
+      <span>Book&nbsp;flights</span>
     </div>
 
     <div class="header__group">
-    <app-stepper class="header__stepper" *ngIf="!IsMainPage"></app-stepper>
+      <app-stepper *ngIf="!IsMainPage"></app-stepper>
+      <div class="header__stepper-alt" *ngIf="IsMainPage">
+        AIRWAYS&nbsp;Book&nbsp;flights
+      </div>
 
-    <div class="header__menu">
-      <button
-        class="header__item header__button-date"
-        [matMenuTriggerFor]="date"
-        mat-stroked-button
-      >
-        <span id="date_display">{{ selectedDateFormat }}</span>
-        <span id="date_placeholder">DATE</span>
-        <mat-icon id="date_icon" class="icon" [class.icon_black]="!IsMainPage">arrow_drop_down</mat-icon>
-      </button>
+      <div class="header__menu menu">
+        <button
+          class="menu__item menu__button-date"
+          [matMenuTriggerFor]="date"
+          mat-stroked-button
+        >
+          <span id="date_display">{{ selectedDateFormat }}</span>
+          <span id="date_placeholder">DATE</span>
+          <mat-icon id="date_icon" class="icon" [class.icon_black]="!IsMainPage">arrow_drop_down</mat-icon>
+        </button>
 
-        <mat-menu #date="matMenu" class="date-menu">
-          <ng-template matMenuContent>
-            <button
-              class="date-menu__option"
-              *ngFor="let dateFormat of dateFormats"
-              mat-menu-item
-              (click)="onChangeDateFormat(dateFormat)"
-            >
-              {{ dateFormat }}
-              <mat-icon
-                *ngIf="dateFormat === selectedDateFormat"
-                color="primary"
+          <mat-menu #date="matMenu" class="date-menu">
+            <ng-template matMenuContent>
+              <button
+                class="date-menu__option"
+                *ngFor="let dateFormat of dateFormats"
+                mat-menu-item
+                (click)="onChangeDateFormat(dateFormat)"
               >
-                check
-              </mat-icon>
-            </button>
-          </ng-template>
-        </mat-menu>
+                {{ dateFormat }}
+                <mat-icon
+                  *ngIf="dateFormat === selectedDateFormat"
+                  color="primary"
+                >
+                  check
+                </mat-icon>
+              </button>
+            </ng-template>
+          </mat-menu>
 
-      <button
-        class="header__item header__button-currency"
-        [matMenuTriggerFor]="menu"
-        mat-stroked-button
-      >
-        {{ selectedCurrency }}
-      </button>
-        <mat-menu class="header__currency-menu" #menu="matMenu">
-          <ng-template matMenuContent>
-            <button mat-menu-item
-              *ngFor="let currency of currencies"
-              (click)="onChangeCurrency(currency)"
-            >
-              {{ currency }}
-            </button>
-          </ng-template>
-        </mat-menu>
+        <button
+          class="menu__item menu__button-currency"
+          [matMenuTriggerFor]="menu"
+          mat-stroked-button
+        >
+          {{ selectedCurrency }}
+        </button>
+          <mat-menu class="header__currency-menu" #menu="matMenu">
+            <ng-template matMenuContent>
+              <button mat-menu-item
+                *ngFor="let currency of currencies"
+                (click)="onChangeCurrency(currency)"
+              >
+                {{ currency }}
+              </button>
+            </ng-template>
+          </mat-menu>
 
-      <button
-        class="header__item header__button-signin"
-        [class.header__signin-button_booking]="!IsMainPage"
-        mat-stroked-button
-        (click)="toggleAuthWindow()"
-      >
-        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
-        <span  class="header__button-signin-text">Sing&nbsp;in</span>
-      </button>
+        <button
+          class="menu__item menu__button-signin"
+          [class.header__signin-button_booking]="!IsMainPage"
+          mat-stroked-button
+          (click)="toggleAuthWindow()"
+        >
+          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
+          <span class="menu__button-signin-text">Sing&nbsp;in</span>
+        </button>
 
-      <a
-        class="header__item header__button-basket"
-        mat-stroked-button
-        routerLink="shopping-cart">
-        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
-      </a>
-    </div>
+        <a
+          class="menu__item menu__button-basket"
+          mat-stroked-button
+          routerLink="shopping-cart">
+          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
+        </a>
+      </div>
     </div>
 
   </mat-toolbar-row>
