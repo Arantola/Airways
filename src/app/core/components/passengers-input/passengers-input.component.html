@@ -1,0 +1,52 @@
+<mat-form-field class="passengers__field"
+  [matMenuTriggerData]="userMenuData"
+  [matMenuTriggerFor]="passengersMenu"
+  appearance="outline"
+>
+  <mat-label>Passengers</mat-label>
+  <input matInput [value]="passengersDisplay" readonly>
+  <mat-icon matSuffix>arrow_drop_down</mat-icon>
+</mat-form-field>
+
+<mat-menu class="passengers__menu" #passengersMenu="matMenu" hasBackdrop="false">
+  <ng-template matMenuContent let-menuWidth="menuWidth">
+    <div class="passengers__list"
+      [formGroup]="formGroup"
+      (click)="$event.stopPropagation()"
+      (keydown)="$event.stopPropagation()"
+      >
+
+      <div class="option" *ngFor="let passenger of passengerList">
+        <div class="option__info" >
+          <div class="option__type"[class.min-count]="getControlValue(passenger.type) === 0">
+            {{ passenger.type | titlecase }}
+          </div>
+          <p class="option__support">{{ passenger.age }}</p>
+        </div>
+
+        <div class="counter">
+          <button class="button_add" mat-button
+            (click)="decreaseCounter(passenger.type); $event.stopPropagation()"
+            [disabled]="getControlValue(passenger.type) === getMinCount(passenger.type)"
+            >
+            <mat-icon>remove</mat-icon>
+          </button>
+          <input class="counter__display"
+            [class.disabled]="getControlValue(passenger.type) === 0"
+            formControlName="{{ passenger.type }}"
+            value="{{ getControlValue(passenger.type) }}"
+            readonly
+            >
+          <button class="button_remove" mat-button
+            (click)="increaseCounter(passenger.type); $event.stopPropagation()"
+            [disabled]="passengersLimit"
+            >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+</mat-menu>
+

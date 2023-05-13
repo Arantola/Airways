@@ -3,9 +3,9 @@ const DATE_FORMATS = ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY/DD/MM', 'YYYY/MM/DD'];
 const CURRENCIES = ['EUR', 'USA', 'RUB', 'PLN'];
 
 const PASSENGERS_LIST = [
-  ['adults', '14+ years'],
-  ['children', '2-14 years'],
-  ['infants', '0-2 years'],
+  { type: 'adults', age: '14+ years'},
+  { type: 'children', age: '2-14 years'},
+  { type: 'infants', age: '0-2 years'},
 ];
 
 const BOOKING_PAGES = ['flight-selection', 'passengers', 'summary'];

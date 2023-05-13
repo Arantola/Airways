@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
 import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
 import { IconService } from 'src/app/shared/services/icon.service';
-import { FormControlValueAccessorAdapter } from './form-control-value-accessor-adapter';
+import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-control-value-accessor-adapter';
 
 @Component({
   selector: 'app-passenger-list',
@@ -35,7 +35,6 @@ export class PassengerListComponent
   implements OnInit
 {
   passengersArray!: string[];
-
   formGroup!: FormGroup;
 
   constructor(
