@@ -32,7 +32,7 @@
       display: flex;
       justify-content: space-between;
       gap: 20px;
-      @media (max-width: 555px) {
+      @media (max-width: 620px) {
         flex-direction:column-reverse;
         gap: 24px;
       }
@@ -44,7 +44,11 @@
       height: 60px;
       padding: 20px 37.5px;
       align-self: flex-end;
-      @include adaptive-value-less(555, margin-top, 20, 10)
+      @include adaptive-value-less(555, margin-top, 20, 10);
+      @media (max-width: 620px) {
+        max-width: 100%;
+        width: 100%;
+      }
     }
   }
   .place-options {
