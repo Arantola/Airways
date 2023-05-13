@@ -9,7 +9,6 @@
 
 @mixin title-large {
   @include _text-settings(24px, 28px, 700);
-  @include adaptive-value-less(1128, font-size, 24, 20);
 }
 
 @mixin title-medium {
