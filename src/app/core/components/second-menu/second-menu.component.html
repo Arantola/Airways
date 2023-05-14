@@ -26,11 +26,12 @@
   </div>
   <button class="flight__button-edit"
     *ngIf="currentPage === pages[0]"
+    [class.flight__button-edit_on]="isEditMode"
     (click)="onToggleEdit()"
     type="button"
     >
-      <span *ngIf="!isEditMode">Edit flight</span>
-      <span *ngIf="isEditMode">Finish edit</span>
+      <span *ngIf="!isEditMode">Edit</span>
+      <span *ngIf="isEditMode">End&nbsp;edit</span>
   </button>
   <app-second-form *ngIf="isEditMode && currentPage === pages[0]"></app-second-form>
 </div>
