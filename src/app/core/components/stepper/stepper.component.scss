@@ -1,17 +1,16 @@
-@import '../../../shared/styles/abstract';
-@import '../../../shared/styles/typography';
+@import '../../../shared/styles/utils';
 
-.stepper {
+:host {
   display: flex;
+  flex-grow: 1;
   align-items: center;
   gap: 8px;
-  margin: 0 10px;
-  &__header {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  &__step {
+}
+
+.step {
+  display: flex;
+  gap: 8px;
+  &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,10 +22,7 @@
     line-height: 16px;
     color: $neutral100;
     background-color: $neutral30;
-    &.stepper__step_selected-step {
-      background-color: $accent;
-    }
-    &.stepper__step_completed-step {
+    &_registered {
       background-color: $accent;
     }
   }
@@ -34,9 +30,26 @@
     @include label-medium;
     color: $neutral30;
   }
-  &__line {
-    width: 80px;
-    height: 1px;
-    background-color: $neutral40;
+}
+
+.label {
+  &-common {
+    display: block;
+    @media (max-width: 360px) {
+      display: none;
+    }
   }
+  &-narrow {
+    display: none;
+    @media (max-width: 360px) {
+      display: block;
+    }
+  }
+}
+
+.line {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 1px;
+  background-color: $neutral40;
 }

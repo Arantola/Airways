@@ -1,47 +1,28 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
-import {
-  appSettingsActions,
-  bookingActions,
-} from 'src/app/redux/actions/app.actions';
+import { bookingActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
-import {
-  BOOKING_PAGES,
-  PASSENGERS_LIST,
-} from 'src/app/shared/constants/constants';
-import { Airport, CurrentOrder } from 'src/app/shared/interfaces/interfaces';
-import { IconService } from 'src/app/shared/services/icon.service';
+import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
-  selector: 'app-main-modal-window',
-  templateUrl: './main-modal-window.component.html',
-  styleUrls: ['./main-modal-window.component.scss'],
+  selector: 'app-second-form',
+  templateUrl: './second-form.component.html',
+  styleUrls: ['./second-form.component.scss'],
 })
-export class MainModalWindowComponent implements OnInit, OnDestroy {
+export class SecondFormComponent implements OnInit, OnDestroy {
   private subscriptionCurrentOrder!: Subscription;
 
-  readonly passengersList = PASSENGERS_LIST;
-  readonly airports: Airport[] = AIRPORTS;
-
-  isRounded: boolean = true;
-  initialForm!: FormGroup;
   currentOrder!: CurrentOrder;
+  secondForm!: FormGroup;
+  airports = AIRPORTS;
 
-  constructor(
-    private store: Store,
-    private router: Router,
-    private iconService: IconService
-  ) {
-    this.iconService.addPath('switch', 'assets/icons/switch.svg');
-  }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
   }
@@ -51,7 +32,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    this.initialForm = new FormGroup({
+    this.secondForm = new FormGroup({
       isRounded: new FormControl(true, Validators.required),
       departurePoint: new FormControl('', Validators.required),
       destinationPoint: new FormControl('', Validators.required),
@@ -73,7 +54,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   private prefillForm() {
-    this.initialForm.patchValue({
+    this.secondForm.patchValue({
       isRounded: this.currentOrder.isRounded,
       departurePoint: this.currentOrder.departurePoint,
       destinationPoint: this.currentOrder.destinationPoint,
@@ -86,21 +67,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     });
   }
 
-  onRadioChange() {
-    this.isRounded = !this.isRounded;
-  }
-
-  onClickSwitch() {
-    const departureValue = this.initialForm.get('departurePoint')?.value;
-    const destinationValue = this.initialForm.get('destinationPoint')?.value;
-    this.initialForm.get('departurePoint')?.setValue(destinationValue);
-    this.initialForm.get('destinationPoint')?.setValue(departureValue);
-  }
-
-  onSubmit() {
+  onUpdateForm() {
     this.store.dispatch(
-      bookingActions.updateFirstForm({ currentOrder: this.initialForm.value })
+      bookingActions.updateFirstForm({ currentOrder: this.secondForm.value })
     );
-    this.router.navigate(['booking', BOOKING_PAGES[0]]);
   }
 }

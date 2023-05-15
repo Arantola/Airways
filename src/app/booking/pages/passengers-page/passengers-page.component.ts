@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -10,6 +8,7 @@ import {
 } from 'src/app/redux/actions/app.actions';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import phoneCode from 'src/app/shared/constants/CountryCodes.json';
+import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
   selector: 'app-passengers-page',
@@ -23,21 +22,10 @@ export class PassengersPageComponent implements OnInit {
   constructor(
     private store: Store,
     private router: Router,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private iconService: IconService
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'account',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/account.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      'contact',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/contact.svg'
-      )
-    );
+    this.iconService.addPath('account', 'assets/icons/account.svg');
+    this.iconService.addPath('contact', 'assets/icons/contact.svg');
   }
 
   ngOnInit(): void {

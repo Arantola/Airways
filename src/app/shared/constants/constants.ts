@@ -10,9 +10,9 @@ enum CurrencySymbols {
 }
 
 const PASSENGERS_LIST = [
-  ['adults', '14+ years'],
-  ['children', '2-14 years'],
-  ['infants', '0-2 years'],
+  { type: 'adults', age: '14+ years'},
+  { type: 'children', age: '2-14 years'},
+  { type: 'infants', age: '0-2 years'},
 ];
 
 const BOOKING_PAGES = ['flight-selection', 'passengers', 'summary'];

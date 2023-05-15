@@ -21,4 +21,12 @@ export class PageContainerComponent implements OnInit {
       this.currentPage = currentPage;
     });
   }
+
+  get isMainPage() {
+    return this.currentPage === 'main';
+  }
+
+  get isSecondMenuOn() {
+    return !this.isMainPage && this.currentPage !== 'admin';
+  }
 }

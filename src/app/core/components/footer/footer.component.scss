@@ -15,6 +15,11 @@
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.25px;
+  @media (max-width: 700px) {
+    padding: 10px;
+    flex-direction: column-reverse;
+    @include adaptive-value(700, gap, 10, 5);
+  }
   &__copyright {
     color: $primary;
     @include body-medium;
@@ -45,5 +50,8 @@
   &__payments-info {
     @include body-medium;
     margin-right: 16px;
+    @media (max-width: 1000px) {
+      display: none;
+    }
   }
 }

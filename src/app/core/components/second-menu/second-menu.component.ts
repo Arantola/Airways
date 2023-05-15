@@ -1,42 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import {
   selectCurrentOrder,
   selectCurrentPage,
 } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
   selector: 'app-second-menu',
   templateUrl: './second-menu.component.html',
   styleUrls: ['./second-menu.component.scss'],
 })
-export class SecondMenuComponent implements OnInit {
+export class SecondMenuComponent implements OnInit, OnDestroy {
+  private subscriptionCurrentOrder!: Subscription;
+  private subscriptionCurrentPage!: Subscription;
+
   currentPage: string = 'main';
   pages = BOOKING_PAGES;
   isEditMode: boolean = false;
   currentOrder!: CurrentOrder;
 
-  constructor(
-    private store: Store,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
-    this.matIconRegistry.addSvgIcon(
-      'account',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/account.svg'
-      )
-    ),
-      this.matIconRegistry.addSvgIcon(
-        'return_trip',
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          '../../../../assets/icons/return_trip.svg'
-        )
-      );
+  constructor(private store: Store, private iconService: IconService) {
+    this.iconService.addPath('account', 'assets/icons/account.svg');
+    this.iconService.addPath('return_trip', 'assets/icons/return_trip.svg');
   }
 
   ngOnInit(): void {
@@ -44,16 +33,25 @@ export class SecondMenuComponent implements OnInit {
     this.subscribeToCurrentOrder();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptionCurrentOrder.unsubscribe();
+    this.subscriptionCurrentPage.unsubscribe();
+  }
+
   private trackPage() {
-    this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.currentPage = currentPage;
-    });
+    this.subscriptionCurrentPage = this.store
+      .select(selectCurrentPage)
+      .subscribe((currentPage) => {
+        this.currentPage = currentPage;
+      });
   }
 
   private subscribeToCurrentOrder() {
-    this.store.select(selectCurrentOrder).subscribe((currentOrder) => {
-      this.currentOrder = currentOrder;
-    });
+    this.subscriptionCurrentOrder = this.store
+      .select(selectCurrentOrder)
+      .subscribe((currentOrder) => {
+        this.currentOrder = currentOrder;
+      });
   }
 
   get passengersCount() {

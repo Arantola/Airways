@@ -22,3 +22,15 @@ $my-theme: mat.define-light-theme((
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// Initial form inputs
+.mdc-list-item__primary-text {
+  .place-options__top{
+    @include body-large;
+  }
+  .place-options__bottom{
+    color: $neutral30;
+    @include body-medium;
+    margin-bottom: 8px;
+  }
+}

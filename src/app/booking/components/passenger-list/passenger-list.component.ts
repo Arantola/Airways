@@ -7,12 +7,11 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
 import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
-import { FormControlValueAccessorAdapter } from './form-control-value-accessor-adapter';
+import { IconService } from 'src/app/shared/services/icon.service';
+import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-control-value-accessor-adapter';
 
 @Component({
   selector: 'app-passenger-list',
@@ -36,22 +35,15 @@ export class PassengerListComponent
   implements OnInit
 {
   passengersArray!: string[];
-
   formGroup!: FormGroup;
 
   constructor(
     private store: Store,
     private fb: FormBuilder,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private iconService: IconService
   ) {
     super();
-    this.matIconRegistry.addSvgIcon(
-      'wheelchair',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../../assets/icons/wheelchair.svg'
-      )
-    );
+    this.iconService.addPath('wheelchair', 'assets/icons/wheelchair.svg');
   }
 
   ngOnInit() {

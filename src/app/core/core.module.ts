@@ -15,6 +15,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { UserAccountComponent } from './components/user-account/user-account.component';
 import { CartComponent } from './components/shopping-cart/cart/cart.component';
 import { CartTableComponent } from './components/shopping-cart/cart-table/cart-table.component';
+import { SecondFormComponent } from './components/second-form/second-form.component';
+import { PassengersInputComponent } from './components/passengers-input/passengers-input.component';
 
 const CoreComponents = [
   HeaderComponent,
@@ -27,6 +29,8 @@ const CoreComponents = [
   UserAccountComponent,
   CartTableComponent,
   ErrorComponent,
+  SecondFormComponent,
+  PassengersInputComponent,
 ];
 
 @NgModule({

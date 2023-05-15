@@ -1,57 +1,87 @@
-<mat-toolbar
-  class="app-header__toolbar"
-  [class.app-header__toolbar_booking]="!IsMainPage"
+<mat-toolbar class="header"
+  [class.header_booking]="!IsMainPage"
 >
-  <mat-toolbar-row
-    class="app-header__toolbar-content"
-    [class.app-header__toolbar-content_booking]="!IsMainPage"
-  >
-    <img src="../../../../assets/icons/logo.svg" alt="logo airways">
+  <mat-toolbar-row class="header__content">
+    <a class="header__logo" routerLink="main">
+      <img src="../../../../assets/icons/logo.svg" alt="logo airways">
+    </a>
 
-    <span *ngIf="IsMainPage" class="app-header__spacer"></span>
+    <div class="header__slogan" *ngIf="IsMainPage">
+      <span>Book&nbsp;flights</span>
+    </div>
 
-    <app-stepper *ngIf="!IsMainPage"></app-stepper>
+    <div class="header__group">
+      <app-stepper *ngIf="!IsMainPage"></app-stepper>
+      <div class="header__stepper-alt" *ngIf="IsMainPage">
+        AIRWAYS&nbsp;Book&nbsp;flights
+      </div>
 
-    <span *ngIf="IsMainPage">Book flights</span>
+      <div class="header__menu menu">
+        <button
+          class="menu__item menu__button-date"
+          [matMenuTriggerFor]="date"
+          mat-stroked-button
+        >
+          <span id="date_display">{{ selectedDateFormat }}</span>
+          <span id="date_placeholder">DATE</span>
+          <mat-icon id="date_icon" class="icon" [class.icon_black]="!IsMainPage">arrow_drop_down</mat-icon>
+        </button>
 
-    <mat-form-field
-      appearance="outline"
-      color="primary"
-      [class.select_booking]="!IsMainPage"
-    >
-      <mat-select [(ngModel)]="selectedDateFormat" (selectionChange)="onChangeDateFormat($event.value)">
-        <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat" >
-          {{ dateFormat }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+          <mat-menu #date="matMenu" class="date-menu">
+            <ng-template matMenuContent>
+              <button
+                class="date-menu__option"
+                *ngFor="let dateFormat of dateFormats"
+                mat-menu-item
+                (click)="onChangeDateFormat(dateFormat)"
+              >
+                {{ dateFormat }}
+                <mat-icon
+                  *ngIf="dateFormat === selectedDateFormat"
+                  color="primary"
+                >
+                  check
+                </mat-icon>
+              </button>
+            </ng-template>
+          </mat-menu>
 
-    <button mat-stroked-button [matMenuTriggerFor]="menu">{{ selectedCurrency }}</button>
+        <button
+          class="menu__item menu__button-currency"
+          [matMenuTriggerFor]="menu"
+          mat-stroked-button
+        >
+          {{ selectedCurrency }}
+        </button>
+          <mat-menu class="header__currency-menu" #menu="matMenu">
+            <ng-template matMenuContent>
+              <button mat-menu-item
+                *ngFor="let currency of currencies"
+                (click)="onChangeCurrency(currency)"
+              >
+                {{ currency }}
+              </button>
+            </ng-template>
+          </mat-menu>
 
-    <mat-menu #menu="matMenu" class="app-header__currency-menu">
-      <button mat-menu-item
-        *ngFor="let currency of currencies"
-        (click)="selectedCurrency = currency"
-        (click)="onChangeCurrency(currency)"
-      >
-        {{ currency }}
-      </button>
-    </mat-menu>
+        <button
+          class="menu__item menu__button-signin"
+          [class.header__signin-button_booking]="!IsMainPage"
+          mat-stroked-button
+          (click)="toggleAuthWindow()"
+        >
+          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
+          <span class="menu__button-signin-text">Sing&nbsp;in</span>
+        </button>
 
-
-      <button
-        mat-stroked-button
-        class="app-header__signin-button"
-        [class.app-header__signin-button_booking]="!IsMainPage"
-        (click)="toggleAuthWindow()"
-      >
-        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
-        Sing in
-      </button>
-
-      <button class="app-header__basket-button">
-        <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
-      </button>
+        <a
+          class="menu__item menu__button-basket"
+          mat-stroked-button
+          routerLink="shopping-cart">
+          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
+        </a>
+      </div>
+    </div>
 
   </mat-toolbar-row>
 </mat-toolbar>
