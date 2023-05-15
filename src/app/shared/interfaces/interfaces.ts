@@ -1,7 +1,15 @@
+import { TicketsState } from 'src/app/redux/reducers/current-order.reducer';
+
 interface AppSettings {
   dateFormat: string;
   currency: string;
   currentPage: string;
+}
+
+interface saveTicketData {
+  flight: Flight;
+  isWayBack: boolean;
+  finishTime: string;
 }
 
 interface CurrentOrder {
@@ -14,8 +22,7 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom?: Flight | undefined;
-  selectedFlightBack?: Flight | undefined;
+  tickets: TicketsState;
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
@@ -113,4 +120,5 @@ export {
   PeriodicElement,
   DateCard,
   Ticket,
+  saveTicketData
 };

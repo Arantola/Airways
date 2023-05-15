@@ -6,7 +6,7 @@
     class="app-header__toolbar-content"
     [class.app-header__toolbar-content_booking]="!IsMainPage"
   >
-    <img src="../../../../assets/icons/logo.svg" alt="logo airways">
+    <img routerLink="/main" src="../../../../assets/icons/logo.svg" alt="logo airways">
 
     <span *ngIf="IsMainPage" class="app-header__spacer"></span>
 

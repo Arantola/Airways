@@ -11,14 +11,17 @@
   <app-date-carousel
     [activeItems]="activeItems"
     [selectedDate]="selectedDate"
-    (dateSelected)="selectedDate = $event"
     [isSelectedTicket]="isSelectedTicket"
+    (dateSelected)="selectedDate = $event"
   ></app-date-carousel>
   <app-ticket
     *ngFor="let flight of getFlightsOnDay(selectedDate)"
-    (ticketSelected)="isSelectedTicket = $event"
     [flight]="flight"
     [isWayBack]="isWayBack"
     [currency]="currency"
+    [selected]="isSelectedTicket"
+    (ticketSelected)="onTicketSelected($event)"
+    (onSaveTicket)="onTicketSave($event)"
+    (onDeleteTicket)="onTicketDelete($event)"
   ></app-ticket>
 </div>

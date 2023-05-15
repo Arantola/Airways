@@ -1,7 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
 import { bookingActions } from '../actions/app.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
+export type TicketsState = EntityState<Ticket>;
+
+export const ticketsAdapter = createEntityAdapter<Ticket>({
+  selectId: (ticket) => ticket.flightNumber
+});
+
+export const ticketsInitialState: TicketsState = ticketsAdapter.getInitialState();
 
 const currentOrderState: CurrentOrder = {
   // main page
@@ -19,8 +27,7 @@ const currentOrderState: CurrentOrder = {
     infants: 0,
   },
   // selected flight page
-  selectedFlightFrom: undefined,
-  selectedFlightBack: undefined,
+  tickets: ticketsInitialState,
   // passengers page
   passengersInfo: [],
   contacts: {
@@ -35,6 +42,7 @@ const currentOrderState: CurrentOrder = {
 export const currentOrderReducer = createReducer(
   currentOrderState,
   on(bookingActions.updateFirstForm, (state, { currentOrder }) => ({
+    ...state,
     ...currentOrder,
   })),
   on(bookingActions.updatePassengersInfo, (state, { passengersInfo }) => ({
@@ -44,5 +52,13 @@ export const currentOrderReducer = createReducer(
   on(bookingActions.updateContacts, (state, { contacts }) => ({
     ...state,
     contacts: contacts,
-  }))
+  })),
+  on(bookingActions.selectedTicket, (state, { ticket }) => ({
+    ...state,
+    tickets: ticketsAdapter.addOne(ticket, state.tickets),
+  })),
+  on(bookingActions.deletedTicket, (state, { id }) => ({
+    ...state,
+    tickets: ticketsAdapter.removeOne(id, state.tickets),
+  })),
 );
