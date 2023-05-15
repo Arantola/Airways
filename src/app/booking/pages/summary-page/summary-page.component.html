@@ -3,16 +3,15 @@
   <h3 class="title__name">Summary</h3>
 </div>
 <div class="flight-info">
-  <app-flight-info></app-flight-info>
-  <app-flight-info *ngIf="isRoundTrip"></app-flight-info>
+  <app-flight-info [flightInfo]="flightInfo" *ngFor="let ticketInfo of ticketInfoData" [ticketInfo]="ticketInfo"></app-flight-info>
 </div>
 <div
   class="total-fare"
   [ngClass]="{'total-fare_center' : !isRoundTrip}">
-  <app-flight-fare></app-flight-fare>
+  <app-flight-fare [flightInfo]="flightInfo" [ticketInfoData]="ticketInfoData"></app-flight-fare>
 </div>
 <div class="buttons">
-  <a href="" class="buttons__back">Back</a>
-  <button class="buttons__add">Add to order cart</button>
-  <button  class="buttons__buy">Buy now</button>
+  <a [routerLink]="['/booking/passengers']" class="buttons__back">Back</a>
+  <button class="buttons__add" (click)="addToCart()">Add to order cart</button>
+  <button  class="buttons__buy" (click)="payOrder()">Buy now</button>
 </div>

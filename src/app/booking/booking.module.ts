@@ -14,9 +14,8 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
-import { FlightDirectionComponent } from './components/flight-info/flight-direction/flight-direction.component';
-import { PassengerInfoComponent } from './components/flight-info/passenger-info/passenger-info.component';
 import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
+import { SummaryModalWindowComponent } from './components/summary-modal-window/summary-modal-window.component';
 
 const BookingComponents = [
   PassengerListComponent,
@@ -29,12 +28,10 @@ const BookingComponents = [
   PassengersPageComponent,
   FlightInfoComponent,
   FlightFareComponent,
-  FlightDirectionComponent,
-  PassengerInfoComponent
 ];
 
 @NgModule({
-  declarations: [BookingComponents, IndicatorColorDirective, CurrencySymbolPipe],
+  declarations: [BookingComponents, IndicatorColorDirective, CurrencySymbolPipe, SummaryModalWindowComponent],
   exports: [BookingComponents],
   imports: [
     CommonModule,
