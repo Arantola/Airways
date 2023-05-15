@@ -11,8 +11,8 @@
       <mat-select formControlName="departurePoint" placeholder="Choose a departure point">
         <mat-option *ngFor="let from of airports" [value]="from">
           <div class="place-options__group">
-            <span class="place-options__top">{{ from.city }} ({{ from.iata }}) </span>
-            <span class="place-options__bottom">{{ from.name }}, {{ from.country }}</span>
+            <div class="place-options__top">{{ from.city }} ({{ from.iata }}) </div>
+            <div class="place-options__bottom">{{ from.name }}, {{ from.country }}</div>
           </div>
         </mat-option>
       </mat-select>
@@ -23,8 +23,8 @@
       <mat-select formControlName="destinationPoint" placeholder="Choose your destination">
         <mat-option *ngFor="let to of airports" [value]="to">
           <div class="place-options">
-            <span class="place-options__top">{{ to.city }} ({{ to.iata }}) </span>
-            <span class="place-options__bottom">{{ to.name }}, {{ to.country }}</span>
+            <div class="place-options__top">{{ to.city }} ({{ to.iata }}) </div>
+            <div class="place-options__bottom">{{ to.name }}, {{ to.country }}</div>
           </div>
         </mat-option>
       </mat-select>
@@ -58,5 +58,12 @@
     <app-passengers-input formControlName="passengersCompound"></app-passengers-input>
   </div>
 
-  <button class="main-page__btn" mat-flat-button color="primary" type="submit">Search</button>
+  <button class="main-page__btn"
+    [disabled]="!initialForm.valid"
+    color="primary"
+    type="submit"
+    mat-flat-button
+    >
+    Search
+  </button>
 </form>

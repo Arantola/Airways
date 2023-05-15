@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import {
   selectCurrentOrder,
   selectCurrentPage,
@@ -13,7 +14,10 @@ import { IconService } from 'src/app/shared/services/icon.service';
   templateUrl: './second-menu.component.html',
   styleUrls: ['./second-menu.component.scss'],
 })
-export class SecondMenuComponent implements OnInit {
+export class SecondMenuComponent implements OnInit, OnDestroy {
+  private subscriptionCurrentOrder!: Subscription;
+  private subscriptionCurrentPage!: Subscription;
+
   currentPage: string = 'main';
   pages = BOOKING_PAGES;
   isEditMode: boolean = false;
@@ -29,16 +33,25 @@ export class SecondMenuComponent implements OnInit {
     this.subscribeToCurrentOrder();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptionCurrentOrder.unsubscribe();
+    this.subscriptionCurrentPage.unsubscribe();
+  }
+
   private trackPage() {
-    this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.currentPage = currentPage;
-    });
+    this.subscriptionCurrentPage = this.store
+      .select(selectCurrentPage)
+      .subscribe((currentPage) => {
+        this.currentPage = currentPage;
+      });
   }
 
   private subscribeToCurrentOrder() {
-    this.store.select(selectCurrentOrder).subscribe((currentOrder) => {
-      this.currentOrder = currentOrder;
-    });
+    this.subscriptionCurrentOrder = this.store
+      .select(selectCurrentOrder)
+      .subscribe((currentOrder) => {
+        this.currentOrder = currentOrder;
+      });
   }
 
   get passengersCount() {

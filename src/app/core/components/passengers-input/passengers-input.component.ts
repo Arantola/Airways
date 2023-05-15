@@ -1,4 +1,12 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -26,9 +34,15 @@ import { PASSENGERS_LIST } from 'src/app/shared/constants/constants';
     },
   ],
 })
-export class PassengersInputComponent extends FormControlValueAccessorAdapter {
+export class PassengersInputComponent
+  extends FormControlValueAccessorAdapter
+  implements OnInit
+{
   readonly passengerList = PASSENGERS_LIST;
+
   formGroup!: FormGroup;
+
+  @Output() updateInput = new EventEmitter();
 
   @ViewChild(MatMenuTrigger, { static: true }) menuTrigger!: MatMenuTrigger;
   @ViewChild(MatMenuTrigger, { static: true, read: ElementRef })
@@ -60,10 +74,12 @@ export class PassengersInputComponent extends FormControlValueAccessorAdapter {
 
   increaseCounter(type: string) {
     this.formGroup.get(type)?.setValue(this.getControlValue(type) + 1);
+    this.updateInput.emit();
   }
 
   decreaseCounter(type: string) {
     this.formGroup.get(type)?.setValue(this.getControlValue(type) - 1);
+    this.updateInput.emit();
   }
 
   get adults() {

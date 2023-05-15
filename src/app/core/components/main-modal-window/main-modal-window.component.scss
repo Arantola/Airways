@@ -56,15 +56,6 @@
       display: flex;
       flex-direction: column;
     }
-    &__top{
-      display: block;
-      @include body-large;
-    }
-    &__bottom{
-      display: block;
-      color: $neutral30;
-      @include body-medium;
-    }
   }
   .passenger-option {
     display: flex;
