@@ -24,8 +24,8 @@ export const bookingActions = createActionGroup({
     'Update Passengers Info': props<{ passengersInfo: Passenger[] }>(),
     'Update Contacts': props<{ contacts: Contacts }>(),
     'Get Passengers Compound': props<{ contacts: Contacts }>(),
-    'Selected Ticket': props<{ ticket: Ticket }>(),
-    'Deleted Ticket': props<{ id: string }>(),
+    'Update Flight From': props<{ flightFrom: Ticket | undefined }>(),
+    'Update Flight Back': props<{ flightBack: Ticket | undefined }>(),
   },
 });
 

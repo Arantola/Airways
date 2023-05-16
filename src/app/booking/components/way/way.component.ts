@@ -19,7 +19,7 @@ export class WayComponent implements OnChanges {
   @Input() public order?: CurrentOrder;
   
   @Output() ticketSave = new EventEmitter<saveTicketData>();
-  @Output() ticketDelete = new EventEmitter<string>();
+  @Output() ticketDelete = new EventEmitter<boolean>();
 
   public isSelectedTicket = false;
   public currency = 'EUR';
@@ -96,7 +96,7 @@ export class WayComponent implements OnChanges {
     this.ticketSave.emit(saveTicketData);
   }
 
-  public onTicketDelete(id: string): void {
-    this.ticketDelete.emit(id);
+  public onTicketDelete(isWayBack: boolean): void {
+    this.ticketDelete.emit(isWayBack);
   }
 }

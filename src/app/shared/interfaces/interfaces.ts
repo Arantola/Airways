@@ -1,5 +1,3 @@
-import { TicketsState } from 'src/app/redux/reducers/current-order.reducer';
-
 interface AppSettings {
   dateFormat: string;
   currency: string;
@@ -22,7 +20,8 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  tickets: TicketsState;
+  selectedFlightFrom: Ticket | undefined,
+  selectedFlightBack: Ticket | undefined,
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
@@ -50,6 +49,11 @@ interface Flight {
   travelTime: string;
   price: number;
   availableTickets: number;
+}
+
+interface Ticket {
+  flight?: Flight;
+  finishTime?: string;
 }
 
 interface PeriodicElement {
@@ -85,18 +89,6 @@ interface Country {
 
 interface FirebaseFlight {
   [key: string]: Flight;
-}
-
-interface Ticket {
-  isWayBack: boolean;
-  date: string | undefined;
-  startTime: string | undefined;
-  finishTime: string | undefined;
-  travelTime: string | undefined;
-  departurePoint: Airport | undefined;
-  destinationPoint: Airport | undefined;
-  flightNumber: string;
-  price: number | undefined;
 }
 
 interface DateCard {

@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest, Subject, takeUntil } from 'rxjs';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentOrder, selectTicketsTotal } from 'src/app/redux/selectors/app.selectors';
+import { selectFlightBack } from 'src/app/redux/selectors/app.selectors';
+import { selectFlightFrom } from 'src/app/redux/selectors/app.selectors';
+import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { CurrentOrder, Flight, Ticket, saveTicketData } from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
@@ -22,7 +24,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   public tourSelected = false;
 
   private order$ = this.store.select(selectCurrentOrder);
-  public ticketsTotal$ = this.store.select(selectTicketsTotal);
 
   public isContinueButtonDisabled = true;
 
@@ -30,14 +31,30 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     map((order) => order.isRounded)
   )
 
+  public selectedFlightFrom$ = this.order$.pipe(
+    map((order) => order.selectedFlightFrom)
+  )
+
+  public selectedFlightBack$ = this.order$.pipe(
+    map((order) => order.selectedFlightBack)
+  )
+
   public isContinueButtonDisabled$ = combineLatest([
-    this.ticketsTotal$,
+    this.selectedFlightFrom$,
+    this.selectedFlightBack$,
     this.isRounded$,
   ]).pipe(
-    map(([ticketsTotal, isRounded]) => {
-      const expectedTicketsTotal = isRounded ? 2 : 1;
-
-      return ticketsTotal < expectedTicketsTotal;
+    map(([selectedFlightFrom, selectedFlightBack, isRounded]) => {
+      return !(
+        (
+          isRounded &&
+          selectedFlightFrom !== undefined &&
+          selectedFlightBack !== undefined
+        ) || (
+          !isRounded &&
+          selectedFlightFrom !== undefined
+        )
+      )
     })
   );
 
@@ -110,35 +127,40 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 
-  public createTicket(flight: Flight, isWayBack: boolean, finishTime: string): Ticket {
+  public createTicket(flight: Flight, finishTime: string): Ticket {
     return {
-      isWayBack: isWayBack,
-      date: flight.date,
-      startTime: flight.startTime,
+      flight: flight,
       finishTime,
-      travelTime: flight.travelTime,
-      departurePoint: flight.departurePoint,
-      destinationPoint: flight.destinationPoint,
-      flightNumber: flight.id,
-      price: flight.price
     };
   }
 
   public saveTicket(saveTicketData: saveTicketData) {
     console.log('saveTrip')
-      const ticket = this.createTicket(
-        saveTicketData.flight,
-        saveTicketData.isWayBack,
-        saveTicketData.finishTime
-      );
+    const ticket = this.createTicket(
+      saveTicketData.flight,
+      saveTicketData.finishTime
+    );
+
+    if (saveTicketData.isWayBack) {
       this.store.dispatch(
-        bookingActions.selectedTicket({ ticket: ticket })
+        bookingActions.updateFlightBack({ flightBack: ticket })
       );
+    } else {
+      this.store.dispatch(
+        bookingActions.updateFlightFrom({ flightFrom: ticket })
+      );
+    }
   }
 
-  public deleteTicket(id: string): void {
-    this.store.dispatch(
-      bookingActions.deletedTicket({id})
-    );
+  public deleteTicket(isWayBack: boolean): void {
+    if (isWayBack) {
+      this.store.dispatch(
+        bookingActions.updateFlightBack({ flightBack: undefined })
+      );
+    } else {
+      this.store.dispatch(
+        bookingActions.updateFlightFrom({ flightFrom: undefined })
+      );
+    }
   }
 }

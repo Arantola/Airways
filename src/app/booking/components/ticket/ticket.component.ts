@@ -14,7 +14,7 @@ export class TicketComponent implements OnInit{
 
   @Output() public ticketSelected = new EventEmitter<boolean>();
   @Output() public onSaveTicket = new EventEmitter<saveTicketData>();
-  @Output() public onDeleteTicket = new EventEmitter<string>();
+  @Output() public onDeleteTicket = new EventEmitter<boolean>();
 
   public disable = false;
 
@@ -26,7 +26,7 @@ export class TicketComponent implements OnInit{
     if (this.flight === undefined) {
       return
     }
-    this.onDeleteTicket.emit(this.flight.id)
+    this.onDeleteTicket.emit(this.isWayBack)
     this.ticketSelected.emit(false);
   }
 

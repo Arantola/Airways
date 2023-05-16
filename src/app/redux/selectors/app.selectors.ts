@@ -3,7 +3,6 @@ import {
   AppSettings,
   CurrentOrder,
 } from 'src/app/shared/interfaces/interfaces';
-import { ticketsAdapter } from '../reducers/current-order.reducer';
 
 
 export const selectSettingsState =
@@ -22,24 +21,12 @@ export const selectPassengersCompound = createSelector(
   (state) => state.passengersCompound
 );
 
-const {
-  selectAll,
-  selectEntities,
-  selectIds,
-  selectTotal,
-} = ticketsAdapter.getSelectors();
-
-export const selectTicketsState = createSelector(
+export const selectFlightFrom = createSelector(
   selectCurrentOrder,
-  (state) => state.tickets,
+  (state) => state.selectedFlightFrom
 );
 
-export const selectAllTickets = createSelector(
-  selectTicketsState,
-  selectAll,
-);
-
-export const selectTicketsTotal = createSelector(
-  selectTicketsState,
-  selectTotal,
+export const selectFlightBack = createSelector(
+  selectCurrentOrder,
+  (state) => state.selectedFlightBack
 );

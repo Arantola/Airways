@@ -3,14 +3,6 @@ import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
 import { bookingActions } from '../actions/app.actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
-export type TicketsState = EntityState<Ticket>;
-
-export const ticketsAdapter = createEntityAdapter<Ticket>({
-  selectId: (ticket) => ticket.flightNumber
-});
-
-export const ticketsInitialState: TicketsState = ticketsAdapter.getInitialState();
-
 const currentOrderState: CurrentOrder = {
   // main page
   isRounded: true,
@@ -27,7 +19,8 @@ const currentOrderState: CurrentOrder = {
     infants: 0,
   },
   // selected flight page
-  tickets: ticketsInitialState,
+  selectedFlightFrom: undefined,
+  selectedFlightBack: undefined,
   // passengers page
   passengersInfo: [],
   contacts: {
@@ -53,12 +46,12 @@ export const currentOrderReducer = createReducer(
     ...state,
     contacts: contacts,
   })),
-  on(bookingActions.selectedTicket, (state, { ticket }) => ({
+  on(bookingActions.updateFlightFrom, (state, { flightFrom }) => ({
     ...state,
-    tickets: ticketsAdapter.addOne(ticket, state.tickets),
+    selectedFlightFrom: flightFrom,
   })),
-  on(bookingActions.deletedTicket, (state, { id }) => ({
+  on(bookingActions.updateFlightBack, (state, { flightBack }) => ({
     ...state,
-    tickets: ticketsAdapter.removeOne(id, state.tickets),
+    selectedFlightBack: flightBack,
   })),
 );
