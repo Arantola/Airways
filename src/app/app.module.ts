@@ -6,7 +6,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { firebaseConfig } from './firebase/fbconfig';
+import { firebaseConfig } from './fbconfig';
 
 import { StoreModule } from '@ngrx/store';
 import { currentOrderReducer } from './redux/reducers/current-order.reducer';

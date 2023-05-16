@@ -60,12 +60,16 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  get userEmail() {
+  get email() {
     return this.signUpForm.get('userEmail')?.value;
   }
 
-  get userPassword() {
+  get password() {
     return this.signUpForm.get('userPassword')?.value;
+  }
+
+  get name() {
+    return this.signUpForm.get('userFirstName')?.value;
   }
 
   dateValidator(control: FormControl): { [s: string]: boolean } | null {
@@ -85,11 +89,9 @@ export class SignUpComponent implements OnInit {
     return null;
   }
 
-  onSignUp() {
-    if (this.signUpForm.valid) {
-      this.authService.signUp(this.userEmail, this.userPassword);
-      this.userSignUp.emit(true);
-      this.signUpForm.reset();
-    }
+  async onSignUp() {
+    await this.authService.signUp(this.name, this.email, this.password);
+    this.userSignUp.emit(true);
+    this.signUpForm.reset();
   }
 }
