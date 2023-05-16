@@ -22,7 +22,6 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './shared/material/material.module';
 import { BookingModule } from './booking/booking.module';
 import { AdminModule } from './admin/admin.module';
-import { ticketsReducer } from './redux/reducers/tickets.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +35,6 @@ import { ticketsReducer } from './redux/reducers/tickets.reducer';
     StoreModule.forRoot({
       settingsState: appSettingsReducer,
       currentOrderState: currentOrderReducer,
-      tickets: ticketsReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     AppRoutingModule,

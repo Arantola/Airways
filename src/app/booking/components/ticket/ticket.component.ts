@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { take } from 'rxjs';
-import { bookingActions } from 'src/app/redux/actions/app.actions';
-import { selectAllTickets } from 'src/app/redux/selectors/app.selectors';
-import { Flight } from 'src/app/shared/interfaces/interfaces';
+import { Flight, saveTicketData } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-ticket',
@@ -14,72 +10,43 @@ export class TicketComponent implements OnInit{
   @Input() public isWayBack = false;
   @Input() public flight?: Flight;
   @Input() public currency = 'EUR';
+  @Input() selected = false;
 
   @Output() public ticketSelected = new EventEmitter<boolean>();
+  @Output() public onSaveTicket = new EventEmitter<saveTicketData>();
+  @Output() public onDeleteTicket = new EventEmitter<boolean>();
 
-  public selected = false;
   public disable = false;
-
-  private tickets$ = this.store.select(selectAllTickets);
-
-  constructor(private store: Store) {
-  }
 
   ngOnInit() {
     this.disable = this.isDisableDate()
-  }
-
-  public toggleTicket() {
-    this.selected = !this.selected;
-    this.ticketSelected.emit(this.selected);
   }
 
   public deleteTicket() {
     if (this.flight === undefined) {
       return
     }
+    this.onDeleteTicket.emit(this.isWayBack)
+    this.ticketSelected.emit(false);
+  }
 
-    this.toggleTicket();
-    this.store.dispatch(
-      bookingActions.deletedTicket({id: this.flight.id})
-    );
-
-    this.tickets$.pipe(take(1)).subscribe((tickets) => {
-      console.log(tickets)
+  public saveTicket() {
+    if (this.flight === undefined) {
+      return
+    }
+    this.onSaveTicket.emit({
+      flight: this.flight,
+      isWayBack: this.isWayBack,
+      finishTime: this.finishTime
     })
+    this.ticketSelected.emit(true);
   }
 
   public isDisableDate(): boolean {
     if (this.flight && (new Date(this.flight.date).getTime() - Date.now() < 0)) {
       return true;
     }
-
     return false
-  }
-
-  public saveTicket() {
-    if (this.flight === undefined) {
-      return;
-    }
-
-    this.toggleTicket();
-    this.store.dispatch(
-      bookingActions.selectedTicket({ticket: {
-        isWayBack: this.isWayBack,
-        date: this.flight.date,
-        startTime: this.flight.startTime,
-        finishTime: this.finishTime,
-        travelTime: this.flight.travelTime,
-        departurePoint: this.flight.departurePoint,
-        destinationPoint: this.flight.destinationPoint,
-        flightNumber: this.flight.id,
-        price: this.flight.price
-      }})
-    );
-
-    this.tickets$.pipe(take(1)).subscribe((tickets) => {
-      console.log(tickets)
-    })
   }
 
   get finishTime(): string {

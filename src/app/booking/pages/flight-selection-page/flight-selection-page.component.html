@@ -3,13 +3,19 @@
     [order]="order"
     [selectedDate]="startOrderDate"
     [tripData]="wayData"
+    [tourSelected]="tourSelected"
+    (ticketSave)="saveTicket($event)"
+    (ticketDelete)="deleteTicket($event)"
   ></app-way>
   <app-way
+    *ngIf="isRounded"
     [order]="order"
     [selectedDate]="endOrderDate"
     [tripData]="wayBackData"
-    *ngIf="isRounded"
+    [tourSelected]="tourSelected"
     [isWayBack]="true"
+    (ticketSave)="saveTicket($event)"
+    (ticketDelete)="deleteTicket($event)"
   ></app-way>
   <div class="flight-selection__buttons-group">
     <a class="flight-selection__button flight-selection__button_back" [routerLink]="['/main']">Back</a>

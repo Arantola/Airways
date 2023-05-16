@@ -4,6 +4,12 @@ interface AppSettings {
   currentPage: string;
 }
 
+interface saveTicketData {
+  flight: Flight;
+  isWayBack: boolean;
+  finishTime: string;
+}
+
 interface CurrentOrder {
   isRounded: boolean;
   departurePoint: Airport | undefined;
@@ -14,8 +20,8 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom?: Flight | undefined;
-  selectedFlightBack?: Flight | undefined;
+  selectedFlightFrom: Ticket | undefined,
+  selectedFlightBack: Ticket | undefined,
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
@@ -43,6 +49,11 @@ interface Flight {
   travelTime: string;
   price: number;
   availableTickets: number;
+}
+
+interface Ticket {
+  flight?: Flight;
+  finishTime?: string;
 }
 
 interface PeriodicElement {
@@ -80,18 +91,6 @@ interface FirebaseFlight {
   [key: string]: Flight;
 }
 
-interface Ticket {
-  isWayBack: boolean;
-  date: string | undefined;
-  startTime: string | undefined;
-  finishTime: string | undefined;
-  travelTime: string | undefined;
-  departurePoint: Airport | undefined;
-  destinationPoint: Airport | undefined;
-  flightNumber: string;
-  price: number | undefined;
-}
-
 interface DateCard {
   date: Date;
   price: number;
@@ -118,4 +117,5 @@ export {
   DateCard,
   Ticket,
   DialogData,
+  saveTicketData
 };

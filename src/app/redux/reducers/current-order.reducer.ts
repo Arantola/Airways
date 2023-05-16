@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
 import { bookingActions } from '../actions/app.actions';
-
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 const currentOrderState: CurrentOrder = {
   // main page
@@ -35,6 +35,7 @@ const currentOrderState: CurrentOrder = {
 export const currentOrderReducer = createReducer(
   currentOrderState,
   on(bookingActions.updateFirstForm, (state, { currentOrder }) => ({
+    ...state,
     ...currentOrder,
   })),
   on(bookingActions.updatePassengersInfo, (state, { passengersInfo }) => ({
@@ -44,5 +45,13 @@ export const currentOrderReducer = createReducer(
   on(bookingActions.updateContacts, (state, { contacts }) => ({
     ...state,
     contacts: contacts,
-  }))
+  })),
+  on(bookingActions.updateFlightFrom, (state, { flightFrom }) => ({
+    ...state,
+    selectedFlightFrom: flightFrom,
+  })),
+  on(bookingActions.updateFlightBack, (state, { flightBack }) => ({
+    ...state,
+    selectedFlightBack: flightBack,
+  })),
 );
