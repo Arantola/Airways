@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { DateCarouselItem } from '../date-carousel/date-carousel.component';
-import { Airport, CurrentOrder, Flight } from 'src/app/shared/interfaces/interfaces';
+import { Airport, CurrentOrder, Flight, saveTicketData } from 'src/app/shared/interfaces/interfaces';
 import { Store } from '@ngrx/store';
 import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-way',
   templateUrl: './way.component.html',
@@ -12,21 +13,30 @@ export class WayComponent implements OnChanges {
   @Input() public isWayBack = false;
   @Input() public activeItems: DateCarouselItem[] = [];
   @Input() public selectedDate = new Date();
+  @Input() public tourSelected = false;
 
   @Input() public tripData?: Flight[];
   @Input() public order?: CurrentOrder;
+  
+  @Output() ticketSave = new EventEmitter<saveTicketData>();
+  @Output() ticketDelete = new EventEmitter<boolean>();
 
   public isSelectedTicket = false;
   public currency = 'EUR';
 
   private settings$ = this.store.select(selectSettingsState);
+  private settingsSubscription?: Subscription;
 
   public constructor(private store: Store) {
-    this.settings$.subscribe(
+    this.settingsSubscription = this.settings$.subscribe(
       (settings) => {
         this.currency = settings.currency;
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.settingsSubscription?.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -76,5 +86,17 @@ export class WayComponent implements OnChanges {
 
       return itemDate.getTime() == date.getTime();
     }) ?? [];
+  }
+
+  public onTicketSelected(isSelected: boolean): void {
+    this.isSelectedTicket = isSelected;
+  }
+
+  public onTicketSave(saveTicketData: saveTicketData): void {
+    this.ticketSave.emit(saveTicketData);
+  }
+
+  public onTicketDelete(isWayBack: boolean): void {
+    this.ticketDelete.emit(isWayBack);
   }
 }
