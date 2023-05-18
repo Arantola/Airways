@@ -9,6 +9,11 @@
   margin-top: 8px;
   border-radius: 5px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
   &.ticket_selected {
     justify-content: space-between;
     & .ticket__flight-no {
@@ -23,6 +28,22 @@
     width: 60%;
     box-sizing: border-box;
     padding: 27px 20px 27px 40px;
+    @media (max-width: 992px) {
+      width: 100%;
+      padding: 27px 40px 27px 40px;
+      border-bottom: dashed 2px #D0D9DF;
+    }
+    @media (max-width: 576px) {
+      padding: 27px 25px 27px 25px;
+    }
+    @media (max-width: 420px) {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 27px 0px 27px 0px;
+      border-bottom: none;
+    }
   }
   &__flight-no {
     display: flex;
@@ -30,17 +51,66 @@
     align-items: center;
     width: 15%;
     border-right: dashed 2px #D0D9DF;
+    @media (max-width: 992px) {
+      width: 25%;
+      border-right: none;
+    }
+    @media (max-width: 576px) {
+      flex-direction: column;
+      justify-content: center;
+      width: 15%;
+    }
+    @media (max-width: 420px) {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+    }
   }
   &__start-time-and-date {
     width: 25%;
+    @media (max-width: 992px) {
+      width: 20%;
+    }
+    @media (max-width: 768px) {
+      width: 25%;
+    }
+    @media (max-width: 576px) {
+      width: 29%;
+    }
+    @media (max-width: 420px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80%;
+      margin-bottom: 10px;
+    }
   }
   &__time-progress {
     display: flex;
     align-items: center;
     width: 50%;
+    @media (max-width: 992px) {
+      width: 60%;
+    }
+    @media (max-width: 768px) {
+      width: 50%;
+    }
+    @media (max-width: 576px) {
+      width: 40%;
+    }
+    @media (max-width: 420px) {
+      flex-direction: column;
+    }
   }
   &__time-line {
     flex: 1;
+    height: 2px;
+    background-color: #D0D9DF;
+    @media (max-width: 420px) {
+      flex: none;
+      width: 2px;
+      height: 30px;
+    }
   }
   &__flight-time {
     display: flex;
@@ -59,20 +129,56 @@
     flex-direction: column;
     align-items: flex-end;
     width: 25%;
+    @media (max-width: 992px) {
+      width: 20%;
+    }
+    @media (max-width: 768px) {
+      width: 25%;
+    }
+    @media (max-width: 576px) {
+      width: 29%;
+    }
+    @media (max-width: 420px) {
+      align-items: center;
+      width: 80%;
+      margin-top: 10px;
+    }
   }
   &__date {
     @include label-large;
     color: $neutral30;
+    @media (max-width: 576px) {
+      font-size: 12px;
+    }
+    @media (max-width: 420px) {
+      font-size: 20px;
+    }
   }
   &__start-time, &__finish-time {
     @include subtitle-large;
     color: black;
+    @media (max-width: 576px) {
+      font-size: 22px;
+    }
+    @media (max-width: 420px) {
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+    @media (max-width: 576px) {
+      font-size: 24px;
+    }
   }
   &__start-time {
     margin-right: 16px;
+    @media (max-width: 420px) {
+      margin-right: 0px;
+    }
   }
   &__finish-time {
     margin-left: 16px;
+    @media (max-width: 420px) {
+      margin-left: 0px;
+    }
   }
   &__timezone {
     @include body-xsmall;
@@ -85,6 +191,10 @@
   &__time-and-timezone {
     display: flex;
     align-items: center;
+    @media (max-width: 420px) {
+      flex-direction: column;
+      margin: 5px;
+    }
   }
   &__flight-no-text {
     @include body-medium;
@@ -94,24 +204,49 @@
     @include body-medium;
     color: black;
     margin-left: 12px;
+    @media (max-width: 576px) {
+      margin-left: 0px;
+    }
   }
   &__select-and-warning {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
     padding-right: 40px;
     width: 30%;
+    @media (max-width: 992px) {
+      width: 60%;
+    }
+    @media (max-width: 768px) {
+      width: 70%;
+      padding-right: 0px;
+    }
+    @media (max-width: 567px) {
+      width: 75%;
+    }
+    @media (max-width: 420px) {
+      width: 100%;
+      border-top: dashed 2px #D0D9DF;
+    }
   }
   &__select-container {
     display: flex;
     box-sizing: border-box;
     width: 88%;
     padding: 15.5px 0;
+    @media (max-width: 420px) {
+      width: 100%;
+      padding: 15.5px 20px;
+    }
   }
   &__select {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 45%;
+    @media (max-width: 768px) {
+      width: 35%;
+    }
   }
   &__price-and-warning {
     display: flex;
@@ -121,10 +256,22 @@
     width: 55%;
     @include subtitle-small;
     color: $neutral30;
+    @media (max-width: 992px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 70%;
+    }
+    @media (max-width: 768px) {
+      width: 65%;
+    }
   }
   &__price {
     @include subtitle-large;
     color: $primary;
+    @media (max-width: 567px) {
+      font-size: 22px;
+    }
   }
   &__warning {
     width: 100%;
@@ -132,10 +279,9 @@
     padding: 4px 8px 4px 0;
     color: $neutral20;
     @include subtitle-small;
-  }
-  &__time-line {
-    height: 2px;
-    background-color: #D0D9DF;
+    @media (max-width: 992px) {
+      width: 50%;
+    }
   }
   &__select-button {
     font-weight: 500;
