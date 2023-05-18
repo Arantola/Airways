@@ -3,7 +3,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest } from 'rxjs';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentOrder, selectTicketsTotal } from 'src/app/redux/selectors/app.selectors';
+import {
+  selectCurrentOrder,
+  selectTicketsTotal,
+} from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { CurrentOrder, Flight } from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
@@ -23,9 +26,7 @@ export class FlightSelectionPageComponent implements OnInit {
   private order$ = this.store.select(selectCurrentOrder);
   public ticketsTotal$ = this.store.select(selectTicketsTotal);
 
-  public isRounded$ = this.order$.pipe(
-    map((order) => order.isRounded)
-  )
+  public isRounded$ = this.order$.pipe(map((order) => order.isRounded));
 
   public isContinueButtonDisabled$ = combineLatest([
     this.ticketsTotal$,
@@ -45,22 +46,42 @@ export class FlightSelectionPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
+    );
+
     this.order$.subscribe((order) => {
       this.order = order;
       this.isRounded = order.isRounded;
 
-      if (order.departurePoint?.city !== undefined &&
-        order.destinationPoint?.city !== undefined) {
-        this.flightService.getFlightsByIATA(order.departurePoint.iata, order.destinationPoint.iata)
-          .subscribe((response) => { this.wayData = response; })
-      }
-      if (order.isRounded === true &&
+      if (
         order.departurePoint?.city !== undefined &&
-        order.destinationPoint?.city !== undefined) {
-        this.flightService.getFlightsByIATA(order.destinationPoint.iata, order.departurePoint.iata)
-          .subscribe((response) => { this.wayBackData = response; })
+        order.destinationPoint?.city !== undefined
+      ) {
+        this.flightService
+          .getFlightsByIATA(
+            order.departurePoint.iata,
+            order.destinationPoint.iata
+          )
+          .subscribe((response) => {
+            this.wayData = response;
+          });
       }
-    })
+      if (
+        order.isRounded === true &&
+        order.departurePoint?.city !== undefined &&
+        order.destinationPoint?.city !== undefined
+      ) {
+        this.flightService
+          .getFlightsByIATA(
+            order.destinationPoint.iata,
+            order.departurePoint.iata
+          )
+          .subscribe((response) => {
+            this.wayBackData = response;
+          });
+      }
+    });
   }
 
   get startOrderDate(): Date {
@@ -95,9 +116,6 @@ export class FlightSelectionPageComponent implements OnInit {
   }
 
   public toNextStep() {
-    this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
-    );
     this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 }
