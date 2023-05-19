@@ -15,10 +15,9 @@ import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
 import { SummaryModalWindowComponent } from './components/summary-modal-window/summary-modal-window.component';
-import { CurrencySymbolPipe } from '../shared/pipes/currency-symbol.pipe';
 import { SharedModule } from '../shared/shared.module';
 
-const BookingComponents = [
+const bookingComponents = [
   PassengerListComponent,
   DateCardComponent,
   DateCarouselComponent,
@@ -33,19 +32,18 @@ const BookingComponents = [
 
 @NgModule({
   declarations: [
-    BookingComponents,
+    ...bookingComponents,
     IndicatorColorDirective,
-    CurrencySymbolPipe,
     SummaryModalWindowComponent
   ],
-  exports: [BookingComponents],
+  exports: bookingComponents,
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     BookingRoutingModule,
-    SharedModule
+    SharedModule,
   ],
 })
 export class BookingModule {}

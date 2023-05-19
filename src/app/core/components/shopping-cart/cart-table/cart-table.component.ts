@@ -5,13 +5,15 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Router } from '@angular/router';
 import { BOOKING_PAGES, CART_COLUMNS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
-import { selectAllTickets } from 'src/app/redux/selectors/app.selectors';
-import { combineLatest } from 'rxjs';
+import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
+import { combineLatest, tap } from 'rxjs';
 import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
 import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
+import { DatePipe } from '@angular/common';
+import { formatDate } from '@angular/common';
 
 interface PeriodicElement {
-  no: string;
+  no: string | undefined;
   flight: string;
   typeTrip: string;
   dataTime: string[];
@@ -35,28 +37,24 @@ export class CartTableComponent implements AfterViewInit{
 
   @Input() currency = 'EUR';
 
-  private tickets$ = this.store.select(selectAllTickets);
-
-  private passengers$ = this.store.select(selectPassengersCompound);
-
-  private tableData$ = combineLatest([
-    this.tickets$,
-    this.passengers$,
-  ]).subscribe(([tickets, passengers]) => {
-
-    for (let ticket of tickets) {
-      let obj = {
-        no: ticket.flightNumber,
-        flight: `${ticket.departurePoint?.city} — ${ticket.destinationPoint?.city}`,
-        typeTrip: 'Round Trip',
-        dataTime: ['6 Mar, 2023, 8:40 — 12:00', '19 Mar, 2023, 7:40 — 11:00'],
-        passengers,
-        price: ticket.price,
-      };
-
+  private order$ = this.store.select(selectCurrentOrder).subscribe(
+    (order) => {
+      let obj: PeriodicElement = {
+        no: order.selectedFlightFrom?.flight?.id,
+        flight: `${order.departurePoint?.city} — ${order.destinationPoint?.city} — ${order.departurePoint?.city}`,
+        typeTrip: order.isRounded ? 'Round trip' : 'One way',
+        dataTime: [
+          `${this.transformDateFormat(order.selectedFlightFrom?.flight?.date)},
+          ${order.selectedFlightFrom?.flight?.startTime} — ${order.selectedFlightFrom?.finishTime}`,
+          `${this.transformDateFormat(order.selectedFlightBack?.flight?.date)},
+          ${order.selectedFlightBack?.flight?.startTime} — ${order.selectedFlightBack?.finishTime}`
+        ],
+        passengers: order.passengersCompound,
+        price: 0,
+      }
       this.ELEMENT_DATA.push(obj);
     }
-  })
+  );
 
   @ViewChild(MatSort)
   sort?: MatSort;
@@ -66,6 +64,14 @@ export class CartTableComponent implements AfterViewInit{
     private router: Router,
     private store: Store
   ) { }
+
+  private transformDateFormat(date: string | undefined) {
+    if (date === undefined) {
+      return;
+    }
+    const newDate = formatDate(date, 'd, MMM, YYYY', 'en')
+    return newDate;
+  }
 
 
   public get displayedColumns(): string[] { 
