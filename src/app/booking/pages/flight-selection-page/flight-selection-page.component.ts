@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest, Subject, takeUntil } from 'rxjs';
+import { map, combineLatest, Subject, takeUntil, take } from 'rxjs';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
@@ -99,6 +99,8 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
       singleDate,
       date: { start: dateStart, end: dateEnd },
       passengersCompound: { adults, children, infants },
+      selectedFlightFrom: undefined,
+      selectedFlightBack: undefined
     };
 
     console.log(currentOrder);
@@ -114,6 +116,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
     );
+    this.loadPropsFromUrl();
 
     this.order$.pipe(takeUntil(this.destroy$)).subscribe((order) => {
       this.order = order;

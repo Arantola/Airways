@@ -21,8 +21,8 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom?: Ticket;
-  selectedFlightBack?: Ticket;
+  selectedFlightFrom?: Ticket,
+  selectedFlightBack?: Ticket,
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
