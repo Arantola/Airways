@@ -1,5 +1,6 @@
 @media (max-width: 992px) {
   .ticket {
+    flex-flow: column nowrap;
     &__flight-no, &__flight-info, &__select-and-warning {
       padding: 0 40px;
       width: 100%;
