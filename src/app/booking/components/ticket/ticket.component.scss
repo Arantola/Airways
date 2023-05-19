@@ -1,116 +1,51 @@
 @import '../../../shared/styles/abstract';
 @import '../../../shared/styles/typography';
-
 .ticket {
   display: flex;
+  flex-flow: row wrap;
   justify-content: flex-end;
   width: 100%;
   background-color: $neutral100;
   margin-top: 8px;
   border-radius: 5px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-  @media (max-width: 992px) {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-  &.ticket_selected {
-    justify-content: space-between;
-    & .ticket__flight-no {
-      justify-content: flex-end;
-      border-right: none;
-    }
-  }
   &__flight-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 60%;
+    width: 55%;
     box-sizing: border-box;
-    padding: 27px 20px 27px 40px;
-    @media (max-width: 992px) {
-      width: 100%;
-      padding: 27px 40px 27px 40px;
-      border-bottom: dashed 2px #D0D9DF;
-    }
-    @media (max-width: 576px) {
-      padding: 27px 25px 27px 25px;
-    }
-    @media (max-width: 420px) {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 27px 0px 27px 0px;
-      border-bottom: none;
-    }
+    padding: 27px 0;
+    padding-left: 40px;
   }
   &__flight-no {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 15%;
-    border-right: dashed 2px #D0D9DF;
-    @media (max-width: 992px) {
-      width: 25%;
-      border-right: none;
-    }
-    @media (max-width: 576px) {
-      flex-direction: column;
-      justify-content: center;
-      width: 15%;
-    }
-    @media (max-width: 420px) {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 15px;
-    }
+    padding: 0 20px;
   }
-  &__start-time-and-date {
+  &__start-time-and-date, &__finish-time-and-date {
+    display: flex;
+    flex-direction: column;
     width: 25%;
-    @media (max-width: 992px) {
-      width: 20%;
-    }
-    @media (max-width: 768px) {
-      width: 25%;
-    }
-    @media (max-width: 576px) {
-      width: 29%;
-    }
-    @media (max-width: 420px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 80%;
-      margin-bottom: 10px;
-    }
+  }
+  &__finish-time-and-date {
+    align-items: flex-end;
+  }
+  &__start-time, &__finish-time {
+    @include subtitle-large;
+    color: black;
   }
   &__time-progress {
     display: flex;
     align-items: center;
     width: 50%;
-    @media (max-width: 992px) {
-      width: 60%;
-    }
-    @media (max-width: 768px) {
-      width: 50%;
-    }
-    @media (max-width: 576px) {
-      width: 40%;
-    }
-    @media (max-width: 420px) {
-      flex-direction: column;
-    }
   }
   &__time-line {
     flex: 1;
     height: 2px;
     background-color: #D0D9DF;
-    @media (max-width: 420px) {
-      flex: none;
-      width: 2px;
-      height: 30px;
-    }
   }
   &__flight-time {
     display: flex;
@@ -119,82 +54,26 @@
     gap: 14px;
     @include label-small;
     color: black;
-
     &.ticket__flight-time_way-back img {
       transform: scaleX(-1);
     }
   }
-  &__finish-time-and-date {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 25%;
-    @media (max-width: 992px) {
-      width: 20%;
-    }
-    @media (max-width: 768px) {
-      width: 25%;
-    }
-    @media (max-width: 576px) {
-      width: 29%;
-    }
-    @media (max-width: 420px) {
-      align-items: center;
-      width: 80%;
-      margin-top: 10px;
-    }
+  &__date, &__timezone, &__city {
+    color: $neutral30;
   }
   &__date {
     @include label-large;
-    color: $neutral30;
-    @media (max-width: 576px) {
-      font-size: 12px;
-    }
-    @media (max-width: 420px) {
-      font-size: 20px;
-    }
-  }
-  &__start-time, &__finish-time {
-    @include subtitle-large;
-    color: black;
-    @media (max-width: 576px) {
-      font-size: 22px;
-    }
-    @media (max-width: 420px) {
-      margin-right: 0px;
-      margin-left: 0px;
-    }
-    @media (max-width: 576px) {
-      font-size: 24px;
-    }
-  }
-  &__start-time {
-    margin-right: 16px;
-    @media (max-width: 420px) {
-      margin-right: 0px;
-    }
-  }
-  &__finish-time {
-    margin-left: 16px;
-    @media (max-width: 420px) {
-      margin-left: 0px;
-    }
   }
   &__timezone {
     @include body-xsmall;
-    color: $neutral30;
   }
   &__city {
     @include body-small;
-    color: $neutral30;
   }
   &__time-and-timezone {
     display: flex;
     align-items: center;
-    @media (max-width: 420px) {
-      flex-direction: column;
-      margin: 5px;
-    }
+    gap: 16px;
   }
   &__flight-no-text {
     @include body-medium;
@@ -204,115 +83,70 @@
     @include body-medium;
     color: black;
     margin-left: 12px;
-    @media (max-width: 576px) {
-      margin-left: 0px;
-    }
   }
   &__select-and-warning {
     display: flex;
     justify-content: flex-end;
     flex-wrap: wrap;
-    padding-right: 40px;
     width: 30%;
-    @media (max-width: 992px) {
-      width: 60%;
-    }
-    @media (max-width: 768px) {
-      width: 70%;
-      padding-right: 0px;
-    }
-    @media (max-width: 567px) {
-      width: 75%;
-    }
-    @media (max-width: 420px) {
-      width: 100%;
-      border-top: dashed 2px #D0D9DF;
-    }
+    border-left: dashed 2px #D0D9DF;
+    padding-right: 40px;
   }
   &__select-container {
     display: flex;
     box-sizing: border-box;
     width: 88%;
     padding: 15.5px 0;
-    @media (max-width: 420px) {
-      width: 100%;
-      padding: 15.5px 20px;
-    }
   }
   &__select {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 45%;
-    @media (max-width: 768px) {
-      width: 35%;
-    }
   }
   &__price-and-warning {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: stretch;
+    text-align: end;
     justify-content: space-between;
-    width: 55%;
+    flex: 1;
     @include subtitle-small;
     color: $neutral30;
-    @media (max-width: 992px) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      width: 70%;
-    }
-    @media (max-width: 768px) {
-      width: 65%;
-    }
   }
   &__price {
     @include subtitle-large;
     color: $primary;
-    @media (max-width: 567px) {
-      font-size: 22px;
-    }
   }
   &__warning {
-    width: 100%;
-    text-align: end;
-    padding: 4px 8px 4px 0;
+    padding: 4px 8px;
     color: $neutral20;
     @include subtitle-small;
-    @media (max-width: 992px) {
-      width: 50%;
-    }
   }
-  &__select-button {
+  &__edit, &__price-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+  }
+  &__edit-button, &__select-button {
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
+  }
+  &__select-button {
     letter-spacing: 0.1px;
     box-sizing: border-box;
     padding: 8px 16px;
     background: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
     border: 1px solid $primary;
   }
-  &__edit {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 15%;
-    padding-right: 40px;
-  }
   &__edit-button {
     background: $secondary90;
     color: $primary;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
     letter-spacing: 0.1px;
   }
   &__price-selected {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 15%;
     @include subtitle-large;
     color: #000000;
   }
