@@ -1,20 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
-import { transformMenu } from '@angular/material/menu';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AIRPORTS } from 'src/app/admin/airports';
-import {
-  appSettingsActions,
-  bookingActions,
-} from 'src/app/redux/actions/app.actions';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import {
   BOOKING_PAGES,
   PASSENGERS_LIST,
 } from 'src/app/shared/constants/constants';
-import { Airport } from 'src/app/shared/interfaces/interfaces';
+import { Airport, CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-main-modal-window',
@@ -121,10 +117,30 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.store.dispatch(
-      bookingActions.updateFirstForm({ currentOrder: this.initialForm.value })
-    );
-    this.router.navigate(['booking', BOOKING_PAGES[0]]);
+    const form = this.initialForm.value;
+
+    const {
+      isRounded,
+      departurePoint,
+      destinationPoint,
+      date,
+      singleDate,
+      passengersCompound,
+    } = form;
+
+    this.router.navigate(['booking', BOOKING_PAGES[0]], {
+      queryParams: {
+        isRounded: isRounded ? 1 : undefined,
+        departurePoint: departurePoint === '' ? undefined : departurePoint.iata,
+        destinationPoint: destinationPoint === '' ? undefined : destinationPoint.iata,
+        dateStart: date.start === null ? undefined : date.start.toJSON(),
+        dateEnd: date.end === null ? undefined : date.end.toJSON(),
+        singleDate: singleDate === null ? undefined : singleDate.toJSON(),
+        adults: passengersCompound.adults === 0 ? undefined : passengersCompound.adults,
+        children: passengersCompound.children === 0 ? undefined : passengersCompound.children,
+        infants: passengersCompound.infants === 0 ? undefined : passengersCompound.infants,
+      }
+    });
   }
 
   getColor(type: string) {
