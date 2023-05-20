@@ -46,10 +46,17 @@
         </div>
 
         <div class="bottom__group" *ngIf="passengersArray[i] !== 'infant'">
+          <mat-slide-toggle formControlName="baggage" color="primary">
+            <div class="extra-option">
+              <mat-icon class="extra-option__icon" color="black">luggage</mat-icon>
+              <span class="extra-option__label">Additional baggage (up&nbsp;to&nbsp;23&nbsp;kilograms)</span>
+            </div>
+          </mat-slide-toggle>
+
           <mat-slide-toggle formControlName="assistance" color="primary">
-            <div class="assistance">
-              <mat-icon class="assistance__icon" svgIcon="wheelchair" color="black"></mat-icon>
-              <span class="assistance__label">Need special assistance?</span>
+            <div class="extra-option">
+              <mat-icon class="extra-option__icon" color="black">wheelchair_pickup</mat-icon>
+              <span class="extra-option__label">Need special assistance?</span>
             </div>
           </mat-slide-toggle>
         </div>

@@ -70,10 +70,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    @include adaptive-value-less(620, gap, 30, 10);
+    @media (max-width: 620px) {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
   }
 }
 
-.assistance {
+.extra-option {
   display: flex;
   justify-content: flex-start;
   align-items: center;
