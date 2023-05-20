@@ -27,7 +27,7 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    public store: Store
+    public store: Store,
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
