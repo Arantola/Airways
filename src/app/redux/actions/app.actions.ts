@@ -13,6 +13,7 @@ export const appSettingsActions = createActionGroup({
     'Change Date Format': props<{ dateFormat: string }>(),
     'Change Currency': props<{ currency: string }>(),
     'Change Page': props<{ currentPage: string }>(),
+    'Set User Name': props<{ userName: string }>(),
   },
 });
 

@@ -4,8 +4,12 @@ import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.
 import { CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
+import {
+  selectCurrentPage,
+  selectUserName,
+} from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +17,14 @@ import { IconService } from 'src/app/shared/services/icon.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  private subscriptionUserName!: Subscription;
+
   public readonly dateFormats = DATE_FORMATS;
   public readonly currencies = CURRENCIES;
 
   public selectedDateFormat = this.dateFormats[0];
   public selectedCurrency = this.currencies[0];
+  public userName = '';
 
   public IsMainPage = true;
 
@@ -32,6 +39,19 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.trackPage();
+    this.subscribeToUserName();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionUserName.unsubscribe();
+  }
+
+  private subscribeToUserName() {
+    this.subscriptionUserName = this.store
+      .select(selectUserName)
+      .subscribe((userName) => {
+        this.userName = userName;
+      });
   }
 
   private trackPage() {

@@ -14,6 +14,8 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth';
+import { Store } from '@ngrx/store';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +26,8 @@ export class AuthService {
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    public store: Store
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -41,6 +44,10 @@ export class AuthService {
   async signIn(email: string, password: string) {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      const user = JSON.parse(localStorage.getItem('user')!);
+      this.store.dispatch(
+        appSettingsActions.setUserName({ userName: user.displayName })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -49,8 +56,9 @@ export class AuthService {
   async signUp(name: string, email: string, password: string) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await signInWithEmailAndPassword(auth, email, password); // Подвисает, но заходит
-      await updateProfile(auth.currentUser!, { displayName: name }); // Отрабатывает через время хотя синхронная
+      await signInWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser!, { displayName: name });
+      this.store.dispatch(appSettingsActions.setUserName({ userName: name }));
     } catch (error) {
       console.log(error);
     }

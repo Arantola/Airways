@@ -2,6 +2,7 @@ interface AppSettings {
   dateFormat: string;
   currency: string;
   currentPage: string;
+  userName: string;
 }
 
 interface CurrentOrder {
@@ -101,7 +102,7 @@ interface DateCard {
 }
 
 interface DialogData {
-  type: string
+  type: string;
 }
 
 export {

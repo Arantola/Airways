@@ -71,7 +71,8 @@
           (click)="toggleAuthWindow()"
         >
           <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
-          <span class="menu__button-signin-text">Sing&nbsp;in</span>
+          <span class="menu__button-signin-text" *ngIf="userName === ''">Sing&nbsp;in</span>
+          <span *ngIf="userName !== ''">{{ userName }}</span>
         </button>
 
         <a
