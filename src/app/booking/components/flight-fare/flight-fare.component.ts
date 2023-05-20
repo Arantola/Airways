@@ -36,6 +36,10 @@ export class FlightFareComponent implements OnInit {
       this.countPassengers.children,
       this.countPassengers.infants,
     );
-    this.totalCost = this.costService.getTotalCostForTickets(this.prices.priceForAdult, this.prices.priceForChild, this.prices.priceForInfant);
+    this.totalCost = this.costService.getTotalCostForTickets(
+      this.prices.priceForAdult,
+      this.prices.priceForChild,
+      this.prices.priceForInfant
+    );
   }
 }
