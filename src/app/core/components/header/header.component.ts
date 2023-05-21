@@ -56,7 +56,9 @@ export class HeaderComponent implements OnInit {
 
   private trackPage() {
     this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.IsMainPage = currentPage === 'main' || currentPage === 'admin';
+      this.IsMainPage = ['admin', 'main', 'cart', 'account'].includes(
+        currentPage
+      );
     });
   }
 

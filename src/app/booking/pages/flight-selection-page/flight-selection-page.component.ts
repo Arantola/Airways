@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest, Subject, takeUntil } from 'rxjs';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
-import { selectFlightBack } from 'src/app/redux/selectors/app.selectors';
-import { selectFlightFrom } from 'src/app/redux/selectors/app.selectors';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { CurrentOrder, Flight, Ticket, saveTicketData } from 'src/app/shared/interfaces/interfaces';
@@ -67,6 +65,10 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
+    );
+
     this.order$.pipe(takeUntil(this.destroy$)).subscribe((order) => {
       this.order = order;
       this.isRounded = order.isRounded;

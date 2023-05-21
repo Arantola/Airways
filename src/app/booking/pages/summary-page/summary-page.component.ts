@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
+import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
+import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 
 @Component({
   selector: 'app-summary-page',
@@ -21,6 +23,9 @@ export class SummaryPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
+    );
     this.store.select(selectCurrentOrder).subscribe((order) => {
       this.currentOrder = order;
     });
