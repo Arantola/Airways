@@ -5,6 +5,8 @@ import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import { AIRPORTS } from '../../airports';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { FlightsGeneratorService } from './flights-generator';
+import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
+import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-admin-page',
@@ -20,7 +22,8 @@ export class AdminPageComponent implements OnInit {
   constructor(
     private flightService: FlightDataService,
     private store: Store,
-    private generator: FlightsGeneratorService
+    private generator: FlightsGeneratorService,
+    private orders: UserOrdersService
   ) {}
 
   ngOnInit(): void {
@@ -71,5 +74,20 @@ export class AdminPageComponent implements OnInit {
 
   onDeleteFlights() {
     this.flightService.resetDB();
+  }
+
+  onGetAllOrders() {
+    this.orders.getAllOrders();
+    console.log(this.orders.userOrders);
+  }
+
+  onOverwriteOrder() {
+    this.orders.overwriteOrder({
+      ['-NVubvd-fFCXtwrkHHeA' as keyof UserOrder]: {} as CurrentOrder,
+    } as UserOrder);
+  }
+
+  onDeleteOrder() {
+    this.orders.deleteOrder('-NVubvd-fFCXtwrkHHeA');
   }
 }

@@ -21,8 +21,8 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom: Ticket | undefined,
-  selectedFlightBack: Ticket | undefined,
+  selectedFlightFrom: Ticket | undefined;
+  selectedFlightBack: Ticket | undefined;
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
@@ -92,12 +92,28 @@ interface FirebaseFlight {
   [key: string]: Flight;
 }
 
+interface UserOrder {
+  [key: string]: CurrentOrder;
+}
+
 interface DateCard {
   date: Date;
   price: number;
   locale: string;
   currency: string;
   seats: number;
+}
+
+interface Prices {
+  adultPrice: number;
+  adultFare: number;
+  adultTax: number;
+  childPrice: number;
+  childFare: number;
+  childTax: number;
+  infantPrice: number;
+  infantFare: number;
+  infantTax: number;
 }
 
 interface DialogData {
@@ -118,5 +134,7 @@ export {
   DateCard,
   Ticket,
   DialogData,
-  saveTicketData
+  saveTicketData,
+  UserOrder,
+  Prices,
 };

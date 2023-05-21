@@ -1,40 +1,45 @@
-import { selectCurrentOrder, selectAllTickets } from './../../../redux/selectors/app.selectors';
+import { selectCurrentOrder } from './../../../redux/selectors/app.selectors';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
-import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
 
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
-  styleUrls: ['./summary-page.component.scss']
+  styleUrls: ['./summary-page.component.scss'],
 })
 export class SummaryPageComponent implements OnInit {
-  isRoundTrip = true;
-  flightInfo!: CurrentOrder;
-  ticketInfoData!: Ticket[];
+  currentOrder!: CurrentOrder;
 
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private ordersService: UserOrdersService,
+    private ordersService: UserOrdersService
   ) {}
 
   ngOnInit(): void {
     this.store.select(selectCurrentOrder).subscribe((order) => {
-      this.flightInfo = order;
-    })
-    this.store.select(selectAllTickets).subscribe((tickets) => {
-      this.ticketInfoData = tickets;
-    })
-    this.isRoundTrip = this.flightInfo.isRounded;
+      this.currentOrder = order;
+    });
+  }
+
+  get isRoundTrip() {
+    return this.currentOrder.isRounded;
+  }
+
+  get flightFrom() {
+    return this.currentOrder.selectedFlightFrom!;
+  }
+
+  get flightBack() {
+    return this.currentOrder.selectedFlightBack!;
   }
 
   addToCart() {
-    this.ordersService.setID()
-    this.ordersService.saveNewOrder(this.flightInfo);
+    this.ordersService.saveNewOrder(this.currentOrder);
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
         type: 'cart',
@@ -43,6 +48,8 @@ export class SummaryPageComponent implements OnInit {
   }
 
   payOrder() {
+    this.ordersService.getAllOrders();
+    console.log(this.ordersService.userOrders);
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
         type: 'booking',
