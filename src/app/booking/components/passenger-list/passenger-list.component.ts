@@ -17,7 +17,6 @@ import {
   CurrentOrder,
   PassengersCompound,
 } from 'src/app/shared/interfaces/interfaces';
-import { IconService } from 'src/app/shared/services/icon.service';
 import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-control-value-accessor-adapter';
 
 @Component({
@@ -46,13 +45,8 @@ export class PassengerListComponent
   passengersArray!: string[];
   formGroup!: FormGroup;
 
-  constructor(
-    private store: Store,
-    private fb: FormBuilder,
-    private iconService: IconService
-  ) {
+  constructor(private store: Store, private fb: FormBuilder) {
     super();
-    this.iconService.addPath('wheelchair', 'assets/icons/wheelchair.svg');
   }
 
   ngOnInit(): void {
@@ -105,6 +99,7 @@ export class PassengerListComponent
         gender: new FormControl<'male' | 'female'>('male'),
         birthday: new FormControl(), // TODO add check birthday and passengerType accordance
         assistance: new FormControl<boolean>(false),
+        baggage: new FormControl<boolean>(false),
       });
       this.passengersFormArray.push(passengerForm);
     }
