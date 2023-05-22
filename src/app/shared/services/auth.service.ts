@@ -22,6 +22,7 @@ import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 })
 export class AuthService {
   userData!: User;
+
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,

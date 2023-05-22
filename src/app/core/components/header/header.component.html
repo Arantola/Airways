@@ -1,18 +1,18 @@
 <mat-toolbar class="header"
-  [class.header_booking]="!IsMainPage"
+  [class.header_booking]="!isMainPage"
 >
   <mat-toolbar-row class="header__content">
     <a class="header__logo" routerLink="main">
       <img src="../../../../assets/icons/logo.svg" alt="logo airways">
     </a>
 
-    <div class="header__slogan" *ngIf="IsMainPage">
+    <div class="header__slogan" *ngIf="isMainPage">
       <span>Book&nbsp;flights</span>
     </div>
 
     <div class="header__group">
-      <app-stepper *ngIf="!IsMainPage"></app-stepper>
-      <div class="header__stepper-alt" *ngIf="IsMainPage">
+      <app-stepper *ngIf="!isMainPage && isBookingPage"></app-stepper>
+      <div class="header__stepper-alt" *ngIf="isMainPage && !isBookingPage">
         AIRWAYS&nbsp;Book&nbsp;flights
       </div>
 
@@ -24,7 +24,7 @@
         >
           <span id="date_display">{{ selectedDateFormat }}</span>
           <span id="date_placeholder">DATE</span>
-          <mat-icon id="date_icon" class="icon" [class.icon_black]="!IsMainPage">arrow_drop_down</mat-icon>
+          <mat-icon id="date_icon" class="icon" [class.icon_black]="!isMainPage">arrow_drop_down</mat-icon>
         </button>
 
           <mat-menu #date="matMenu" class="date-menu">
@@ -66,11 +66,11 @@
 
         <button
           class="menu__item menu__button-signin"
-          [class.header__signin-button_booking]="!IsMainPage"
+          [class.header__signin-button_booking]="!isMainPage"
           mat-stroked-button
           (click)="toggleAuthWindow()"
         >
-          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="user"></mat-icon>
+          <mat-icon class="icon" [class.icon_black]="!isMainPage" svgIcon="user"></mat-icon>
           <span class="menu__button-signin-text" *ngIf="userName === ''">Sing&nbsp;in</span>
           <span *ngIf="userName !== ''">{{ userName }}</span>
         </button>
@@ -79,7 +79,7 @@
           class="menu__item menu__button-basket"
           mat-stroked-button
           routerLink="cart">
-          <mat-icon class="icon" [class.icon_black]="!IsMainPage" svgIcon="basket"></mat-icon>
+          <mat-icon class="icon" [class.icon_black]="!isMainPage" svgIcon="basket"></mat-icon>
         </a>
       </div>
     </div>

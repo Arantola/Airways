@@ -1,7 +1,7 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
-import { CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
+import { BOOKING_PAGES, CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import {
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   public selectedCurrency = this.currencies[0];
   public userName = '';
 
-  public IsMainPage = true;
+  public currentPage = 'main';
 
   constructor(
     private store: Store,
@@ -56,10 +56,16 @@ export class HeaderComponent implements OnInit {
 
   private trackPage() {
     this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.IsMainPage = ['admin', 'main', 'cart', 'account'].includes(
-        currentPage
-      );
+      this.currentPage = currentPage;
     });
+  }
+
+  get isBookingPage() {
+    return BOOKING_PAGES.includes(this.currentPage);
+  }
+
+  get isMainPage() {
+    return this.currentPage === 'main';
   }
 
   toggleAuthWindow() {
