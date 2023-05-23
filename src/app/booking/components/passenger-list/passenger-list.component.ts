@@ -8,8 +8,15 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectPassengersCompound } from 'src/app/redux/selectors/app.selectors';
-import { PassengersCompound } from 'src/app/shared/interfaces/interfaces';
+import { Subscription } from 'rxjs';
+import {
+  selectCurrentOrder,
+  selectPassengersCompound,
+} from 'src/app/redux/selectors/app.selectors';
+import {
+  CurrentOrder,
+  PassengersCompound,
+} from 'src/app/shared/interfaces/interfaces';
 import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-control-value-accessor-adapter';
 
 @Component({
@@ -33,6 +40,8 @@ export class PassengerListComponent
   extends FormControlValueAccessorAdapter
   implements OnInit
 {
+  private subscriptionCurrentOrder!: Subscription;
+  currentOrder!: CurrentOrder;
   passengersArray!: string[];
   formGroup!: FormGroup;
 
@@ -40,16 +49,30 @@ export class PassengerListComponent
     super();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
+    this.subscribeToCurrentOrder();
     this.getPassengersArray();
     this.addPassengerForms();
+    this.prefillForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionCurrentOrder.unsubscribe();
   }
 
   private initForm() {
     this.formGroup = new FormGroup({
       passengers: this.fb.array([]),
     });
+  }
+
+  private subscribeToCurrentOrder() {
+    this.subscriptionCurrentOrder = this.store
+      .select(selectCurrentOrder)
+      .subscribe((currentOrder) => {
+        this.currentOrder = currentOrder;
+      });
   }
 
   private getPassengersArray() {
@@ -80,6 +103,12 @@ export class PassengerListComponent
       });
       this.passengersFormArray.push(passengerForm);
     }
+  }
+
+  private prefillForm() {
+    this.formGroup.patchValue({
+      passengers: this.currentOrder.passengersInfo,
+    });
   }
 
   get passengersFormArray() {

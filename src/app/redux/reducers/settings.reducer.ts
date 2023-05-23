@@ -6,6 +6,7 @@ export const appSettingsState: AppSettings = {
   dateFormat: 'MM/DD/YYYY',
   currency: 'EUR',
   currentPage: 'main',
+  userName: '',
 };
 
 export const appSettingsReducer = createReducer(
@@ -21,5 +22,9 @@ export const appSettingsReducer = createReducer(
   on(appSettingsActions.changePage, (state, { currentPage }) => ({
     ...state,
     currentPage: currentPage,
+  })),
+  on(appSettingsActions.setUserName, (state, { userName }) => ({
+    ...state,
+    userName: userName,
   }))
 );

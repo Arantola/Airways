@@ -19,6 +19,7 @@ const BOOKING_PAGES = ['flight-selection', 'passengers', 'summary'];
 
 const FIREBASE_ORIGIN = `https://airways-c7c03-default-rtdb.firebaseio.com/`;
 const FIREBASE_FLIGHTS = `${FIREBASE_ORIGIN}flights.json`;
+const FIREBASE_ORDERS = `${FIREBASE_ORIGIN}orders`;
 
 const CART_COLUMNS = [
   'no',
@@ -36,5 +37,6 @@ export {
   BOOKING_PAGES,
   CART_COLUMNS,
   FIREBASE_FLIGHTS,
+  FIREBASE_ORDERS,
   CurrencySymbols,
 };

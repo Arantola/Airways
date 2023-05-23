@@ -13,6 +13,11 @@ export const selectCurrentPage = createSelector(
   (state) => state.currentPage
 );
 
+export const selectUserName = createSelector(
+  selectSettingsState,
+  (state) => state.userName
+);
+
 export const selectCurrentOrder =
   createFeatureSelector<CurrentOrder>('currentOrderState');
 

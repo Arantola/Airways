@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import {
   appSettingsActions,
   bookingActions,
 } from 'src/app/redux/actions/app.actions';
+import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import phoneCode from 'src/app/shared/constants/CountryCodes.json';
+import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
@@ -15,7 +18,11 @@ import { IconService } from 'src/app/shared/services/icon.service';
   templateUrl: './passengers-page.component.html',
   styleUrls: ['./passengers-page.component.scss'],
 })
-export class PassengersPageComponent implements OnInit {
+export class PassengersPageComponent implements OnInit, OnDestroy {
+  readonly BOOKING_PAGES = BOOKING_PAGES;
+  private subscriptionCurrentOrder!: Subscription;
+  currentOrder!: CurrentOrder;
+
   passengersForm!: FormGroup;
   countryCodeData = phoneCode;
 
@@ -30,9 +37,15 @@ export class PassengersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.subscribeToCurrentOrder();
+    this.prefillForm();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionCurrentOrder.unsubscribe();
   }
 
   private initForm(): void {
@@ -45,6 +58,26 @@ export class PassengersPageComponent implements OnInit {
         }),
         email: new FormControl<string>(''),
       }),
+    });
+  }
+
+  private subscribeToCurrentOrder() {
+    this.subscriptionCurrentOrder = this.store
+      .select(selectCurrentOrder)
+      .subscribe((currentOrder) => {
+        this.currentOrder = currentOrder;
+      });
+  }
+
+  private prefillForm() {
+    this.passengersForm.patchValue({
+      contactsForm: {
+        phone: {
+          country: this.currentOrder.contacts?.phone.country,
+          number: this.currentOrder.contacts?.phone.number,
+        },
+        email: this.currentOrder.contacts?.email,
+      },
     });
   }
 
