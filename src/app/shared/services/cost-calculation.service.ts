@@ -1,50 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from '../interfaces/interfaces';
+import {
+  CurrentOrder,
+  PassengersCompound,
+  Prices,
+} from '../interfaces/interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CostCalculationService {
-
-  constructor() { }
-
-  // getTotalCostForOnePerson(ticketInfoData: Ticket[]): number | undefined {
-  //   const flightCost = ticketInfoData.map((ticket) => ticket.price);
-  //   const oneWayPrice = flightCost[0];
-  //   const twoWayPrice = flightCost[1];
-  //   let onePersonPriceTotal;
-  //   if (oneWayPrice && twoWayPrice) {
-  //     onePersonPriceTotal = oneWayPrice + twoWayPrice;
-  //   } else {
-  //     onePersonPriceTotal = oneWayPrice;
-  //   }
-  //   return onePersonPriceTotal;
-  // }
-
-  getPrices(
-    onePersonPrice: number,
-    adultsCount: number,
-    childrenCount: number,
-    infantsCount: number
-  ) {
-    return {
-      priceForAdult: onePersonPrice * adultsCount,
-      fareForAdult: onePersonPrice * 0.65 * adultsCount,
-      taxForAdult: onePersonPrice * 0.35 * adultsCount,
-      priceForChild: onePersonPrice * 0.75 * childrenCount,
-      fareForChild: onePersonPrice * 0.75 * 0.55 * childrenCount,
-      taxForChild: onePersonPrice * 0.75 * 0.45  * childrenCount,
-      priceForInfant: onePersonPrice * 0.4 * infantsCount,
-      fareForInfant: onePersonPrice * 0.4 * 0.9 * infantsCount,
-      taxForInfant: onePersonPrice * 0.4 * 0.1 * infantsCount,
-    }
+  getCostForOnePerson(currentOrder: CurrentOrder): number {
+    const flightFromPrice = currentOrder.selectedFlightFrom?.flight?.price;
+    const flightBackPrice = currentOrder.selectedFlightBack?.flight?.price || 0;
+    return Number(flightFromPrice!) + Number(flightBackPrice);
   }
 
-  getTotalCostForTickets(
-    adultsCost: number,
-    childrenCost: number,
-    infantCost: number,
-  ): number {
-    return adultsCost + childrenCost + infantCost;
+  getPrices(defeaultPrice: number, passengers: PassengersCompound): Prices {
+    const [adults, children, infants] = [
+      passengers.adults,
+      passengers.children,
+      passengers.infants,
+    ];
+    return {
+      adultPrice: defeaultPrice * adults,
+      adultFare: defeaultPrice * 0.65 * adults,
+      adultTax: defeaultPrice * 0.35 * adults,
+      childPrice: defeaultPrice * 0.75 * children,
+      childFare: defeaultPrice * 0.75 * 0.55 * children,
+      childTax: defeaultPrice * 0.75 * 0.45 * children,
+      infantPrice: defeaultPrice * 0.4 * infants,
+      infantFare: defeaultPrice * 0.4 * 0.9 * infants,
+      infantTax: defeaultPrice * 0.4 * 0.1 * infants,
+    };
+  }
+
+  getTotalCost(prices: Prices): number {
+    return prices.adultPrice + prices.childPrice + prices.infantPrice;
   }
 }

@@ -6,7 +6,10 @@ import { AppSettings, Flight, saveTicketData } from 'src/app/shared/interfaces/i
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.scss']
+  styleUrls: [
+    './ticket.component.scss',
+    './ticket-adaptive.scss'
+  ]
 })
 export class TicketComponent implements OnInit, OnDestroy {
   @Input() public isWayBack = false;

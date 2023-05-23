@@ -11,8 +11,6 @@ export class CartComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: 'shopping-cart' })
-    );
+    this.store.dispatch(appSettingsActions.changePage({ currentPage: 'cart' }));
   }
 }

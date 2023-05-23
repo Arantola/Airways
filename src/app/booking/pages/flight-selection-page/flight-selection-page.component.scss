@@ -3,6 +3,7 @@
 .flight-selection {
   max-width: 1228px;
   margin-top: 40px;
+  margin-bottom: 20px;
   app-way {
     display: block;
     margin-bottom: 32px;
@@ -15,6 +16,15 @@
     @include button-font;
     height: 60px;
     width: 126px;
+    @media (max-width: 620px) {
+      height: 40px;
+    }
+    @media (max-width: 450px) {
+      margin-left: 10px;
+    }
+    &:hover {
+      background-color: $primary-dark;
+    }
   }
   &__button_back {
     cursor: pointer;

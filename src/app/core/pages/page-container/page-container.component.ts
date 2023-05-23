@@ -27,6 +27,11 @@ export class PageContainerComponent implements OnInit {
   }
 
   get isSecondMenuOn() {
-    return !this.isMainPage && this.currentPage !== 'admin';
+    return (
+      !this.isMainPage &&
+      this.currentPage !== 'admin' &&
+      this.currentPage !== 'cart' &&
+      this.currentPage !== 'account'
+    );
   }
 }

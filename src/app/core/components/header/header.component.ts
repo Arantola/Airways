@@ -1,12 +1,16 @@
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
-import { CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
+import { BOOKING_PAGES, CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
+import {
+  selectCurrentPage,
+  selectUserName,
+} from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
 import { CurrencyService } from 'src/app/shared/services/currency.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +18,16 @@ import { CurrencyService } from 'src/app/shared/services/currency.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  private subscriptionUserName!: Subscription;
+
   public readonly dateFormats = DATE_FORMATS;
   public readonly currencies = CURRENCIES;
 
   public selectedDateFormat = this.dateFormats[0];
   public selectedCurrency = this.currencies[0];
+  public userName = '';
 
-  public IsMainPage = true;
+  public currentPage = 'main';
 
   constructor(
     private store: Store,
@@ -34,13 +41,34 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.trackPage();
+    this.subscribeToUserName();
     this.currencyService.saveCurrencyData();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionUserName.unsubscribe();
+  }
+
+  private subscribeToUserName() {
+    this.subscriptionUserName = this.store
+      .select(selectUserName)
+      .subscribe((userName) => {
+        this.userName = userName;
+      });
   }
 
   private trackPage() {
     this.store.select(selectCurrentPage).subscribe((currentPage) => {
-      this.IsMainPage = currentPage === 'main' || currentPage === 'admin';
+      this.currentPage = currentPage;
     });
+  }
+
+  get isBookingPage() {
+    return BOOKING_PAGES.includes(this.currentPage);
+  }
+
+  get isMainPage() {
+    return this.currentPage === 'main';
   }
 
   toggleAuthWindow() {
