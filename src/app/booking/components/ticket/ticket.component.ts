@@ -1,25 +1,38 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Flight, saveTicketData } from 'src/app/shared/interfaces/interfaces';
+import { CurrencyService } from 'src/app/shared/services/currency.service';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { AppSettings, Flight, saveTicketData } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: ['./ticket.component.scss']
 })
-export class TicketComponent implements OnInit{
+export class TicketComponent implements OnInit, OnDestroy {
   @Input() public isWayBack = false;
   @Input() public flight?: Flight;
   @Input() public currency = 'EUR';
   @Input() selected = false;
+  @Input() public settings$!: Observable<AppSettings>;
 
   @Output() public ticketSelected = new EventEmitter<boolean>();
   @Output() public onSaveTicket = new EventEmitter<saveTicketData>();
   @Output() public onDeleteTicket = new EventEmitter<boolean>();
 
+  public price!: number;
+  private settingsSubscription?: Subscription;
   public disable = false;
 
+  constructor(private currencyService: CurrencyService) {}
+
   ngOnInit() {
-    this.disable = this.isDisableDate()
+    this.disable = this.isDisableDate();
+    this.settingsSubscription = this.settings$.subscribe(
+      (settings) => {
+        this.currency = settings.currency;
+        this.price = this.currencyService.calculateCurrencyValue(<number>this.flight?.price, this.currency);
+      }
+    )
   }
 
   public deleteTicket() {
@@ -73,5 +86,9 @@ export class TicketComponent implements OnInit{
 
   get travelMinutes() {
     return this.flight?.travelTime.split(':')[1];
+  }
+
+  ngOnDestroy() {
+    this.settingsSubscription?.unsubscribe();
   }
 }

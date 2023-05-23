@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentPage } from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
+import { CurrencyService } from 'src/app/shared/services/currency.service';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private iconService: IconService
+    private iconService: IconService,
+    private currencyService: CurrencyService,
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
@@ -32,6 +34,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.trackPage();
+    this.currencyService.saveCurrencyData();
   }
 
   private trackPage() {

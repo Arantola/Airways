@@ -1,12 +1,12 @@
 <div class="flight-information">
-  <div class="flight-information__general">
+  <!-- <div class="flight-information__general">
     <span class="flight-information__general-number">{{ ticketInfo.flightNumber }}</span>
     <span class="flight-information__general-direction">{{ ticketInfo.departurePoint?.city }} — {{ ticketInfo.destinationPoint?.city }}</span>
   </div>
   <div class="flight-information__departure">
     <span class="flight-information__departure-date">{{ ticketInfo.date | date: 'fullDate' }}</span>
     <span class="flight-information__departure-time">{{ ticketInfo.startTime }} — {{ ticketInfo.finishTime }}</span>
-  </div>
+  </div> -->
 </div>
 
 <div *ngFor="let person of flightInfo.passengersInfo; let i = index">

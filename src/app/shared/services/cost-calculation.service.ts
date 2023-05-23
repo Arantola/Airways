@@ -8,18 +8,18 @@ export class CostCalculationService {
 
   constructor() { }
 
-  getTotalCostForOnePerson(ticketInfoData: Ticket[]): number | undefined {
-    const flightCost = ticketInfoData.map((ticket) => ticket.price);
-    const oneWayPrice = flightCost[0];
-    const twoWayPrice = flightCost[1];
-    let onePersonPriceTotal;
-    if (oneWayPrice && twoWayPrice) {
-      onePersonPriceTotal = oneWayPrice + twoWayPrice;
-    } else {
-      onePersonPriceTotal = oneWayPrice;
-    }
-    return onePersonPriceTotal;
-  }
+  // getTotalCostForOnePerson(ticketInfoData: Ticket[]): number | undefined {
+  //   const flightCost = ticketInfoData.map((ticket) => ticket.price);
+  //   const oneWayPrice = flightCost[0];
+  //   const twoWayPrice = flightCost[1];
+  //   let onePersonPriceTotal;
+  //   if (oneWayPrice && twoWayPrice) {
+  //     onePersonPriceTotal = oneWayPrice + twoWayPrice;
+  //   } else {
+  //     onePersonPriceTotal = oneWayPrice;
+  //   }
+  //   return onePersonPriceTotal;
+  // }
 
   getPrices(
     onePersonPrice: number,

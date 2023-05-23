@@ -29,6 +29,8 @@ const CART_COLUMNS = [
   'price',
 ];
 
+const EXCHANGE_RATE = 'https://www.cbr-xml-daily.ru/daily_json.js';
+
 export {
   DATE_FORMATS,
   CURRENCIES,
@@ -37,4 +39,5 @@ export {
   CART_COLUMNS,
   FIREBASE_FLIGHTS,
   CurrencySymbols,
+  EXCHANGE_RATE,
 };

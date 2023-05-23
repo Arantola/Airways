@@ -28,18 +28,18 @@ export class FlightFareComponent implements OnInit {
   constructor(private costService: CostCalculationService) {}
 
   ngOnInit(): void {
-    this.countPassengers = this.flightInfo.passengersCompound;
-    this.onePersonPrice = <number>this.costService.getTotalCostForOnePerson(this.ticketInfoData);
-    this.prices = this.costService.getPrices(
-      this.onePersonPrice,
-      this.countPassengers.adults,
-      this.countPassengers.children,
-      this.countPassengers.infants,
-    );
-    this.totalCost = this.costService.getTotalCostForTickets(
-      this.prices.priceForAdult,
-      this.prices.priceForChild,
-      this.prices.priceForInfant
-    );
+    // this.countPassengers = this.flightInfo.passengersCompound;
+    // this.onePersonPrice = <number>this.costService.getTotalCostForOnePerson(this.ticketInfoData);
+    // this.prices = this.costService.getPrices(
+    //   this.onePersonPrice,
+    //   this.countPassengers.adults,
+    //   this.countPassengers.children,
+    //   this.countPassengers.infants,
+    // );
+    // this.totalCost = this.costService.getTotalCostForTickets(
+    //   this.prices.priceForAdult,
+    //   this.prices.priceForChild,
+    //   this.prices.priceForInfant
+    // );
   }
 }
