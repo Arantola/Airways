@@ -26,9 +26,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   public isContinueButtonDisabled = true;
 
-  public isRounded$ = this.order$.pipe(
-    map((order) => order.isRounded)
-  )
+  public isRounded$ = this.order$.pipe(map((order) => order.isRounded));
 
   public selectedFlightFrom$ = this.order$.pipe(
     map((order) => order.selectedFlightFrom)
@@ -117,18 +115,34 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
       this.order = order;
       this.isRounded = order.isRounded;
 
-      if (order.departurePoint?.city !== undefined &&
-        order.destinationPoint?.city !== undefined) {
-        this.flightService.getFlightsByIATA(order.departurePoint.iata, order.destinationPoint.iata)
-          .subscribe((response) => { this.wayData = response; })
-      }
-      if (order.isRounded === true &&
+      if (
         order.departurePoint?.city !== undefined &&
-        order.destinationPoint?.city !== undefined) {
-        this.flightService.getFlightsByIATA(order.destinationPoint.iata, order.departurePoint.iata)
-          .subscribe((response) => { this.wayBackData = response; })
+        order.destinationPoint?.city !== undefined
+      ) {
+        this.flightService
+          .getFlightsByIATA(
+            order.departurePoint.iata,
+            order.destinationPoint.iata
+          )
+          .subscribe((response) => {
+            this.wayData = response;
+          });
       }
-    })
+      if (
+        order.isRounded === true &&
+        order.departurePoint?.city !== undefined &&
+        order.destinationPoint?.city !== undefined
+      ) {
+        this.flightService
+          .getFlightsByIATA(
+            order.destinationPoint.iata,
+            order.departurePoint.iata
+          )
+          .subscribe((response) => {
+            this.wayBackData = response;
+          });
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -167,9 +181,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public toNextStep() {
-    this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
-    );
     this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 

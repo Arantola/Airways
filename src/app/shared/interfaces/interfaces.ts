@@ -100,7 +100,7 @@ interface DateCard {
 }
 
 interface DialogData {
-  type: string
+  type: string;
 }
 
 export {
