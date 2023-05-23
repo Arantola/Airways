@@ -4,7 +4,10 @@ import { Flight, saveTicketData } from 'src/app/shared/interfaces/interfaces';
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.scss']
+  styleUrls: [
+    './ticket.component.scss',
+    './ticket-adaptive.scss'
+  ]
 })
 export class TicketComponent implements OnInit{
   @Input() public isWayBack = false;

@@ -13,16 +13,16 @@ interface saveTicketData {
 
 interface CurrentOrder {
   isRounded: boolean;
-  departurePoint: Airport | undefined;
-  destinationPoint: Airport | undefined;
+  departurePoint?: Airport;
+  destinationPoint?: Airport;
   singleDate: Date | string | undefined;
   date: {
     start: Date | string | undefined;
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom: Ticket | undefined;
-  selectedFlightBack: Ticket | undefined;
+  selectedFlightFrom?: Ticket;
+  selectedFlightBack?: Ticket;
   passengersInfo?: Passenger[];
   contacts?: Contacts;
 }
