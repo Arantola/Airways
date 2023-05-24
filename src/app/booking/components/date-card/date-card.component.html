@@ -6,7 +6,7 @@
   <span class="date-card__month">{{ date | date : 'd MMMM' }}</span>
   <span class="date-card__day">{{ date | date : 'EEEE' }}</span>
   <span class="date-card__price" *ngIf="dateCard">
-    {{ dateCard.price | currency : dateCard.locale : (dateCard.currency | currencySymbol)}}
+    {{ currency | currencySymbol }}{{ price.toFixed(2) }}
   </span>
   <img
     class="date-card__icon"

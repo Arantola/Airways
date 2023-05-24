@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { DateCard } from 'src/app/shared/interfaces/interfaces';
+import { Observable } from 'rxjs';
+import { AppSettings, DateCard } from 'src/app/shared/interfaces/interfaces';
 
 enum Animations {
   NONE,
@@ -23,6 +24,7 @@ export class DateCarouselComponent implements OnChanges {
   @Input() public activeItems: DateCarouselItem[] = [];
   @Input() public selectedDate = this.today();
   @Input() public isSelectedTicket = false;
+  @Input() public settings$!: Observable<AppSettings>;
 
   public animation = Animations.NONE;
   public isAnimationProcess = false;

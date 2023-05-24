@@ -2,50 +2,50 @@
   <div class="fare__passenger">
     <div class="fare__passenger-type">
       <span> {{ adultsCount }} x Adult Fare</span>
-      <span> €{{ prices.adultPrice.toFixed(2) }} </span>
+      <span> {{ currency | currencySymbol}}{{ pricesForDisplay.adultPrice.toFixed(2) }} </span>
     </div>
     <div class="fare__passenger-base">
       <span>Fare</span>
-      <span>€{{ prices.adultFare.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.adultFare.toFixed(2) }}</span>
     </div>
     <div class="fare__passenger-tax">
       <span>Tax & Service Charge</span>
-      <span>€{{ prices.adultTax.toFixed(2) }} </span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.adultTax.toFixed(2) }} </span>
     </div>
   </div>
 
   <div class="fare__passenger" *ngIf="childrenCount">
     <div class="fare__passenger-type">
       <span> {{ childrenCount }} x Child Fare</span>
-      <span>€{{ prices.childPrice.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.childPrice.toFixed(2) }}</span>
     </div>
     <div class="fare__passenger-base">
       <span>Fare</span>
-      <span>€{{ prices.childFare.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.childFare.toFixed(2) }}</span>
     </div>
     <div class="fare__passenger-tax">
       <span>Tax & Service Charge</span>
-      <span>€{{ prices.childTax.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.childTax.toFixed(2) }}</span>
     </div>
   </div>
 
   <div class="fare__passenger" *ngIf="infantsCount">
     <div class="fare__passenger-type">
       <span> {{ infantsCount }} x Infant Fare</span>
-      <span>€{{ prices.infantPrice.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.infantPrice.toFixed(2) }}</span>
     </div>
     <div class="fare__passenger-base">
       <span>Fare</span>
-      <span>€{{ prices.infantFare.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.infantFare.toFixed(2) }}</span>
     </div>
     <div class="fare__passenger-tax">
       <span>Tax & Service Charge</span>
-      <span>€{{ prices.infantTax.toFixed(2) }}</span>
+      <span>{{ currency | currencySymbol}}{{ pricesForDisplay.infantTax.toFixed(2) }}</span>
     </div>
   </div>
 
   <div class="fare__total">
     <span>TOTAL:</span>
-    <span  class="fare__total-cost">€{{ totalCost.toFixed(2) }}</span>
+    <span  class="fare__total-cost">{{ currency | currencySymbol}}{{ totalCostForDisplay.toFixed(2) }}</span>
   </div>
 </div>
