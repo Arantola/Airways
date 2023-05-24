@@ -25,6 +25,7 @@ interface CurrentOrder {
   selectedFlightBack?: Ticket,
   passengersInfo?: Passenger[];
   contacts?: Contacts;
+  totalCost: number;
 }
 
 interface PassengersCompound {

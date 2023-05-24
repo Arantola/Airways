@@ -1,10 +1,11 @@
-import { createActionGroup, props } from '@ngrx/store';
+import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   Airport,
   Contacts,
   CurrentOrder,
   Passenger,
   Ticket,
+  UserOrder,
 } from 'src/app/shared/interfaces/interfaces';
 
 export const appSettingsActions = createActionGroup({
@@ -27,6 +28,7 @@ export const bookingActions = createActionGroup({
     'Get Passengers Compound': props<{ contacts: Contacts }>(),
     'Update Flight From': props<{ flightFrom: Ticket | undefined }>(),
     'Update Flight Back': props<{ flightBack: Ticket | undefined }>(),
+    'Add Total Cost': props<{ totalCost: number }>(),
   },
 });
 
@@ -36,3 +38,13 @@ export const bookingAPIActions = createActionGroup({
     'Update Search Result': props<{ searchResult: Airport[] }>(),
   },
 });
+
+export const ordersActions = createActionGroup({
+  source: 'Orders API',
+  events: {
+    'Load Orders': emptyProps(),
+    'Complete Orders Load': props<{orders: UserOrder[] }>(),
+    'Delete Order': props<{ id: string }>(),
+    'Update Order': props<{ userOrder: UserOrder}>()
+  }
+})

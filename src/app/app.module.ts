@@ -24,6 +24,9 @@ import { BookingModule } from './booking/booking.module';
 import { AdminModule } from './admin/admin.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { EffectsModule } from '@ngrx/effects';
+import { OrdersEffects } from './redux/effects/orders.effects';
+import { ordersReducer } from './redux/reducers/orders.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +37,9 @@ import { CoreModule } from './core/core.module';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    EffectsModule.forRoot(OrdersEffects),
     StoreModule.forRoot({
+      orders: ordersReducer,
       settingsState: appSettingsReducer,
       currentOrderState: currentOrderReducer,
     }),

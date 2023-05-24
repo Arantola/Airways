@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FIREBASE_ORDERS } from '../constants/constants';
 import { CurrentOrder, UserOrder } from '../interfaces/interfaces';
-import { map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -37,22 +37,20 @@ export class UserOrdersService {
             };
             this.userOrders.push(order);
           }
+
+          return this.userOrders as UserOrder[];
         })
       )
-      .subscribe((response) => console.log(response));
   }
 
   overwriteOrder(userOrder: UserOrder) {
     this.setID();
     return this.http
       .patch(`${FIREBASE_ORDERS}/${this.uid}.json`, JSON.stringify(userOrder))
-      .subscribe((response) => console.log(response));
   }
 
   deleteOrder(id: string) {
     this.setID();
-    return this.http
-      .delete(`${FIREBASE_ORDERS}/${this.uid}/${id}.json`)
-      .subscribe((response) => console.log(response));
+    return this.http.delete(`${FIREBASE_ORDERS}/${this.uid}/${id}.json`);
   }
 }

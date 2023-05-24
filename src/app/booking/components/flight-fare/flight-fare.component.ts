@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { bookingActions } from 'src/app/redux/actions/app.actions';
 import { CurrentOrder, Prices } from 'src/app/shared/interfaces/interfaces';
 import { CostCalculationService } from 'src/app/shared/services/cost-calculation.service';
 
@@ -15,7 +17,7 @@ export class FlightFareComponent implements OnInit {
   public prices!: Prices;
   public totalCost!: number;
 
-  constructor(private costService: CostCalculationService) {}
+  constructor(private costService: CostCalculationService, private store: Store) {}
 
   ngOnInit(): void {
     this.defaultPrice = this.costService.getCostForOnePerson(this.currentOrder);
@@ -24,6 +26,7 @@ export class FlightFareComponent implements OnInit {
       this.currentOrder.passengersCompound
     );
     this.totalCost = this.costService.getTotalCost(this.prices);
+    this.store.dispatch(bookingActions.addTotalCost({ totalCost: this.totalCost }));
   }
 
   get adultsCount(): number {
