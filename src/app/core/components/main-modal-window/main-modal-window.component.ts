@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -31,7 +32,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private router: Router,
-    private iconService: IconService
+    private iconService: IconService,
+    private _adapter: DateAdapter<any>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
   }
@@ -41,6 +44,8 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
+    this._locale = 'ja';
+    this._adapter.setLocale(this._locale);
   }
 
   ngOnDestroy(): void {
@@ -111,9 +116,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
         isRounded: isRounded ? 1 : undefined,
         departurePoint: departurePoint === '' ? undefined : departurePoint.iata,
         destinationPoint: destinationPoint === '' ? undefined : destinationPoint.iata,
-        dateStart: date.start === null ? undefined : date.start.toJSON(),
-        dateEnd: date.end === null ? undefined : date.end.toJSON(),
-        singleDate: singleDate === null ? undefined : singleDate.toJSON(),
+        // dateStart: date.start === null ? undefined : date.start.toJSON(),
+        // dateEnd: date.end === null ? undefined : date.end.toJSON(),
+        // singleDate: singleDate === null ? undefined : singleDate.toJSON(),
         adults: passengersCompound.adults === 0 ? undefined : passengersCompound.adults,
         children: passengersCompound.children === 0 ? undefined : passengersCompound.children,
         infants: passengersCompound.infants === 0 ? undefined : passengersCompound.infants,
