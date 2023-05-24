@@ -59,7 +59,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private store: Store,
     private flightService: FlightDataService
   ) {}
@@ -80,44 +79,10 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     return AIRPORTS.find((airport) => airport.iata === iata);
   }
 
-  loadPropsFromUrl(): CurrentOrder {
-    const params = this.route.snapshot.queryParamMap;
-    const isRounded = params.get('isRounded') === '1';
-    const departurePoint = this.transformParamToAirport(params.get('departurePoint'));
-    const destinationPoint = this.transformParamToAirport(params.get('destinationPoint'));
-    const dateStart = this.transformParamToDate(params.get('dateStart'));
-    const dateEnd = this.transformParamToDate(params.get('dateEnd'));
-    const singleDate = this.transformParamToDate(params.get('singleDate'));
-    const adults = Number(params.get('adults') ?? 0);
-    const children = Number(params.get('children') ?? 0);
-    const infants = Number(params.get('infants') ?? 0);
-
-    const currentOrder: CurrentOrder = {
-      isRounded,
-      departurePoint,
-      destinationPoint,
-      singleDate,
-      date: { start: dateStart, end: dateEnd },
-      passengersCompound: { adults, children, infants },
-      selectedFlightFrom: undefined,
-      selectedFlightBack: undefined,
-      totalCost: 0
-    };
-
-    console.log(currentOrder);
-
-    this.store.dispatch(bookingActions.updateFirstForm({ currentOrder }));
-
-    return currentOrder;
-  }
-
   ngOnInit() {
-    this.loadPropsFromUrl();
-
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
     );
-    this.loadPropsFromUrl();
 
     this.order$.pipe(takeUntil(this.destroy$)).subscribe((order) => {
       this.order = order;
