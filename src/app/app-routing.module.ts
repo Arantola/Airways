@@ -8,7 +8,7 @@ import { UserAccountComponent } from './core/components/user-account/user-accoun
 const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: MainModalWindowComponent },
-  { path: 'cart', component: CartComponent },
+  { path: 'shopping-cart', component: CartComponent },
   { path: 'account', component: UserAccountComponent },
   {
     path: 'booking',
