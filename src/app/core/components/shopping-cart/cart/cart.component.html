@@ -14,7 +14,9 @@
     [currency]="currency"
     [tableData]="tableData"
     [allOrdersSelected]="allOrdersSelected"
-    (orderSubmit)="addOrderToPayment($event)"
+    (addingSelectedOrder)="addOrderToPayment($event)"
+    (orderDeleted)="deleteOrder($event)"
+    (orderEdited)="editOrder($event)"
   ></app-cart-table>
 
   <div class="cart__sum-footer">

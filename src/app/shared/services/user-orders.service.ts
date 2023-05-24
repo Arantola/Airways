@@ -31,6 +31,7 @@ export class UserOrdersService {
       .get(`${FIREBASE_ORDERS}/${this.uid}.json`)
       .pipe(
         map((orders) => {
+          console.log('orders from server', orders)
           for (const [key, value] of Object.entries(orders)) {
             const order = {
               [key]: value,
@@ -51,6 +52,7 @@ export class UserOrdersService {
 
   deleteOrder(id: string) {
     this.setID();
+    console.log('deleteOrder on server')
     return this.http.delete(`${FIREBASE_ORDERS}/${this.uid}/${id}.json`);
   }
 }

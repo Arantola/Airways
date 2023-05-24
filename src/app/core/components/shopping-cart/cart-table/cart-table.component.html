@@ -11,7 +11,7 @@
           class="example-margin"
           color="primary"
           [(ngModel)]="isOrdersSelected"
-          (change)="onOrderSelected(element.no)"
+          (change)="orderSelected(element.no)"
           [checked]="allOrdersSelected"
         ></mat-checkbox>
       </td>
@@ -99,8 +99,8 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>Delete</button>
-            <button mat-menu-item (click)="editTicket()">Edit</button>
+            <button mat-menu-item (click)="deleteOrder(element.id)">Delete</button>
+            <button mat-menu-item (click)="editOrder(element.id)">Edit</button>
           </mat-menu>
         </div>
       </td>

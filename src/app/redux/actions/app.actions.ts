@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   Airport,
@@ -45,6 +46,8 @@ export const ordersActions = createActionGroup({
     'Load Orders': emptyProps(),
     'Complete Orders Load': props<{orders: UserOrder[] }>(),
     'Delete Order': props<{ id: string }>(),
-    'Update Order': props<{ userOrder: UserOrder}>()
+    'Order Deleted': props<{ id: string }>(),
+    'Update Order': props<{ userOrder: UserOrder}>(),
+    'Order Updated': props<{ update: Update<UserOrder> }>(),
   }
 })

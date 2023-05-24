@@ -27,7 +27,11 @@ export class CartTableComponent implements AfterViewInit, OnChanges {
 
   public isOrdersSelected = false;
 
-  @Output() orderSubmit = new EventEmitter<string>();
+  @Output() addingSelectedOrder = new EventEmitter<string>();
+
+  @Output() orderDeleted = new EventEmitter<string>();
+
+  @Output() orderEdited = new EventEmitter<string>();
 
   @ViewChild(MatSort)
   sort?: MatSort;
@@ -46,8 +50,16 @@ export class CartTableComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  onOrderSelected(no: string) {
-    this.orderSubmit.emit(no)
+  orderSelected(no: string) {
+    this.addingSelectedOrder.emit(no)
+  }
+
+  public editOrder(id: string) {
+    this.orderEdited.emit(id)
+    this.router.navigate(['/main', BOOKING_PAGES[0]])
+  }
+  public deleteOrder(id: string) {
+    this.orderDeleted.emit(id)
   }
 
   public get displayedColumns(): string[] { 
@@ -83,9 +95,5 @@ export class CartTableComponent implements AfterViewInit, OnChanges {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
-  }
-
-  public editTicket() {
-    this.router.navigate(['/booking', BOOKING_PAGES[0]])
   }
 }

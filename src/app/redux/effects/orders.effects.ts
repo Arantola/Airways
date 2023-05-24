@@ -21,7 +21,7 @@ export class OrdersEffects {
     ofType(ordersActions.deleteOrder),
     exhaustMap((action) => this.userOrdersService.deleteOrder(action.id)
       .pipe(
-        map(() => ({ type: '[Orders API] Orders Deleted' })),
+        map(() => ordersActions.orderDeleted({id: action.id})),
         catchError(() => EMPTY)
       ))
     ));
@@ -30,11 +30,16 @@ export class OrdersEffects {
     ofType(ordersActions.updateOrder),
     exhaustMap((action) => this.userOrdersService.overwriteOrder(action.userOrder)
       .pipe(
-        map(() => ({ type: '[Orders API] Orders Updated' })),
+        map(() => ordersActions.orderUpdated({
+          update: {
+            id: Object.keys(action.userOrder)[0],
+            changes: action.userOrder
+          }
+        })),
         catchError(() => EMPTY)
       ))
     ));
- 
+
   constructor(
     private actions$: Actions,
     private userOrdersService: UserOrdersService,
