@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BOOKING_PAGES, CART_COLUMNS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
 import { PeriodicElement } from '../cart/cart.component';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-cart-table',
@@ -24,8 +25,6 @@ export class CartTableComponent implements AfterViewInit, OnChanges {
   @Input() currency = 'EUR';
 
   public dataSource = new MatTableDataSource(this.tableData);
-
-  public isOrdersSelected = false;
 
   @Output() addingSelectedOrder = new EventEmitter<string>();
 
@@ -50,8 +49,11 @@ export class CartTableComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  orderSelected(no: string) {
-    this.addingSelectedOrder.emit(no)
+  public orderSelected(event: MatCheckboxChange) {
+    console.log(event.source.value)
+    console.log(event.checked)
+    if (event.checked === true)
+    this.addingSelectedOrder.emit(event.source.value)
   }
 
   public editOrder(id: string) {

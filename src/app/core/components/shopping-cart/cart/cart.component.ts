@@ -1,10 +1,17 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { PassengersCompound, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
+import { Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { BOOKING_PAGES, CART_COLUMNS } from 'src/app/shared/constants/constants';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 export interface PeriodicElement {
   no: string | undefined;
@@ -20,7 +27,7 @@ export interface PeriodicElement {
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, AfterViewInit{
   @Input() public sum?: number;
 
   public currency = 'EUR';
@@ -35,12 +42,21 @@ export class CartComponent implements OnInit {
 
   private destroy$ = new Subject();
 
-  constructor(private store: Store) {}
+  public dataSource = new MatTableDataSource(this.tableData);
+
+  @ViewChild(MatSort)
+  sort?: MatSort;
+
+  constructor(
+    private store: Store,
+    private router: Router,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'cart' }));
     this.store.dispatch(ordersActions.loadOrders());
-    const orders$ = this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
+    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
       (orders) => {
         this.orders = orders;
         console.log('orders', orders)
@@ -75,6 +91,7 @@ export class CartComponent implements OnInit {
 
         console.log(tableData);
         this.tableData = tableData;
+        this.dataSource.data = tableData;
       })
   }
 
@@ -102,6 +119,7 @@ export class CartComponent implements OnInit {
     const userOrderId = Object.keys(userOrder)[0];
     const currentOrder = userOrder[userOrderId];
     this.store.dispatch(bookingActions.updateFirstForm({ currentOrder }))
+    this.router.navigate(['/main', BOOKING_PAGES[0]])
   }
 
   public onAllOrdersSelected() {
@@ -115,5 +133,36 @@ export class CartComponent implements OnInit {
   public addOrderToPayment(no: string) {
     //берем все заказы и ищем по номеру, после добавляем в массив
     //если ordersPayable === orders, то allOrdersSelected === true
+  }
+
+  public orderSelected(event: MatCheckboxChange) {
+    console.log(event.source.value)
+    console.log(event.checked)
+  }
+
+  public get displayedColumns(): string[] { 
+    let columns = CART_COLUMNS;
+
+    columns = [
+      'checkbox',
+      ...columns,
+      'menu',
+    ]
+
+    return columns;
+  }
+
+  ngAfterViewInit() {
+    if (this.sort !== undefined) {
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }

@@ -10,9 +10,8 @@
         <mat-checkbox
           class="example-margin"
           color="primary"
-          [(ngModel)]="isOrdersSelected"
-          (change)="orderSelected(element.no)"
-          [checked]="allOrdersSelected"
+          [value]="element.id"
+          (change)="orderSelected($event)"
         ></mat-checkbox>
       </td>
     </ng-container>
