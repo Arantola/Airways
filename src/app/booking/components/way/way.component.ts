@@ -17,14 +17,14 @@ export class WayComponent implements OnChanges {
 
   @Input() public tripData?: Flight[];
   @Input() public order?: CurrentOrder;
-  
+
   @Output() ticketSave = new EventEmitter<saveTicketData>();
   @Output() ticketDelete = new EventEmitter<boolean>();
 
   public isSelectedTicket = false;
   public currency = 'EUR';
 
-  private settings$ = this.store.select(selectSettingsState);
+  public settings$ = this.store.select(selectSettingsState);
   private settingsSubscription?: Subscription;
 
   public constructor(private store: Store) {

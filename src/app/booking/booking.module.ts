@@ -32,7 +32,7 @@ const BookingComponents = [
 
 @NgModule({
   declarations: [BookingComponents, IndicatorColorDirective, CurrencySymbolPipe, SummaryModalWindowComponent],
-  exports: [BookingComponents],
+  exports: [BookingComponents, CurrencySymbolPipe],
   imports: [
     CommonModule,
     MaterialModule,

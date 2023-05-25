@@ -13,6 +13,7 @@
     [selectedDate]="selectedDate"
     [isSelectedTicket]="isSelectedTicket"
     (dateSelected)="selectedDate = $event"
+    [settings$]="settings$"
   ></app-date-carousel>
   <app-ticket
     *ngFor="let flight of getFlightsOnDay(selectedDate)"
@@ -23,5 +24,6 @@
     (ticketSelected)="onTicketSelected($event)"
     (onSaveTicket)="onTicketSave($event)"
     (onDeleteTicket)="onTicketDelete($event)"
+    [settings$]="settings$"
   ></app-ticket>
 </div>

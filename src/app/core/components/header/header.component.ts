@@ -9,6 +9,7 @@ import {
   selectUserName,
 } from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
+import { CurrencyService } from 'src/app/shared/services/currency.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -31,7 +32,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private iconService: IconService
+    private iconService: IconService,
+    private currencyService: CurrencyService,
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
@@ -40,6 +42,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.trackPage();
     this.subscribeToUserName();
+    this.currencyService.saveCurrencyData();
   }
 
   ngOnDestroy(): void {

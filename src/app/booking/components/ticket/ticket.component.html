@@ -46,7 +46,7 @@
     <div class="ticket__flight-no-fr">{{ flight.id }}</div>
   </div>
   <div *ngIf="selected" class="ticket__price-selected">
-    {{ currency | currencySymbol }}{{ flight.price }}
+    {{ currency | currencySymbol }}{{ price.toFixed(2) }}
   </div>
   <div *ngIf="selected" class="ticket__edit">
     <button
@@ -72,7 +72,7 @@
         </div>
         Price
         <div class="ticket__price">
-          {{ currency | currencySymbol }}{{ flight.price }}
+          {{ currency | currencySymbol }}{{ price.toFixed(2) }}
         </div>
       </div>
       <div class="ticket__select">

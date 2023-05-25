@@ -1,12 +1,12 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
+import { selectCurrentOrder, selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import {
   BOOKING_PAGES,
   PASSENGERS_LIST,
@@ -29,12 +29,15 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   initialForm!: FormGroup;
   currentOrder!: CurrentOrder;
 
+  public settings$ = this.store.select(selectSettingsState);
+  private settingsSubscription?: Subscription;
+
   constructor(
     private store: Store,
     private router: Router,
     private iconService: IconService,
-    private _adapter: DateAdapter<any>,
-    @Inject(MAT_DATE_LOCALE) private _locale: string,
+    private _adapter: DateAdapter<Date>,
+    @Inject(MAT_DATE_FORMATS) private _formats: any,
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
   }
@@ -44,8 +47,13 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
-    this._locale = 'ja';
-    this._adapter.setLocale(this._locale);
+    this.settingsSubscription = this.settings$.subscribe(
+      (settings) => {
+        //this._adapter.setLocale('en-US');
+        this._formats.parse.dateInput = settings.dateFormat;
+        this._formats.display.dateInput = settings.dateFormat;
+      }
+    )
   }
 
   ngOnDestroy(): void {
@@ -116,9 +124,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
         isRounded: isRounded ? 1 : undefined,
         departurePoint: departurePoint === '' ? undefined : departurePoint.iata,
         destinationPoint: destinationPoint === '' ? undefined : destinationPoint.iata,
-        // dateStart: date.start === null ? undefined : date.start.toJSON(),
-        // dateEnd: date.end === null ? undefined : date.end.toJSON(),
-        // singleDate: singleDate === null ? undefined : singleDate.toJSON(),
+        // dateStart: date?.start?.toJSON() ?? undefined,
+        // dateEnd: date?.end?.toJSON() ?? undefined,
+        // singleDate: singleDate.toJSON() ?? undefined,
         adults: passengersCompound.adults === 0 ? undefined : passengersCompound.adults,
         children: passengersCompound.children === 0 ? undefined : passengersCompound.children,
         infants: passengersCompound.infants === 0 ? undefined : passengersCompound.infants,

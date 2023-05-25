@@ -22,12 +22,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import {
-  MAT_MOMENT_DATE_FORMATS,
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DATE_FORMAT } from '../constants/constants';
 
 const MaterialModules = [
   MatInputModule,
@@ -61,18 +58,14 @@ const MaterialModules = [
       useValue: { color: 'primary' },
     },
     {
-      provide: MAT_DATE_LOCALE,
-      useValue: 'en-US',
-    },
-    {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+      deps: [MAT_DATE_LOCALE]
     },
     {
       provide: MAT_DATE_FORMATS,
-      useValue: MAT_MOMENT_DATE_FORMATS
-    },
+      useValue: DATE_FORMAT
+    }
   ],
 })
 export class MaterialModule {}
