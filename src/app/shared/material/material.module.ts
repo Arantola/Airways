@@ -60,7 +60,7 @@ const MaterialModules = [
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE]
+      deps: [MAT_DATE_LOCALE],
     },
     {
       provide: MAT_DATE_FORMATS,
