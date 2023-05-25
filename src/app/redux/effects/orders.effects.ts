@@ -17,6 +17,16 @@ export class OrdersEffects {
     )
   );
 
+  public saveOrder$ = createEffect(() => this.actions$.pipe(
+    ofType(ordersActions.saveOrder),
+    exhaustMap((action) => this.userOrdersService.saveNewOrder(action.order)
+      .pipe(
+        map(({ name }) => ordersActions.orderSaved({ userOrder: { [name]: action.order } })),
+        catchError(() => EMPTY),
+      ),
+    )
+  ));
+
   public deleteOrder$ = createEffect(() => this.actions$.pipe(
     ofType(ordersActions.deleteOrder),
     exhaustMap((action) => this.userOrdersService.deleteOrder(action.id)

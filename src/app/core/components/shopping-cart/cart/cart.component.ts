@@ -13,21 +13,12 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
-export interface PeriodicElement {
-  no: string | undefined;
-  flight: string;
-  typeTrip: string;
-  dataTime: string[];
-  passengers: PassengersCompound;
-  price: number | undefined;
-  id: string;
-}
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements AfterViewInit{
+export class CartComponent implements OnInit, AfterViewInit{
   @Input() public sum?: number;
 
   public currency = 'EUR';
@@ -38,7 +29,7 @@ export class CartComponent implements AfterViewInit{
 
   private ordersPayable: UserOrder[] = [];
 
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
 
   public dataSource = new MatTableDataSource<UserOrder>();
 
@@ -50,15 +41,21 @@ export class CartComponent implements AfterViewInit{
     private router: Router,
     private _liveAnnouncer: LiveAnnouncer
   ) {
+    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
+      (orders) => {
+        this.orders = orders;
+        this.dataSource.data = orders;
+      },
+    );
+  }
+
+  ngOnInit(): void {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'cart' }));
     this.store.dispatch(ordersActions.loadOrders());
-    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe((orders) => {
-      this.orders = orders;
-      this.dataSource.data = orders;
-    });
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 
@@ -90,17 +87,10 @@ export class CartComponent implements AfterViewInit{
     } else {
       this.ordersPayable = [];
     }
-    
-    console.log('ordersPayable', this.ordersPayable);
   }
 
   public isAllOrdersSelected(): boolean {
     return this.orders?.length === this.ordersPayable.length;
-  }
-
-  public addOrderToPayment(no: string) {
-    //берем все заказы и ищем по номеру, после добавляем в массив
-    //если ordersPayable === orders, то allOrdersSelected === true
   }
 
   public orderSelected(event: MatCheckboxChange, userOrder: UserOrder) {
@@ -110,8 +100,6 @@ export class CartComponent implements AfterViewInit{
       const index = this.ordersPayable.indexOf(userOrder);
       this.ordersPayable.splice(index, 1);
     }
-
-    console.log('ordersPayable', this.ordersPayable);
   }
 
   public get displayedColumns(): string[] { 

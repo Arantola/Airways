@@ -20,9 +20,7 @@ export class UserOrdersService {
 
   saveNewOrder(currentOrder: CurrentOrder) {
     this.setID();
-    return this.http
-      .post(`${FIREBASE_ORDERS}/${this.uid}.json`, currentOrder)
-      .subscribe((response) => console.log(response));
+    return this.http.post<{ name: string }>(`${FIREBASE_ORDERS}/${this.uid}.json`, currentOrder);
   }
 
   getAllOrders() {
@@ -31,7 +29,6 @@ export class UserOrdersService {
       .get(`${FIREBASE_ORDERS}/${this.uid}.json`)
       .pipe(
         map((orders) => {
-          console.log('orders from server', orders)
           for (const [key, value] of Object.entries(orders)) {
             const order = {
               [key]: value,

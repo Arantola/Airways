@@ -45,6 +45,8 @@ export const ordersActions = createActionGroup({
   events: {
     'Load Orders': emptyProps(),
     'Complete Orders Load': props<{orders: UserOrder[] }>(),
+    'Save Order': props<{ order: CurrentOrder }>(),
+    'Order Saved': props<{ userOrder: UserOrder }>(),
     'Delete Order': props<{ id: string }>(),
     'Order Deleted': props<{ id: string }>(),
     'Update Order': props<{ userOrder: UserOrder}>(),

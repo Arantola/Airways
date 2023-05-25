@@ -9,5 +9,8 @@ const selectOrdersState = createFeatureSelector<OrdersState>('orders');
 
 export const selectOrders = createSelector(
   selectOrdersState,
-  selectAll,
+  (ordersState) => {
+    const orders = selectAll(ordersState)
+    return orders;
+  },
 )

@@ -15,7 +15,13 @@ export const ordersReducer = createReducer(
   initialState,
   on(
     ordersActions.completeOrdersLoad,
-    (state, action) => orderAdapter.setMany(action.orders, state)
+    (state, action) => {
+      return orderAdapter.setMany(action.orders, state);
+    }
+  ),
+  on(
+    ordersActions.orderSaved,
+    (state, action) => orderAdapter.upsertOne(action.userOrder, state)
   ),
   on(
     ordersActions.orderDeleted,

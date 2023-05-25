@@ -6,7 +6,7 @@ import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { appSettingsActions } from 'src/app/redux/actions/app.actions';
+import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
 
 @Component({
   selector: 'app-summary-page',
@@ -44,7 +44,7 @@ export class SummaryPageComponent implements OnInit {
   }
 
   addToCart() {
-    this.ordersService.saveNewOrder(this.currentOrder);
+    this.store.dispatch(ordersActions.saveOrder({order: this.currentOrder}));
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
         type: 'cart',
