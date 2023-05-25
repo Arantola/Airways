@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { appSettingsActions, bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
 import { Component, Input, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { PassengersCompound, UserOrder } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder, PassengersCompound, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { Sort } from '@angular/material/sort';
@@ -27,22 +27,20 @@ export interface PeriodicElement {
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit, AfterViewInit{
+export class CartComponent implements AfterViewInit{
   @Input() public sum?: number;
 
   public currency = 'EUR';
 
   public allOrdersSelected = false;
 
-  public tableData: PeriodicElement[] = [];
-
   private orders?: UserOrder[];
 
-  private ordersPayable = [];
+  private ordersPayable: UserOrder[] = [];
 
   private destroy$ = new Subject();
 
-  public dataSource = new MatTableDataSource(this.tableData);
+  public dataSource = new MatTableDataSource<UserOrder>();
 
   @ViewChild(MatSort)
   sort?: MatSort;
@@ -51,48 +49,13 @@ export class CartComponent implements OnInit, AfterViewInit{
     private store: Store,
     private router: Router,
     private _liveAnnouncer: LiveAnnouncer
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'cart' }));
     this.store.dispatch(ordersActions.loadOrders());
-    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
-      (orders) => {
-        this.orders = orders;
-        console.log('orders', orders)
-        const tableData: PeriodicElement[] = [];
-        for (let userOrder of orders) {
-
-          for (let orderKey of Object.keys(userOrder)) {
-            const order = userOrder[orderKey];
-
-            let obj: PeriodicElement = {
-              no: order.selectedFlightFrom?.flight?.id,
-              flight: `${order.departurePoint?.city} — ${order.destinationPoint?.city}
-              ${order.isRounded ? `— ${order.departurePoint?.city}` : ''}`,
-              typeTrip: order.isRounded ? 'Round trip' : 'One way',
-              dataTime: [
-                `${this.transformDateFormat(order.selectedFlightFrom?.flight?.date)},
-                ${order.selectedFlightFrom?.flight?.startTime} —
-                ${order.selectedFlightFrom?.finishTime}`,
-                order.isRounded ?
-                `${this.transformDateFormat(order.selectedFlightBack?.flight?.date)},
-                ${order.selectedFlightBack?.flight?.startTime} —
-                ${order.selectedFlightBack?.finishTime}` :
-                ''
-              ],
-              passengers: order.passengersCompound,
-              price: order.totalCost,
-              id: orderKey,
-            }
-            tableData.push(obj);
-          }
-        }
-
-        console.log(tableData);
-        this.tableData = tableData;
-        this.dataSource.data = tableData;
-      })
+    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe((orders) => {
+      this.orders = orders;
+      this.dataSource.data = orders;
+    });
   }
 
   ngOnDestroy(): void {
@@ -116,18 +79,23 @@ export class CartComponent implements OnInit, AfterViewInit{
     if (userOrder === undefined) {
       return;
     }
-    const userOrderId = Object.keys(userOrder)[0];
-    const currentOrder = userOrder[userOrderId];
+    const currentOrder = this.getElementData(userOrder);
     this.store.dispatch(bookingActions.updateFirstForm({ currentOrder }))
     this.router.navigate(['/main', BOOKING_PAGES[0]])
   }
 
-  public onAllOrdersSelected() {
-    if (this.allOrdersSelected) {
-      //выбираем все заказы и пушим в ordersPayable
+  public onAllOrdersSelected(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.ordersPayable = this.orders?.slice(0) ?? [];
     } else {
-      //удаляем все заказы
+      this.ordersPayable = [];
     }
+    
+    console.log('ordersPayable', this.ordersPayable);
+  }
+
+  public isAllOrdersSelected(): boolean {
+    return this.orders?.length === this.ordersPayable.length;
   }
 
   public addOrderToPayment(no: string) {
@@ -135,9 +103,15 @@ export class CartComponent implements OnInit, AfterViewInit{
     //если ordersPayable === orders, то allOrdersSelected === true
   }
 
-  public orderSelected(event: MatCheckboxChange) {
-    console.log(event.source.value)
-    console.log(event.checked)
+  public orderSelected(event: MatCheckboxChange, userOrder: UserOrder) {
+    if (event.checked) {
+      this.ordersPayable.push(userOrder);
+    } else {
+      const index = this.ordersPayable.indexOf(userOrder);
+      this.ordersPayable.splice(index, 1);
+    }
+
+    console.log('ordersPayable', this.ordersPayable);
   }
 
   public get displayedColumns(): string[] { 
@@ -164,5 +138,83 @@ export class CartComponent implements OnInit, AfterViewInit{
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  isOrderSelected(userOrder: UserOrder): boolean {
+    return this.ordersPayable.indexOf(userOrder) >= 0;
+  }
+
+  getElementId(userOrder: UserOrder): string {
+    return Object.keys(userOrder)[0];
+  }
+
+  getElementData(userOrder: UserOrder): CurrentOrder {
+    const id = this.getElementId(userOrder);
+    return userOrder[id];
+  }
+
+  getElementNo(userOrder: UserOrder): string | undefined {
+    const order = this.getElementData(userOrder);
+    return order.selectedFlightFrom?.flight?.id;
+  }
+
+  getElementFlight(userOrder: UserOrder): string | undefined {
+    const order = this.getElementData(userOrder);
+
+    if (
+      order.destinationPoint === undefined ||
+      order.departurePoint === undefined
+    ) {
+      return;
+    }
+
+    let wallBack = '';
+    if (order.isRounded) {
+      wallBack = ` — ${order.departurePoint.city}`;
+    }
+
+    return `${order.departurePoint.city} — ${order.destinationPoint.city}${wallBack}`;
+  }
+
+  getElementTypeTrip(userOrder: UserOrder): string {
+    const order = this.getElementData(userOrder);
+
+    return order.isRounded ? 'Round trip' : 'One way';
+  }
+
+  getElementDates(userOrder: UserOrder): string[] {
+    const order = this.getElementData(userOrder);
+
+    const dates = [
+      `${this.transformDateFormat(order.selectedFlightFrom?.flight?.date)},
+        ${order.selectedFlightFrom?.flight?.startTime} —
+        ${order.selectedFlightFrom?.finishTime}`,
+    ];
+
+    if (order.isRounded) {
+      dates.push(`${this.transformDateFormat(order.selectedFlightBack?.flight?.date)},
+        ${order.selectedFlightBack?.flight?.startTime} —
+        ${order.selectedFlightBack?.finishTime}`);
+    }
+
+    return dates;
+  }
+
+  getElementPassengers(userOrder: UserOrder): PassengersCompound {
+    const order = this.getElementData(userOrder);
+
+    return order.passengersCompound;
+  }
+
+  getElementPrice(userOrder: UserOrder): number | undefined {
+    const order = this.getElementData(userOrder);
+
+    return order.totalCost;
+  }
+
+  get totalCost(): number {
+    return this.ordersPayable
+      .map((order) => this.getElementData(order).totalCost)
+      .reduce((total, cost) => total + cost, 0);
   }
 }
