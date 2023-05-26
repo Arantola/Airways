@@ -84,7 +84,7 @@ export class WayComponent implements OnChanges {
       const itemDate = new Date(item.date);
       itemDate.setHours(0, 0, 0);
 
-      return itemDate.getTime() == date.getTime();
+      return itemDate.getTime() == new Date(date).getTime();
     }) ?? [];
   }
 
