@@ -35,9 +35,8 @@ const bookingComponents = [
     ...bookingComponents,
     IndicatorColorDirective,
     SummaryModalWindowComponent,
-    CurrencySymbolPipe,
   ],
-  exports: [bookingComponents, CurrencySymbolPipe],
+  exports: bookingComponents,
   imports: [
     CommonModule,
     MaterialModule,

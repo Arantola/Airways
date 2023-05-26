@@ -60,9 +60,7 @@ export class FlightFareComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.settingsSubscription?.unsubscribe();
-
     this.store.dispatch(bookingActions.addTotalCost({ totalCost: this.totalCost }));
-
   }
 
   get adultsCount(): number {
