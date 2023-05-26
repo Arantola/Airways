@@ -22,10 +22,10 @@ export class SignUpComponent implements OnInit {
   countryCodeData = phoneCode;
 
   validPassword = `Please use:
-    1) min 8 characters
-    2) letters with upper and lower case
-    3) at least one letter and one number
-    4) one special char (! @ # ?)`;
+    - min 8 characters
+    - letters with upper and lower case
+    - at least one letter and one number
+    - one special char (! @ # ?)`;
 
   validName = "The field doesn't contain numbers";
 

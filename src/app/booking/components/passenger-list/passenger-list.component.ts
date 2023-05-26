@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -12,12 +12,15 @@ import { Subscription } from 'rxjs';
 import {
   selectCurrentOrder,
   selectPassengersCompound,
+  selectSettingsState,
 } from 'src/app/redux/selectors/app.selectors';
 import {
   CurrentOrder,
+  DateFormat,
   PassengersCompound,
 } from 'src/app/shared/interfaces/interfaces';
 import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-control-value-accessor-adapter';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-passenger-list',
@@ -38,14 +41,23 @@ import { FormControlValueAccessorAdapter } from '../../../shared/adapters/form-c
 })
 export class PassengerListComponent
   extends FormControlValueAccessorAdapter
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private subscriptionCurrentOrder!: Subscription;
   currentOrder!: CurrentOrder;
   passengersArray!: string[];
   formGroup!: FormGroup;
 
-  constructor(private store: Store, private fb: FormBuilder) {
+  public settings$ = this.store.select(selectSettingsState);
+  private settingsSubscription?: Subscription;
+  dateFormat = 'MM/DD/YYYY';
+
+  constructor(
+    private store: Store,
+    private fb: FormBuilder,
+    private _adapter: DateAdapter<Date>,
+    @Inject(MAT_DATE_FORMATS) private _formats: DateFormat,
+    ) {
     super();
   }
 
@@ -55,10 +67,19 @@ export class PassengerListComponent
     this.getPassengersArray();
     this.addPassengerForms();
     this.prefillForm();
+    this.settingsSubscription = this.settings$.subscribe(
+      (settings) => {
+        this.dateFormat = settings.dateFormat;
+        this._formats.parse.dateInput = settings.dateFormat;
+        this._formats.display.dateInput = settings.dateFormat;
+        this._adapter.setLocale('en');
+      }
+    )
   }
 
   ngOnDestroy(): void {
     this.subscriptionCurrentOrder.unsubscribe();
+    this.settingsSubscription?.unsubscribe();
   }
 
   private initForm() {
