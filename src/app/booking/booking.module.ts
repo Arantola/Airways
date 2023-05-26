@@ -34,9 +34,10 @@ const bookingComponents = [
   declarations: [
     ...bookingComponents,
     IndicatorColorDirective,
-    SummaryModalWindowComponent
+    SummaryModalWindowComponent,
+    CurrencySymbolPipe,
   ],
-  exports: bookingComponents,
+  exports: [bookingComponents, CurrencySymbolPipe],
   imports: [
     CommonModule,
     MaterialModule,
