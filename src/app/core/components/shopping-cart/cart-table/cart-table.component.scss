@@ -12,6 +12,7 @@
   th {
     @include body-xlarge;
     color: $neutral0;
+    white-space: nowrap;
   }
   &__td {
     @include body-xlarge;

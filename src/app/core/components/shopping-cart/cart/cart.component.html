@@ -1,13 +1,24 @@
 <div class="cart">
   <span class="cart__title">Cart</span>
   <div class="cart__select-all">
-    <mat-checkbox class="example-margin" color="primary"></mat-checkbox>
-    Select All
+    <mat-checkbox
+      class="example-margin"
+      color="primary"
+      (change)="onAllOrdersSelected($event)"
+      [checked]="isAllOrdersSelected()"
+    ></mat-checkbox>
+      Select All
   </div>
-  <app-cart-table></app-cart-table>
+
+  <app-cart-table
+    [ordersPayable]="ordersPayable"
+    [orders]="orders"
+    (changeOrdersPayable)="ordersPayable = $event"
+  ></app-cart-table>
+
   <div class="cart__sum-footer">
-    <button class="cart__add-trip-button" mat-flat-button color="primary">+ Add new trip</button>
-    <div class="cart__sum">Total <span>€572.34</span></div>
+    <button class="cart__add-trip-button" routerLink="main" mat-flat-button color="primary">+ Add new trip</button>
+    <div class="cart__sum">Total <span>{{ currency | currencySymbol }}{{ totalCost }}</span></div>
   </div>
   <div class="cart__payment-footer">
     <mat-form-field appearance="outline">
