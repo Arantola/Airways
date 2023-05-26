@@ -21,10 +21,11 @@ interface CurrentOrder {
     end: Date | string | undefined;
   };
   passengersCompound: PassengersCompound;
-  selectedFlightFrom?: Ticket;
-  selectedFlightBack?: Ticket;
+  selectedFlightFrom?: Ticket,
+  selectedFlightBack?: Ticket,
   passengersInfo?: Passenger[];
   contacts?: Contacts;
+  totalCost: number;
 }
 
 interface PassengersCompound {
@@ -55,15 +56,6 @@ interface Flight {
 interface Ticket {
   flight?: Flight;
   finishTime?: string;
-}
-
-interface PeriodicElement {
-  no: string;
-  flight: string[];
-  typeTrip: string;
-  dataTime: string[];
-  passengers: PassengersCompound;
-  price: number;
 }
 
 interface Airport {
@@ -142,7 +134,6 @@ export {
   Contacts,
   Country,
   FirebaseFlight,
-  PeriodicElement,
   DateCard,
   Ticket,
   DialogData,

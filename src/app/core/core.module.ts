@@ -8,7 +8,6 @@ import { SecondMenuComponent } from './components/second-menu/second-menu.compon
 import { StepperComponent } from './components/stepper/stepper.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BookingModule } from '../booking/booking.module';
 import { MainModalWindowComponent } from './components/main-modal-window/main-modal-window.component';
 import { AuthModule } from '../auth/auth.module';
 import { ErrorComponent } from './components/error/error.component';
@@ -17,6 +16,7 @@ import { CartComponent } from './components/shopping-cart/cart/cart.component';
 import { CartTableComponent } from './components/shopping-cart/cart-table/cart-table.component';
 import { SecondFormComponent } from './components/second-form/second-form.component';
 import { PassengersInputComponent } from './components/passengers-input/passengers-input.component';
+import { SharedModule } from '../shared/shared.module';
 
 const CoreComponents = [
   HeaderComponent,
@@ -42,8 +42,8 @@ const CoreComponents = [
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BookingModule,
     AuthModule,
+    SharedModule,
   ],
 })
 export class CoreModule {}

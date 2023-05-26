@@ -14,10 +14,10 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
-import { CurrencySymbolPipe } from './pipes/currency-symbol.pipe';
 import { SummaryModalWindowComponent } from './components/summary-modal-window/summary-modal-window.component';
+import { SharedModule } from '../shared/shared.module';
 
-const BookingComponents = [
+const bookingComponents = [
   PassengerListComponent,
   DateCardComponent,
   DateCarouselComponent,
@@ -31,14 +31,19 @@ const BookingComponents = [
 ];
 
 @NgModule({
-  declarations: [BookingComponents, IndicatorColorDirective, CurrencySymbolPipe, SummaryModalWindowComponent],
-  exports: [BookingComponents, CurrencySymbolPipe],
+  declarations: [
+    ...bookingComponents,
+    IndicatorColorDirective,
+    SummaryModalWindowComponent
+  ],
+  exports: bookingComponents,
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     BookingRoutingModule,
+    SharedModule,
   ],
 })
 export class BookingModule {}
