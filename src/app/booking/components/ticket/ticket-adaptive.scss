@@ -33,6 +33,9 @@
     &__edit {
       margin: 15.5px 0;
     }
+    &.ticket_selected {
+      flex-flow: row wrap;
+    }
   }
 }
 @media (max-width: 768px) {

@@ -12,7 +12,6 @@
   &.ticket_selected {
     justify-content: space-between;
     & .ticket__flight-no {
-      justify-content: flex-end;
       border-right: none;
     }
   }
@@ -132,7 +131,7 @@
   }
   &__edit, &__price-selected {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     width: 15%;
   }
