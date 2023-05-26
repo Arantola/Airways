@@ -38,7 +38,8 @@ export class HeaderComponent implements OnInit {
     private iconService: IconService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private currencyService: CurrencyService,
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
