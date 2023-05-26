@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
-import { appSettingsActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
+import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
 import {
   BOOKING_PAGES,
   PASSENGERS_LIST,
@@ -95,29 +95,9 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const form = this.initialForm.value;
-
-    const {
-      isRounded,
-      departurePoint,
-      destinationPoint,
-      date,
-      singleDate,
-      passengersCompound,
-    } = form;
-
-    this.router.navigate(['booking', BOOKING_PAGES[0]], {
-      queryParams: {
-        isRounded: isRounded ? 1 : undefined,
-        departurePoint: departurePoint === '' ? undefined : departurePoint.iata,
-        destinationPoint: destinationPoint === '' ? undefined : destinationPoint.iata,
-        dateStart: date?.start?.toJSON() ?? undefined,
-        dateEnd: date?.end?.toJSON() ?? undefined,
-        singleDate: singleDate.toJSON() ?? undefined,
-        adults: passengersCompound.adults === 0 ? undefined : passengersCompound.adults,
-        children: passengersCompound.children === 0 ? undefined : passengersCompound.children,
-        infants: passengersCompound.infants === 0 ? undefined : passengersCompound.infants,
-      }
-    });
+    this.store.dispatch(
+      bookingActions.updateFirstForm({ currentOrder: this.initialForm.value })
+    );
+    this.router.navigate(['booking', BOOKING_PAGES[0]]);
   }
 }

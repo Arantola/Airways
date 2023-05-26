@@ -29,7 +29,8 @@ const currentOrderState: CurrentOrder = {
       number: undefined,
     },
     email: undefined,
-  }
+  },
+  totalCost: 0,
 };
 
 export const currentOrderReducer = createReducer(
@@ -53,5 +54,9 @@ export const currentOrderReducer = createReducer(
   on(bookingActions.updateFlightBack, (state, { flightBack }) => ({
     ...state,
     selectedFlightBack: flightBack,
+  })),
+  on(bookingActions.addTotalCost, (state, { totalCost }) => ({
+    ...state,
+    totalCost,
   })),
 );

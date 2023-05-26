@@ -1,8 +1,10 @@
+
 import { CurrencyService } from 'src/app/shared/services/currency.service';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
+import { bookingActions } from 'src/app/redux/actions/app.actions';
 import { CurrentOrder, Prices } from 'src/app/shared/interfaces/interfaces';
 import { CostCalculationService } from 'src/app/shared/services/cost-calculation.service';
 
@@ -58,6 +60,9 @@ export class FlightFareComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.settingsSubscription?.unsubscribe();
+
+    this.store.dispatch(bookingActions.addTotalCost({ totalCost: this.totalCost }));
+
   }
 
   get adultsCount(): number {
