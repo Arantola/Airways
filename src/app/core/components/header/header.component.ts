@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
     private store: Store,
     private dialog: MatDialog,
     private iconService: IconService,
+    private currencyService: CurrencyService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private router: Router,
