@@ -35,7 +35,6 @@ export class CartComponent implements OnInit {
     this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
       (settings) => {
         this.currency = settings.currency;
-        console.log(this.currency)
         this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
       }
     )

@@ -1,12 +1,10 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
+import { Component } from '@angular/core';
+import { UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSort } from '@angular/material/sort';
+import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 
 @Component({
   selector: 'app-user-account',
@@ -15,6 +13,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class UserAccountComponent {
   public orders?: UserOrder[];
+  public currency = 'EUR';
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -25,6 +24,11 @@ export class UserAccountComponent {
         this.orders = orders;
       },
     );
+    this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
+      (settings) => {
+        this.currency = settings.currency;
+      }
+    )
   }
 
   ngOnInit(): void {
