@@ -1,12 +1,11 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentModalWindowComponent } from '../payment-modal-window/payment-modal-window.component';
 
@@ -21,6 +20,7 @@ export class CartComponent implements OnInit {
   public orders?: UserOrder[];
   public ordersPayable: UserOrder[] = [];
   public dataSource = new MatTableDataSource<UserOrder>();
+  public totalSelectedOrders = this.ordersPayable.length;
 
   private destroy$ = new Subject<void>();
 
@@ -51,6 +51,7 @@ export class CartComponent implements OnInit {
     } else {
       this.ordersPayable = [];
     }
+    this.totalSelectedOrders = this.ordersPayable.length;
   }
 
   public isAllOrdersSelected(): boolean {
@@ -86,6 +87,10 @@ export class CartComponent implements OnInit {
       }
       this.store.dispatch(ordersActions.updateOrder({userOrder}));
     })
-    console.log(this.ordersPayable)
+  }
+
+  onChangeOrderPayable(ordersPayable: UserOrder[]) {
+    this.ordersPayable = ordersPayable;
+    this.totalSelectedOrders = this.ordersPayable.length;
   }
 }

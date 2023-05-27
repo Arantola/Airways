@@ -13,7 +13,7 @@
   <app-cart-table
     [ordersPayable]="ordersPayable"
     [orders]="orders"
-    (changeOrdersPayable)="ordersPayable = $event"
+    (changeOrdersPayable)="onChangeOrderPayable($event)"
   ></app-cart-table>
 
   <div class="cart__sum-footer">
@@ -27,7 +27,7 @@
       <mat-icon class="cart__promo-code-icon" matSuffix>APPLY</mat-icon>
     </mat-form-field>
     <div class="cart__selected-and-payment">
-      <span>2 selected</span>
+      <span>{{totalSelectedOrders}} selected</span>
       <button class="cart__payment-button" mat-flat-button color="primary" (click)="openDialog()">Payment</button>
     </div>
   </div>
