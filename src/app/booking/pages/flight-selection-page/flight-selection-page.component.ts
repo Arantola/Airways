@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest, Subject, takeUntil } from 'rxjs';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
@@ -55,7 +55,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     })
   );
 
-  private destroy$ = new Subject();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private router: Router,
@@ -119,6 +119,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 
@@ -165,7 +166,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public saveTicket(saveTicketData: saveTicketData) {
-    console.log('saveTrip')
     const ticket = this.createTicket(
       saveTicketData.flight,
       saveTicketData.finishTime
