@@ -1,12 +1,11 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSort } from '@angular/material/sort';
 import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import { CurrencyService } from 'src/app/shared/services/currency.service';
 
@@ -21,8 +20,6 @@ export class CartComponent implements OnInit {
   public orders?: UserOrder[];
   public ordersPayable: UserOrder[] = [];
   public dataSource = new MatTableDataSource<UserOrder>();
-  public settings$ = this.store.select(selectSettingsState);
-  private settingsSubscription?: Subscription;
   private destroy$ = new Subject<void>();
   public totalCostForDisplay!: number;
 
@@ -35,9 +32,10 @@ export class CartComponent implements OnInit {
         this.orders = orders;
       },
     );
-    this.settingsSubscription = this.settings$.subscribe(
+    this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
       (settings) => {
         this.currency = settings.currency;
+        console.log(this.currency)
         this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
       }
     )
@@ -51,7 +49,6 @@ export class CartComponent implements OnInit {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.settingsSubscription?.unsubscribe();
   }
 
   public onAllOrdersSelected(event: MatCheckboxChange): void {

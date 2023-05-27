@@ -92,7 +92,7 @@
       </th>
       <td class="cart-table__td cart-table__td_price" mat-cell *matCellDef="let element">
         <div class="cart-table__td-content">
-          {{ currency | currencySymbol }}{{ getElementPrice(element) }}
+          {{ currency | currencySymbol }}{{ getElementPrice(element)?.toFixed(2) }}
         </div>
       </td>
     </ng-container>
