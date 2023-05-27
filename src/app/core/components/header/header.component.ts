@@ -91,5 +91,6 @@ export class HeaderComponent implements OnInit {
   onChangeCurrency(value: string) {
     this.selectedCurrency = value;
     this.store.dispatch(appSettingsActions.changeCurrency({ currency: value }));
+    console.log(value)
   }
 }

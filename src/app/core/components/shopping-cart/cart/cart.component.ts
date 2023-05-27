@@ -60,6 +60,7 @@ export class CartComponent implements OnInit {
     } else {
       this.ordersPayable = [];
     }
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
   }
 
   public isAllOrdersSelected(): boolean {
@@ -79,5 +80,10 @@ export class CartComponent implements OnInit {
     return this.ordersPayable
       .map((order) => this.getElementData(order).totalCost)
       .reduce((total, cost) => total + cost, 0);
+  }
+
+  onChangeOrderPayable(ordersPayable: UserOrder[]) {
+    this.ordersPayable = ordersPayable;
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
   }
 }

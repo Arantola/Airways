@@ -13,7 +13,7 @@
   <app-cart-table
     [ordersPayable]="ordersPayable"
     [orders]="orders"
-    (changeOrdersPayable)="ordersPayable = $event"
+    (changeOrdersPayable)="onChangeOrderPayable($event)"
   ></app-cart-table>
 
   <div class="cart__sum-footer">
