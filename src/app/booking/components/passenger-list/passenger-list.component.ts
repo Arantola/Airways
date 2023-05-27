@@ -6,6 +6,7 @@ import {
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
+  Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -44,9 +45,11 @@ export class PassengerListComponent
   currentOrder!: CurrentOrder;
   passengersArray!: string[];
   formGroup!: FormGroup;
+  currentDate: Date;
 
   constructor(private store: Store, private fb: FormBuilder) {
     super();
+    this.currentDate = new Date();
   }
 
   ngOnInit(): void {
@@ -85,7 +88,17 @@ export class PassengerListComponent
     const passengers = [];
     for (let [key, value] of Object.entries(compound)) {
       for (let i = 0; i < value; i++) {
-        passengers.push(key);
+        switch (key) {
+          case 'adults':
+            passengers.push('adult');
+            break;
+          case 'children':
+            passengers.push('child');
+            break;
+          case 'infants':
+            passengers.push('infant');
+            break;
+        }
       }
     }
     return passengers;
@@ -94,10 +107,19 @@ export class PassengerListComponent
   private addPassengerForms() {
     while (this.passengersFormArray.length < this.passengersArray.length) {
       const passengerForm = new FormGroup({
-        firstName: new FormControl(),
-        lastName: new FormControl(),
+        firstName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z ]*'),
+        ]),
+        lastName: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[a-zA-Z ]*'),
+        ]),
         gender: new FormControl<'male' | 'female'>('male'),
-        birthday: new FormControl(), // TODO add check birthday and passengerType accordance
+        birthday: new FormControl('', [
+          Validators.required,
+          this.dateValidator,
+        ]),
         assistance: new FormControl<boolean>(false),
         baggage: new FormControl<boolean>(false),
       });
@@ -111,7 +133,44 @@ export class PassengerListComponent
     });
   }
 
+  private dateValidator(control: FormControl): { [s: string]: boolean } | null {
+    const creationDate = new Date(control.value);
+    const nowDate = new Date();
+    if (creationDate > nowDate) {
+      return { futureDate: true };
+    }
+    return null;
+  }
+
   get passengersFormArray() {
     return this.formGroup.controls['passengers'] as FormArray;
+  }
+
+  getMaxDate(type: string) {
+    let date = new Date();
+    switch (type) {
+      case 'adult':
+        date.setFullYear(date.getFullYear() - 14);
+        return date;
+      case 'child':
+        date.setFullYear(date.getFullYear() - 2);
+        return date;
+      default:
+        return date;
+    }
+  }
+
+  getMinDate(type: string) {
+    let date = new Date();
+    switch (type) {
+      case 'child':
+        date.setFullYear(date.getFullYear() - 14);
+        return date;
+      case 'infant':
+        date.setFullYear(date.getFullYear() - 2);
+        return date;
+      default:
+        return null;
+    }
   }
 }

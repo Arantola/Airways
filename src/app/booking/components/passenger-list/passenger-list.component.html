@@ -37,6 +37,8 @@
               formControlName="birthday"
               [matDatepicker]="picker"
               placeholder="MM/DD/YYYY"
+              [max]="getMaxDate(passengersArray[i])"
+              [min]="getMinDate(passengersArray[i])"
               matInput
               required
               >

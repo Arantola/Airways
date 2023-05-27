@@ -161,7 +161,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public toNextStep() {
-    if (!this.authService.userData) {
+    if (!this.authService.isLoggedIn) {
       // TODO Show popup
       alert('You need sign in first!');
     }
