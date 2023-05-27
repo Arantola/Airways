@@ -10,13 +10,13 @@
 </div>
 
 <div class="modal-wrapper" *ngIf="data.type === 'booking'">
-  <h1>Confirm Booking and proceed to Payment?</h1>
+  <h1>Order has been paid!</h1>
+  <p>Paid orders are placed on the 'account' page.</p>
   <button
     mat-button
     color="primary"
-    routerLink="shopping-cart"
+    routerLink="/account"
     mat-dialog-close
-  >Payment</button>
+  >Go to account page</button>
   <button mat-button mat-dialog-close color="primary">Close</button>
 </div>
-

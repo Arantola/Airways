@@ -57,7 +57,6 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    console.log('addToCart', this.currentOrder) //total cost === 0
     this.store.dispatch(ordersActions.saveOrder({order: this.currentOrder}));
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
@@ -67,8 +66,11 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
   }
 
   payOrder() {
-    this.ordersService.getAllOrders();
-    console.log(this.ordersService.userOrders);
+    this.store.dispatch(ordersActions.saveOrder({order: {
+        ...this.currentOrder,
+        paid: true,
+      }
+    }));
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
         type: 'booking',
