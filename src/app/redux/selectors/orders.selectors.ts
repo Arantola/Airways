@@ -15,6 +15,11 @@ export const selectOrders = createSelector(
   },
 )
 
+export const selectTotalOrders = createSelector(
+  selectOrders,
+  (userOrders) => userOrders.length,
+)
+
 export const selectPaidOrders = createSelector(
   selectOrdersState,
   (ordersState) => {
