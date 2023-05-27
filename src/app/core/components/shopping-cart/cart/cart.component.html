@@ -1,5 +1,8 @@
 <div class="cart">
-  <span class="cart__title">Cart</span>
+  <div class="cart__title">
+    Cart
+    <a routerLink="/account">Go to account page</a>
+  </div>
   <div class="cart__select-all">
     <mat-checkbox
       class="example-margin"
@@ -9,7 +12,6 @@
     ></mat-checkbox>
       Select All
   </div>
-
   <app-cart-table
     [ordersPayable]="ordersPayable"
     [orders]="orders"

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthWindowComponent } from 'src/app/auth/pages/auth-window/auth-window.component';
 import { BOOKING_PAGES, CURRENCIES, DATE_FORMATS } from 'src/app/shared/constants/constants';
 import { Store } from '@ngrx/store';
-import { appSettingsActions } from 'src/app/redux/actions/app.actions';
+import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
 import {
   selectCurrentPage,
   selectUserName,
@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
+    this.store.dispatch(ordersActions.loadOrders());
     this.store.select(selectTotalOrders)
       .pipe(takeUntil(this.destroy$))
       .subscribe((totalOrders) => {

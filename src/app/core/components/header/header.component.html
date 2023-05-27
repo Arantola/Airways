@@ -79,7 +79,13 @@
           class="menu__item menu__button-basket"
           mat-stroked-button
           routerLink="shopping-cart">
-          <mat-icon class="icon" [matBadge]="totalOrders" matBadgeColor="warn" [class.icon_black]="!isMainPage" svgIcon="basket"></mat-icon>
+          <mat-icon
+            class="icon"
+            [matBadge]="totalOrders"
+            matBadgeColor="warn"
+            [class.icon_black]="!isMainPage"
+            svgIcon="basket"
+          ></mat-icon>
         </a>
       </div>
     </div>
