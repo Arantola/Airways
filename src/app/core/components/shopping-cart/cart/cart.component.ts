@@ -1,12 +1,13 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentModalWindowComponent } from '../payment-modal-window/payment-modal-window.component';
 
 @Component({
   selector: 'app-cart',
@@ -19,11 +20,13 @@ export class CartComponent implements OnInit {
   public orders?: UserOrder[];
   public ordersPayable: UserOrder[] = [];
   public dataSource = new MatTableDataSource<UserOrder>();
+  public totalSelectedOrders = this.ordersPayable.length;
 
   private destroy$ = new Subject<void>();
 
   constructor(
     private store: Store,
+    public dialog: MatDialog
   ) {
     this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
       (orders) => {
@@ -48,6 +51,7 @@ export class CartComponent implements OnInit {
     } else {
       this.ordersPayable = [];
     }
+    this.totalSelectedOrders = this.ordersPayable.length;
   }
 
   public isAllOrdersSelected(): boolean {
@@ -67,5 +71,26 @@ export class CartComponent implements OnInit {
     return this.ordersPayable
       .map((order) => this.getElementData(order).totalCost)
       .reduce((total, cost) => total + cost, 0);
+  }
+
+  openDialog() {
+    this.dialog.open(PaymentModalWindowComponent);
+
+    this.ordersPayable.forEach((userOrder) => {
+      const key = this.getElementId(userOrder);
+      const order = this.getElementData(userOrder);
+      userOrder = {
+        [key]: {
+          ...order,
+          paid: true,
+        }
+      }
+      this.store.dispatch(ordersActions.updateOrder({userOrder}));
+    })
+  }
+
+  onChangeOrderPayable(ordersPayable: UserOrder[]) {
+    this.ordersPayable = ordersPayable;
+    this.totalSelectedOrders = this.ordersPayable.length;
   }
 }

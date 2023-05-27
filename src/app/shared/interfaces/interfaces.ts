@@ -26,6 +26,7 @@ interface CurrentOrder {
   passengersInfo?: Passenger[];
   contacts?: Contacts;
   totalCost: number;
+  paid: boolean;
 }
 
 interface PassengersCompound {

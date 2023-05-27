@@ -8,10 +8,18 @@
   border-radius: 8px;
   background-color: $neutral100;
   &__title {
+    display: flex;
+    justify-content: space-between;
     margin-left: 30px;
     @include title-large;
     color: $primary;
     box-shadow: 0;
+    a {
+      @include subtitle-small;
+      text-decoration: none;
+      margin-right: 30px;
+      color: $accent;
+    }
   }
   &__select-all {
     margin: 27px 0 27px 16px;

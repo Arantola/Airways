@@ -22,6 +22,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatBadgeModule } from '@angular/material/badge';
+
 
 const MaterialModules = [
   MatInputModule,
@@ -44,6 +46,7 @@ const MaterialModules = [
   MatDividerModule,
   MatTableModule,
   MatSortModule,
+  MatBadgeModule,
 ];
 
 @NgModule({

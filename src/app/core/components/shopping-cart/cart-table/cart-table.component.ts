@@ -101,8 +101,6 @@ export class CartTableComponent implements AfterViewInit {
     }
 
     return columns;
-
-    return columns;
   }
 
   ngAfterViewInit() {

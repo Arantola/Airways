@@ -1,34 +1,47 @@
-import { selectCurrentOrder } from './../../../redux/selectors/app.selectors';
+import { selectCurrentOrder, selectCurrentPage } from './../../../redux/selectors/app.selectors';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
+import { appSettingsActions, bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
   styleUrls: ['./summary-page.component.scss'],
 })
-export class SummaryPageComponent implements OnInit {
+export class SummaryPageComponent implements OnInit, OnDestroy {
   currentOrder!: CurrentOrder;
+
+  public fromUserAccount?: boolean;
+
+  private selectCurrentOrderSubscription: Subscription;
 
   constructor(
     private store: Store,
     private dialog: MatDialog,
     private ordersService: UserOrdersService
-  ) {}
+  ) {
+    this.store.select(selectCurrentPage).pipe(take(1)).subscribe((page) => {
+      this.fromUserAccount = page === 'account'
+    })
+    this.selectCurrentOrderSubscription = this.store.select(selectCurrentOrder)
+      .subscribe((order) => {
+        this.currentOrder = order;
+      });
+  }
+  ngOnDestroy(): void {
+    this.selectCurrentOrderSubscription.unsubscribe()
+  }
 
   ngOnInit(): void {
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
     );
-    this.store.select(selectCurrentOrder).subscribe((order) => {
-      this.currentOrder = order;
-    });
   }
 
   get isRoundTrip() {
@@ -53,8 +66,11 @@ export class SummaryPageComponent implements OnInit {
   }
 
   payOrder() {
-    this.ordersService.getAllOrders();
-    console.log(this.ordersService.userOrders);
+    this.store.dispatch(ordersActions.saveOrder({order: {
+        ...this.currentOrder,
+        paid: true,
+      }
+    }));
     this.dialog.open(SummaryModalWindowComponent, {
       data: {
         type: 'booking',

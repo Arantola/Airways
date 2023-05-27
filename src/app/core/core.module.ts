@@ -17,6 +17,7 @@ import { CartTableComponent } from './components/shopping-cart/cart-table/cart-t
 import { SecondFormComponent } from './components/second-form/second-form.component';
 import { PassengersInputComponent } from './components/passengers-input/passengers-input.component';
 import { SharedModule } from '../shared/shared.module';
+import { PaymentModalWindowComponent } from './components/shopping-cart/payment-modal-window/payment-modal-window.component';
 
 const CoreComponents = [
   HeaderComponent,
@@ -34,7 +35,7 @@ const CoreComponents = [
 ];
 
 @NgModule({
-  declarations: [CoreComponents],
+  declarations: [CoreComponents, PaymentModalWindowComponent],
   exports: [CoreComponents],
   imports: [
     CommonModule,

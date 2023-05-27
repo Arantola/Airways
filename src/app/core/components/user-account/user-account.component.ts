@@ -1,12 +1,9 @@
 import { Store } from '@ngrx/store';
 import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
-import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
+import { Component } from '@angular/core';
+import { UserOrder } from 'src/app/shared/interfaces/interfaces';
+import { selectPaidOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-account',
@@ -20,7 +17,7 @@ export class UserAccountComponent {
   constructor(
     private store: Store,
   ) {
-    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
+    this.store.select(selectPaidOrders).pipe(takeUntil(this.destroy$)).subscribe(
       (orders) => {
         this.orders = orders;
       },

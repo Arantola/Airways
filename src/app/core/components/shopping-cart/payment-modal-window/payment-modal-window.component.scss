@@ -1,0 +1,8 @@
+@import '../../../../shared/styles/utils';
+
+.payment-modal {
+  padding: 30px;
+  h1 {
+    @include title-large;
+  }
+}
