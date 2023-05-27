@@ -82,7 +82,7 @@ export class CartTableComponent implements AfterViewInit {
     return this.ordersPayable.indexOf(userOrder) >= 0;
   }
 
-  public get displayedColumns(): string[] { 
+  public get displayedColumns(): string[] {
     let columns = CART_COLUMNS;
 
     if(this.showLink) {

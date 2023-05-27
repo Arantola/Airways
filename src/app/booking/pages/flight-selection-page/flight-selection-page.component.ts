@@ -165,7 +165,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public saveTicket(saveTicketData: saveTicketData) {
-    console.log('saveTrip')
     const ticket = this.createTicket(
       saveTicketData.flight,
       saveTicketData.finishTime
