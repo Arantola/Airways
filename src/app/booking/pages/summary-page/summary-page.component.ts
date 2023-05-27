@@ -1,23 +1,25 @@
 import { selectCurrentOrder, selectCurrentPage } from './../../../redux/selectors/app.selectors';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import { appSettingsActions, bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
   styleUrls: ['./summary-page.component.scss'],
 })
-export class SummaryPageComponent implements OnInit {
+export class SummaryPageComponent implements OnInit, OnDestroy {
   currentOrder!: CurrentOrder;
 
   public fromUserAccount?: boolean;
+
+  private selectCurrentOrderSubscription: Subscription;
 
   constructor(
     private store: Store,
@@ -27,9 +29,13 @@ export class SummaryPageComponent implements OnInit {
     this.store.select(selectCurrentPage).pipe(take(1)).subscribe((page) => {
       this.fromUserAccount = page === 'account'
     })
-    this.store.select(selectCurrentOrder).pipe(take(2)).subscribe((order) => {
-      this.currentOrder = order;
-    });
+    this.selectCurrentOrderSubscription = this.store.select(selectCurrentOrder)
+      .subscribe((order) => {
+        this.currentOrder = order;
+      });
+  }
+  ngOnDestroy(): void {
+    this.selectCurrentOrderSubscription.unsubscribe()
   }
 
   ngOnInit(): void {

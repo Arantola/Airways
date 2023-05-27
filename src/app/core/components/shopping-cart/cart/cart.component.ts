@@ -7,6 +7,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentModalWindowComponent } from '../payment-modal-window/payment-modal-window.component';
 
 @Component({
   selector: 'app-cart',
@@ -24,6 +26,7 @@ export class CartComponent implements OnInit {
 
   constructor(
     private store: Store,
+    public dialog: MatDialog
   ) {
     this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
       (orders) => {
@@ -67,5 +70,22 @@ export class CartComponent implements OnInit {
     return this.ordersPayable
       .map((order) => this.getElementData(order).totalCost)
       .reduce((total, cost) => total + cost, 0);
+  }
+
+  openDialog() {
+    this.dialog.open(PaymentModalWindowComponent);
+
+    this.ordersPayable.forEach((userOrder) => {
+      const key = this.getElementId(userOrder);
+      const order = this.getElementData(userOrder);
+      userOrder = {
+        [key]: {
+          ...order,
+          paid: true,
+        }
+      }
+      this.store.dispatch(ordersActions.updateOrder({userOrder}));
+    })
+    console.log(this.ordersPayable)
   }
 }

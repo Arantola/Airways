@@ -11,6 +11,14 @@ export const selectOrders = createSelector(
   selectOrdersState,
   (ordersState) => {
     const orders = selectAll(ordersState)
-    return orders;
+    return orders.filter((userOrder) => !userOrder[Object.keys(userOrder)[0]].paid);
+  },
+)
+
+export const selectPaidOrders = createSelector(
+  selectOrdersState,
+  (ordersState) => {
+    const orders = selectAll(ordersState)
+    return orders.filter((userOrder) => userOrder[Object.keys(userOrder)[0]].paid);
   },
 )
