@@ -21,14 +21,14 @@ import { appSettingsActions } from 'src/app/redux/actions/app.actions';
   providedIn: 'root',
 })
 export class AuthService {
-  userData!: User;
+  userData: User | null = null;
 
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    public store: Store,
+    public store: Store
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {

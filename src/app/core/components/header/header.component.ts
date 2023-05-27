@@ -11,9 +11,7 @@ import {
 import { IconService } from 'src/app/shared/services/icon.service';
 import { CurrencyService } from 'src/app/shared/services/currency.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-header',
@@ -37,10 +35,6 @@ export class HeaderComponent implements OnInit {
     private dialog: MatDialog,
     private iconService: IconService,
     private currencyService: CurrencyService,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private router: Router
-
   ) {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');

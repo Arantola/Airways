@@ -66,14 +66,24 @@
 
         <button
           class="menu__item menu__button-signin"
+          *ngIf="userName === ''"
           [class.header__signin-button_booking]="!isMainPage"
           mat-stroked-button
           (click)="toggleAuthWindow()"
         >
           <mat-icon class="icon" [class.icon_black]="!isMainPage" svgIcon="user"></mat-icon>
-          <span class="menu__button-signin-text" *ngIf="userName === ''">Sing&nbsp;in</span>
-          <span *ngIf="userName !== ''">{{ userName }}</span>
+          <span class="menu__button-signin-text">Sing&nbsp;in</span>
         </button>
+
+        <a
+          class="menu__item menu__button-signin"
+          *ngIf="userName !== ''"
+          [class.header__signin-button_booking]="!isMainPage"
+          mat-stroked-button
+          routerLink="/account"
+        >
+          <span class="menu__button-signin-text">{{ userName }}</span>
+        </a>
 
         <a
           class="menu__item menu__button-basket"
