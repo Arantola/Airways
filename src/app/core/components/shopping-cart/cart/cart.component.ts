@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentModalWindowComponent } from '../payment-modal-window/payment-modal-window.component';
+import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
+import { CurrencyService } from 'src/app/shared/services/currency.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,16 +25,24 @@ export class CartComponent implements OnInit {
   public totalSelectedOrders = this.ordersPayable.length;
 
   private destroy$ = new Subject<void>();
+  public totalCostForDisplay!: number;
 
   constructor(
     private store: Store,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private currencyService: CurrencyService,
   ) {
     this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
       (orders) => {
         this.orders = orders;
       },
     );
+    this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
+      (settings) => {
+        this.currency = settings.currency;
+        this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -52,6 +62,7 @@ export class CartComponent implements OnInit {
       this.ordersPayable = [];
     }
     this.totalSelectedOrders = this.ordersPayable.length;
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
   }
 
   public isAllOrdersSelected(): boolean {
@@ -92,5 +103,6 @@ export class CartComponent implements OnInit {
   onChangeOrderPayable(ordersPayable: UserOrder[]) {
     this.ordersPayable = ordersPayable;
     this.totalSelectedOrders = this.ordersPayable.length;
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
   }
 }

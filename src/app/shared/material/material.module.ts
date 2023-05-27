@@ -24,6 +24,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatBadgeModule } from '@angular/material/badge';
 
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DATE_FORMAT } from '../constants/constants';
 
 const MaterialModules = [
   MatInputModule,
@@ -57,6 +60,15 @@ const MaterialModules = [
       provide: MAT_RADIO_DEFAULT_OPTIONS,
       useValue: { color: 'primary' },
     },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: DATE_FORMAT
+    }
   ],
 })
 export class MaterialModule {}

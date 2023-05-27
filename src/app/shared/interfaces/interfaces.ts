@@ -113,6 +113,18 @@ interface DialogData {
   type: string;
 }
 
+interface DateFormat {
+  parse: {
+    dateInput:  string[] | string,
+  },
+  display: {
+    dateInput: string,
+    monthYearLabel: string,
+    dateA11yLabel: string,
+    monthYearA11yLabel: string,
+  }
+};
+
 export {
   AppSettings,
   CurrentOrder,
@@ -129,4 +141,5 @@ export {
   saveTicketData,
   UserOrder,
   Prices,
+  DateFormat,
 };

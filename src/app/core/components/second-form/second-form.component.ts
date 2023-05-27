@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { bookingActions } from 'src/app/redux/actions/app.actions';
-import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
-import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { selectCurrentOrder, selectSettingsState } from 'src/app/redux/selectors/app.selectors';
+import { CurrentOrder, DateFormat } from 'src/app/shared/interfaces/interfaces';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-second-form',
@@ -14,21 +16,35 @@ import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 })
 export class SecondFormComponent implements OnInit, OnDestroy {
   private subscriptionCurrentOrder!: Subscription;
+  public settings$ = this.store.select(selectSettingsState);
+  private settingsSubscription?: Subscription;
 
   currentOrder!: CurrentOrder;
   secondForm!: FormGroup;
   airports = AIRPORTS;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private _adapter: DateAdapter<Date>,
+    @Inject(MAT_DATE_FORMATS) private _formats: DateFormat,
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.subscribeToCurrentOrder();
     this.prefillForm();
+    this.settingsSubscription = this.settings$.subscribe(
+      (settings) => {
+        this._formats.parse.dateInput = settings.dateFormat;
+        this._formats.display.dateInput = settings.dateFormat;
+        this._adapter.setLocale('en');
+      }
+    )
   }
 
   ngOnDestroy(): void {
     this.subscriptionCurrentOrder.unsubscribe();
+    this.settingsSubscription?.unsubscribe();
   }
 
   private initForm() {

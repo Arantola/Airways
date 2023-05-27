@@ -15,12 +15,13 @@
   <app-cart-table
     [ordersPayable]="ordersPayable"
     [orders]="orders"
+    [currency]="currency"
     (changeOrdersPayable)="onChangeOrderPayable($event)"
   ></app-cart-table>
 
   <div class="cart__sum-footer">
     <button class="cart__add-trip-button" routerLink="main" mat-flat-button color="primary">+ Add new trip</button>
-    <div class="cart__sum">Total <span>{{ currency | currencySymbol }}{{ totalCost }}</span></div>
+    <div class="cart__sum">Total <span>{{ currency | currencySymbol }}{{ totalCostForDisplay.toFixed(2) }}</span></div>
   </div>
   <div class="cart__payment-footer">
     <mat-form-field appearance="outline">

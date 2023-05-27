@@ -9,6 +9,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { formatDate } from '@angular/common';
 import { bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
 import { CurrentOrder, PassengersCompound, UserOrder } from 'src/app/shared/interfaces/interfaces';
+import { CurrencyService } from 'src/app/shared/services/currency.service';
 
 @Component({
   selector: 'app-cart-table',
@@ -35,7 +36,8 @@ export class CartTableComponent implements AfterViewInit {
   constructor(
     private store: Store,
     private router: Router,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private currencyService: CurrencyService,
   ) {
   }
 
@@ -82,7 +84,7 @@ export class CartTableComponent implements AfterViewInit {
     return this.ordersPayable.indexOf(userOrder) >= 0;
   }
 
-  public get displayedColumns(): string[] { 
+  public get displayedColumns(): string[] {
     let columns = CART_COLUMNS;
 
     if(this.showLink) {
@@ -182,7 +184,7 @@ export class CartTableComponent implements AfterViewInit {
   getElementPrice(userOrder: UserOrder): number | undefined {
     const order = this.getElementData(userOrder);
 
-    return order.totalCost;
+    return this.currencyService.calculateCurrencyValue(order.totalCost, this.currency);
   }
 
   goToSummary(userOrder: UserOrder) {

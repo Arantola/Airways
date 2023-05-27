@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectPaidOrders } from 'src/app/redux/selectors/orders.selectors';
 import { Subject, takeUntil } from 'rxjs';
+import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 
 @Component({
   selector: 'app-user-account',
@@ -12,6 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class UserAccountComponent {
   public orders?: UserOrder[];
+  public currency = 'EUR';
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -22,6 +24,11 @@ export class UserAccountComponent {
         this.orders = orders;
       },
     );
+    this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
+      (settings) => {
+        this.currency = settings.currency;
+      }
+    )
   }
 
   ngOnInit(): void {

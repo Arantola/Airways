@@ -73,3 +73,9 @@
   margin: 4px 0 0 16px;
 }
 
+::ng-deep mat-tooltip-component {
+  & .mdc-tooltip {
+    white-space: pre-line;
+  }
+}
+

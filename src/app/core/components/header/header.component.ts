@@ -10,7 +10,7 @@ import {
 } from 'src/app/redux/selectors/app.selectors';
 import { IconService } from 'src/app/shared/services/icon.service';
 import { CurrencyService } from 'src/app/shared/services/currency.service';
-import { Subject, Subscription, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { selectTotalOrders } from 'src/app/redux/selectors/orders.selectors';
 
 @Component({

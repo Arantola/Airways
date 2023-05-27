@@ -1,16 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
-import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
+import { selectCurrentOrder, selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import {
   BOOKING_PAGES,
   PASSENGERS_LIST,
 } from 'src/app/shared/constants/constants';
-import { Airport, CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { Airport, CurrentOrder, DateFormat } from 'src/app/shared/interfaces/interfaces';
 import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
@@ -28,10 +29,15 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   initialForm!: FormGroup;
   currentOrder!: CurrentOrder;
 
+  public settings$ = this.store.select(selectSettingsState);
+  private settingsSubscription?: Subscription;
+
   constructor(
     private store: Store,
     private router: Router,
-    private iconService: IconService
+    private iconService: IconService,
+    private _adapter: DateAdapter<Date>,
+    @Inject(MAT_DATE_FORMATS) private _formats: DateFormat,
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
   }
@@ -41,10 +47,18 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
+    this.settingsSubscription = this.settings$.subscribe(
+      (settings) => {
+        this._formats.parse.dateInput = settings.dateFormat;
+        this._formats.display.dateInput = settings.dateFormat;
+        this._adapter.setLocale('en');
+      }
+    )
   }
 
   ngOnDestroy(): void {
     this.subscriptionCurrentOrder.unsubscribe();
+    this.settingsSubscription?.unsubscribe();
   }
 
   private initForm() {
