@@ -27,6 +27,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   isRounded: boolean = true;
   initialForm!: FormGroup;
   currentOrder!: CurrentOrder;
+  minDate: Date;
 
   constructor(
     private store: Store,
@@ -34,6 +35,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     private iconService: IconService
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
+    this.minDate = new Date();
   }
 
   ngOnInit(): void {
@@ -66,6 +68,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       .select(selectCurrentOrder)
       .subscribe((currentOrder) => {
         this.currentOrder = currentOrder;
+        this.isRounded = currentOrder.isRounded;
       });
   }
 
@@ -81,6 +84,14 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       singleDate: this.currentOrder.singleDate,
       passengersCompound: this.currentOrder.passengersCompound,
     });
+  }
+
+  get destinationPoint() {
+    return this.initialForm.get('destinationPoint')?.value;
+  }
+
+  get departurePoint() {
+    return this.initialForm.get('departurePoint')?.value;
   }
 
   onRadioChange() {

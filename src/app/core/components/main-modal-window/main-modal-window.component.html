@@ -9,7 +9,7 @@
     <mat-form-field appearance="outline">
       <mat-label>From</mat-label>
       <mat-select formControlName="departurePoint" placeholder="Choose a departure point">
-        <mat-option *ngFor="let from of airports" [value]="from">
+        <mat-option *ngFor="let from of airports | airportAntiDuplication: destinationPoint" [value]="from">
           <div class="place-options__group">
             <div class="place-options__top">{{ from.city }} ({{ from.iata }}) </div>
             <div class="place-options__bottom">{{ from.name }}, {{ from.country }}</div>
@@ -21,7 +21,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Destination</mat-label>
       <mat-select formControlName="destinationPoint" placeholder="Choose your destination">
-        <mat-option *ngFor="let to of airports" [value]="to">
+        <mat-option *ngFor="let to of airports | airportAntiDuplication: departurePoint" [value]="to">
           <div class="place-options">
             <div class="place-options__top">{{ to.city }} ({{ to.iata }}) </div>
             <div class="place-options__bottom">{{ to.name }}, {{ to.country }}</div>
@@ -38,7 +38,7 @@
   <div class="main-page__containter-bottom">
     <mat-form-field appearance="outline" *ngIf="!isRounded">
       <mat-label>Choose a date</mat-label>
-      <input formControlName="singleDate" [matDatepicker]="picker" matInput>
+      <input formControlName="singleDate" [matDatepicker]="picker" [min]="minDate" matInput>
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -46,7 +46,7 @@
 
     <mat-form-field appearance="outline" *ngIf="isRounded">
       <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input  formGroupName="date" [rangePicker]="picker">
+      <mat-date-range-input  formGroupName="date" [min]="minDate" [rangePicker]="picker">
         <input formControlName="start" placeholder="Start date" matStartDate>
         <input formControlName="end" placeholder="End date" matEndDate>
       </mat-date-range-input>

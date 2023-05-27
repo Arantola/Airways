@@ -1,13 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, combineLatest, Subject, takeUntil } from 'rxjs';
-import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
+import {
+  appSettingsActions,
+  bookingActions,
+} from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { Airport, CurrentOrder, Flight, Ticket, saveTicketData } from 'src/app/shared/interfaces/interfaces';
+import {
+  Airport,
+  CurrentOrder,
+  Flight,
+  Ticket,
+  saveTicketData,
+} from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { AIRPORTS } from 'src/app/admin/airports';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -30,11 +40,11 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   public selectedFlightFrom$ = this.order$.pipe(
     map((order) => order.selectedFlightFrom)
-  )
+  );
 
   public selectedFlightBack$ = this.order$.pipe(
     map((order) => order.selectedFlightBack)
-  )
+  );
 
   public isContinueButtonDisabled$ = combineLatest([
     this.selectedFlightFrom$,
@@ -43,15 +53,11 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   ]).pipe(
     map(([selectedFlightFrom, selectedFlightBack, isRounded]) => {
       return !(
-        (
-          isRounded &&
+        (isRounded &&
           selectedFlightFrom !== undefined &&
-          selectedFlightBack !== undefined
-        ) || (
-          !isRounded &&
-          selectedFlightFrom !== undefined
-        )
-      )
+          selectedFlightBack !== undefined) ||
+        (!isRounded && selectedFlightFrom !== undefined)
+      );
     })
   );
 
@@ -60,7 +66,8 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store,
-    private flightService: FlightDataService
+    private flightService: FlightDataService,
+    public authService: AuthService
   ) {}
 
   transformParamToDate(param: string | null): Date | undefined {
@@ -154,6 +161,10 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public toNextStep() {
+    if (this.authService.isLoggedIn !== true) {
+      // TODO Show popup
+      alert('You need sign in first!');
+    }
     this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 
@@ -165,7 +176,6 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   public saveTicket(saveTicketData: saveTicketData) {
-    console.log('saveTrip')
     const ticket = this.createTicket(
       saveTicketData.flight,
       saveTicketData.finishTime

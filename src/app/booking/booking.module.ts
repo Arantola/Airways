@@ -28,16 +28,15 @@ const bookingComponents = [
   PassengersPageComponent,
   FlightInfoComponent,
   FlightFareComponent,
+  SummaryModalWindowComponent
 ];
 
 @NgModule({
   declarations: [
     ...bookingComponents,
     IndicatorColorDirective,
-    SummaryModalWindowComponent,
-    CurrencySymbolPipe,
   ],
-  exports: [bookingComponents, CurrencySymbolPipe],
+  exports: [bookingComponents],
   imports: [
     CommonModule,
     MaterialModule,
