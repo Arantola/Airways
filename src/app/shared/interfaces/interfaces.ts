@@ -41,6 +41,7 @@ interface Passenger {
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';
+  baggage: boolean;
 }
 
 interface Flight {
