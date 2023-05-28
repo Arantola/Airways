@@ -1,26 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  AbstractControlOptions,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
-import {
-  appSettingsActions,
-  bookingActions,
-} from 'src/app/redux/actions/app.actions';
-import {
-  BOOKING_PAGES,
-  PASSENGERS_LIST,
-} from 'src/app/shared/constants/constants';
+import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
+import { BOOKING_PAGES, PASSENGERS_LIST } from 'src/app/shared/constants/constants';
 import { Airport, CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { IconService } from 'src/app/shared/services/icon.service';
 
@@ -43,7 +29,6 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private router: Router,
-    private formBuilder: FormBuilder,
     private iconService: IconService
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
@@ -55,10 +40,6 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
-    // setInterval(() => {
-    //   console.log(this.initialForm.get('date')?.value);
-    //   console.log(this.initialForm.get('singleDate')?.value);
-    // }, 1000);
   }
 
   ngOnDestroy(): void {
