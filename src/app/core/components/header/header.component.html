@@ -92,6 +92,7 @@
           <mat-icon
             class="icon"
             [matBadge]="totalOrders"
+            [matBadgeHidden]="totalOrders === 0"
             matBadgeColor="warn"
             [class.icon_black]="!isMainPage"
             svgIcon="basket"

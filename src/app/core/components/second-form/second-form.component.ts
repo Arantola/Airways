@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AIRPORTS } from 'src/app/admin/airports';
+import { AIRPORTS } from 'src/app/shared/constants/airports';
 import { bookingActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder, selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import { CurrentOrder, DateFormat } from 'src/app/shared/interfaces/interfaces';

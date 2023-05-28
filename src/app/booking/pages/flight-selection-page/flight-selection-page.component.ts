@@ -16,7 +16,7 @@ import {
   saveTicketData,
 } from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
-import { AIRPORTS } from 'src/app/admin/airports';
+import { AIRPORTS } from 'src/app/shared/constants/airports';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalWindowComponent } from '../../../core/components/modal-window/modal-window.component';

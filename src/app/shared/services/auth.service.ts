@@ -9,7 +9,6 @@ import { User } from './user.model';
 import { auth } from 'src/app/fbconfig';
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -94,5 +93,4 @@ export class AuthService {
     localStorage.removeItem('user');
     this.router.navigate(['main']);
   }
-
 }

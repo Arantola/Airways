@@ -1,4 +1,4 @@
-import { Airport } from "../shared/interfaces/interfaces";
+import { Airport } from "../interfaces/interfaces";
 
 export const AIRPORTS: Airport[] = [
   { "iata": "AMS", "country": "Netherlands", "city": "Amsterdam", "name": "Amsterdam Airport Schiphol", "UTC": '+2'},

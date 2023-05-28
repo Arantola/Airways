@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FIREBASE_ORDERS } from '../constants/constants';
 import { CurrentOrder, UserOrder } from '../interfaces/interfaces';
-import { Observable, map, tap } from 'rxjs';
+import { map} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

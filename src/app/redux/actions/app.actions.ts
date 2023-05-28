@@ -1,5 +1,5 @@
 import { Update } from '@ngrx/entity';
-import { createAction, createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   Airport,
   Contacts,
@@ -31,13 +31,6 @@ export const bookingActions = createActionGroup({
     'Update Flight Back': props<{ flightBack: Ticket | undefined }>(),
     'Add Total Cost': props<{ totalCost: number }>(),
     'Reset Order': props<{ currentOrder: {} }>(),
-  },
-});
-
-export const bookingAPIActions = createActionGroup({
-  source: 'Booking API',
-  events: {
-    'Update Search Result': props<{ searchResult: Airport[] }>(),
   },
 });
 
