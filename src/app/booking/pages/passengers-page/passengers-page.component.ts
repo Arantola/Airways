@@ -11,6 +11,7 @@ import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import phoneCode from 'src/app/shared/constants/CountryCodes.json';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { IconService } from 'src/app/shared/services/icon.service';
 
 @Component({
@@ -29,15 +30,17 @@ export class PassengersPageComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private router: Router,
-    private iconService: IconService
+    private iconService: IconService,
+    private authService: AuthService
   ) {
     this.iconService.addPath('account', 'assets/icons/account.svg');
     this.iconService.addPath('contact', 'assets/icons/contact.svg');
   }
 
   ngOnInit(): void {
-    this.initForm();
     this.subscribeToCurrentOrder();
+    this.correctnessCheck();
+    this.initForm();
     this.prefillForm();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[1] })
@@ -48,13 +51,24 @@ export class PassengersPageComponent implements OnInit, OnDestroy {
     this.subscriptionCurrentOrder.unsubscribe();
   }
 
+  private correctnessCheck() {
+    if (typeof this.currentOrder.selectedFlightFrom === 'undefined') {
+      this.router.navigate(['/booking/flight-selection']);
+    }
+  }
+
   private initForm(): void {
     this.passengersForm = new FormGroup({
       passengersList: new FormControl(),
       contactsForm: new FormGroup({
         phone: new FormGroup({
           country: new FormControl('', [Validators.required]),
-          number: new FormControl('', [Validators.required]),
+          number: new FormControl('', [
+            Validators.required,
+            Validators.pattern(
+              /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/
+            ),
+          ]),
         }),
         email: new FormControl<string>('', [
           Validators.required,
@@ -73,13 +87,14 @@ export class PassengersPageComponent implements OnInit, OnDestroy {
   }
 
   private prefillForm() {
+    const email = this.authService.userData?.email;
     this.passengersForm.patchValue({
       contactsForm: {
         phone: {
           country: this.currentOrder.contacts?.phone.country,
           number: this.currentOrder.contacts?.phone.number,
         },
-        email: this.currentOrder.contacts?.email,
+        email: this.currentOrder.contacts?.email || email,
       },
     });
   }

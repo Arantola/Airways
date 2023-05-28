@@ -70,7 +70,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     private store: Store,
     private dialog: MatDialog,
     private flightService: FlightDataService,
-    public authService: AuthService
+    private authService: AuthService
   ) {
     this.orderSubscription = this.order$.subscribe((order) => {
       this.order = order;
@@ -123,6 +123,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.correctnessCheck();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
     );
@@ -130,6 +131,18 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.orderSubscription.unsubscribe();
+  }
+
+  private correctnessCheck() {
+    if (
+      typeof this.order?.departurePoint === 'undefined' ||
+      typeof this.order.destinationPoint === 'undefined' ||
+      ((typeof this.order.date.start === 'undefined' ||
+        typeof this.order.date.end === 'undefined') &&
+        typeof this.order.singleDate === 'undefined')
+    ) {
+      this.router.navigate(['/main']);
+    }
   }
 
   get startOrderDate(): Date {

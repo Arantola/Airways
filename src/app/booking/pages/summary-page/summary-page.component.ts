@@ -47,6 +47,7 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.correctnessCheck();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
     );
@@ -54,6 +55,15 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.selectCurrentOrderSubscription.unsubscribe();
+  }
+
+  private correctnessCheck() {
+    if (
+      typeof this.currentOrder.contacts?.email === 'undefined' ||
+      typeof this.currentOrder.contacts?.phone.number === 'undefined'
+    ) {
+      this.router.navigate(['/booking/passengers']);
+    }
   }
 
   get isRoundTrip() {
