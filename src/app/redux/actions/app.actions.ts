@@ -30,6 +30,7 @@ export const bookingActions = createActionGroup({
     'Update Flight From': props<{ flightFrom: Ticket | undefined }>(),
     'Update Flight Back': props<{ flightBack: Ticket | undefined }>(),
     'Add Total Cost': props<{ totalCost: number }>(),
+    'Reset Order': props<{ currentOrder: {} }>(),
   },
 });
 

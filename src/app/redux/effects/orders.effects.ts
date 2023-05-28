@@ -7,6 +7,11 @@ import { ordersActions } from '../actions/app.actions';
 
 @Injectable()
 export class OrdersEffects {
+  constructor(
+    private actions$: Actions,
+    private userOrdersService: UserOrdersService,
+  ) {}
+
   public loadOrders$ = createEffect(() => this.actions$.pipe(
     ofType(ordersActions.loadOrders),
     exhaustMap(() => this.userOrdersService.getAllOrders()
@@ -49,9 +54,4 @@ export class OrdersEffects {
         catchError(() => EMPTY)
       ))
     ));
-
-  constructor(
-    private actions$: Actions,
-    private userOrdersService: UserOrdersService,
-  ) {}
 }

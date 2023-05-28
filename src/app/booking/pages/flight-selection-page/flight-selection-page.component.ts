@@ -18,6 +18,8 @@ import {
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -66,6 +68,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store,
+    private dialog: MatDialog,
     private flightService: FlightDataService,
     public authService: AuthService
   ) {
@@ -162,10 +165,14 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   public toNextStep() {
     if (!this.authService.isLoggedIn) {
-      // TODO Show popup
-      alert('You need sign in first!');
+      this.dialog.open(SummaryModalWindowComponent, {
+        data: {
+          type: 'signin',
+        },
+      });
+    } else {
+      this.router.navigate(['booking', BOOKING_PAGES[1]]);
     }
-    this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 
   public createTicket(flight: Flight, finishTime: string): Ticket {

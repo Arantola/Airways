@@ -40,11 +40,12 @@ export class HeaderComponent implements OnInit {
     this.iconService.addPath('user', 'assets/icons/user.svg');
     this.iconService.addPath('basket', 'assets/icons/shopping_basket.svg');
     this.store.dispatch(ordersActions.loadOrders());
-    this.store.select(selectTotalOrders)
+    this.store
+      .select(selectTotalOrders)
       .pipe(takeUntil(this.destroy$))
       .subscribe((totalOrders) => {
         this.totalOrders = totalOrders;
-      })
+      });
   }
 
   ngOnInit() {
