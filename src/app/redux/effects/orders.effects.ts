@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators';
+import { map, exhaustMap, catchError } from 'rxjs/operators';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
 import { ordersActions } from '../actions/app.actions';
 
 @Injectable()
 export class OrdersEffects {
+  constructor(
+    private actions$: Actions,
+    private userOrdersService: UserOrdersService,
+  ) {}
+
   public loadOrders$ = createEffect(() => this.actions$.pipe(
     ofType(ordersActions.loadOrders),
     exhaustMap(() => this.userOrdersService.getAllOrders()
@@ -49,9 +54,4 @@ export class OrdersEffects {
         catchError(() => EMPTY)
       ))
     ));
-
-  constructor(
-    private actions$: Actions,
-    private userOrdersService: UserOrdersService,
-  ) {}
 }

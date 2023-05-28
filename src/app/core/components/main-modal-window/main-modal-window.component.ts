@@ -4,7 +4,7 @@ import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AIRPORTS } from 'src/app/admin/airports';
+import { AIRPORTS } from 'src/app/shared/constants/airports';
 import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
 import { selectCurrentOrder, selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import {

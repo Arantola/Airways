@@ -30,7 +30,7 @@ export class PageContainerComponent implements OnInit {
     return (
       !this.isMainPage &&
       this.currentPage !== 'admin' &&
-      this.currentPage !== 'cart' &&
+      this.currentPage !== 'shopping-cart' &&
       this.currentPage !== 'account'
     );
   }

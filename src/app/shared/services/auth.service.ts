@@ -9,7 +9,6 @@ import { User } from './user.model';
 import { auth } from 'src/app/fbconfig';
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -35,6 +34,9 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+        this.store.dispatch(
+          appSettingsActions.setUserName({ userName: user.displayName as string })
+        );
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);
@@ -70,7 +72,6 @@ export class AuthService {
     return user !== null ? true : false;
   }
 
-  // ???
   setUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
@@ -91,17 +92,5 @@ export class AuthService {
     await signOut(auth);
     localStorage.removeItem('user');
     this.router.navigate(['main']);
-  }
-
-  // ???
-  async monitorAuthState() {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(user);
-        // show login state & hide login error
-      } else {
-        // show login form
-      }
-    });
   }
 }

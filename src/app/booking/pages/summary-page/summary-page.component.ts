@@ -1,13 +1,20 @@
-import { selectCurrentOrder, selectCurrentPage } from './../../../redux/selectors/app.selectors';
+import {
+  selectCurrentOrder,
+  selectCurrentPage,
+} from './../../../redux/selectors/app.selectors';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
-import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
-import { UserOrdersService } from 'src/app/shared/services/user-orders.service';
+import { ModalWindowComponent } from '../../../core/components/modal-window/modal-window.component';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
-import { appSettingsActions, bookingActions, ordersActions } from 'src/app/redux/actions/app.actions';
+import {
+  appSettingsActions,
+  bookingActions,
+  ordersActions,
+} from 'src/app/redux/actions/app.actions';
 import { Subscription, take } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-summary-page',
@@ -24,24 +31,39 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private dialog: MatDialog,
-    private ordersService: UserOrdersService
+    private router: Router
   ) {
-    this.store.select(selectCurrentPage).pipe(take(1)).subscribe((page) => {
-      this.fromUserAccount = page === 'account'
-    })
-    this.selectCurrentOrderSubscription = this.store.select(selectCurrentOrder)
+    this.store
+      .select(selectCurrentPage)
+      .pipe(take(1))
+      .subscribe((page) => {
+        this.fromUserAccount = page === 'account';
+      });
+    this.selectCurrentOrderSubscription = this.store
+      .select(selectCurrentOrder)
       .subscribe((order) => {
         this.currentOrder = order;
       });
   }
-  ngOnDestroy(): void {
-    this.selectCurrentOrderSubscription.unsubscribe()
-  }
 
   ngOnInit(): void {
+    this.correctnessCheck();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[2] })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.selectCurrentOrderSubscription.unsubscribe();
+  }
+
+  private correctnessCheck() {
+    if (
+      typeof this.currentOrder.contacts?.email === 'undefined' ||
+      typeof this.currentOrder.contacts?.phone.number === 'undefined'
+    ) {
+      this.router.navigate(['/booking/passengers']);
+    }
   }
 
   get isRoundTrip() {
@@ -57,24 +79,24 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
   }
 
   addToCart() {
-    this.store.dispatch(ordersActions.saveOrder({order: this.currentOrder}));
-    this.dialog.open(SummaryModalWindowComponent, {
-      data: {
-        type: 'cart',
-      },
-    });
+    this.store.dispatch(ordersActions.saveOrder({ order: this.currentOrder }));
+    this.dialog.open(ModalWindowComponent, { data: { type: 'cart' } });
+    setTimeout(() => {
+      this.store.dispatch(bookingActions.resetOrder({ currentOrder: {} }));
+      this.dialog.closeAll();
+      this.router.navigate(['/shopping-cart']);
+    }, 2000);
   }
 
   payOrder() {
-    this.store.dispatch(ordersActions.saveOrder({order: {
-        ...this.currentOrder,
-        paid: true,
-      }
-    }));
-    this.dialog.open(SummaryModalWindowComponent, {
-      data: {
-        type: 'booking',
-      },
-    });
+    this.store.dispatch(
+      ordersActions.saveOrder({ order: { ...this.currentOrder, paid: true } })
+    );
+    this.dialog.open(ModalWindowComponent, { data: { type: 'booking' } });
+    setTimeout(() => {
+      this.store.dispatch(bookingActions.resetOrder({ currentOrder: {} }));
+      this.dialog.closeAll();
+      this.router.navigate(['/account']);
+    }, 2000);
   }
 }

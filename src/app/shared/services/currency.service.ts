@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { EXCHANGE_RATE } from '../constants/constants';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CurrencyService {
   currencyRate = {
@@ -12,16 +12,18 @@ export class CurrencyService {
     EURtoPLN: 1,
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   saveCurrencyData() {
-    this.getCurrencyData().subscribe({next:(data: any) => {
-      this.currencyRate = {
-        EURtoUSD: data.Valute.EUR.Value / data.Valute.USD.Value,
-        EURtoRUB: data.Valute.EUR.Value,
-        EURtoPLN: data.Valute.EUR.Value / data.Valute.PLN.Value,
-      }
-    }});
+    this.getCurrencyData().subscribe({
+      next: (data: any) => {
+        this.currencyRate = {
+          EURtoUSD: data.Valute.EUR.Value / data.Valute.USD.Value,
+          EURtoRUB: data.Valute.EUR.Value,
+          EURtoPLN: data.Valute.EUR.Value / data.Valute.PLN.Value,
+        };
+      },
+    });
   }
 
   getCurrencyData() {
@@ -29,16 +31,15 @@ export class CurrencyService {
   }
 
   calculateCurrencyValue(moneyValue: number, nameCurrency: string): number {
-    switch(nameCurrency) {
-      case 'USA': return moneyValue * this.currencyRate.EURtoUSD;
-      break;
-      case 'RUB': return moneyValue * this.currencyRate.EURtoRUB;
-      break;
-      case 'PLN': return moneyValue * this.currencyRate.EURtoPLN;
-      break;
-      case 'EUR': return moneyValue;
-      break;
-      default: return moneyValue;
+    switch (nameCurrency) {
+      case 'USA':
+        return moneyValue * this.currencyRate.EURtoUSD;
+      case 'RUB':
+        return moneyValue * this.currencyRate.EURtoRUB;
+      case 'PLN':
+        return moneyValue * this.currencyRate.EURtoPLN;
+      default:
+        return moneyValue;
     }
   }
 }
