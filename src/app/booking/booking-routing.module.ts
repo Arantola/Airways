@@ -4,6 +4,7 @@ import { FlightSelectionPageComponent } from './pages/flight-selection-page/flig
 import { SummaryPageComponent } from './pages/summary-page/summary-page.component';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
 import { BOOKING_PAGES } from '../shared/constants/constants';
+import { AuthGuard } from '../shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -13,10 +14,12 @@ const routes: Routes = [
   {
     path: BOOKING_PAGES[1],
     component: PassengersPageComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: BOOKING_PAGES[2],
     component: SummaryPageComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

@@ -13,8 +13,9 @@
   <div class="passenger">
     <div class="passenger__name">{{ person.firstName | uppercase }} {{ person.lastName | uppercase }}</div>
     <ul class="passenger__baggage">
-      <li>1checked bag (total 23 kg) included</li>
+      <li *ngIf="person.baggage">1 checked bag (total 23 kg) included</li>
       <li>1 cabin bag + 1 personal item (max. 8 kg) included</li>
+      <li *ngIf="person.assistance">Special assistance included</li>
       <li *ngIf="numberSeats[i]">Seat {{ numberSeats[i] }}</li>
     </ul>
   </div>
