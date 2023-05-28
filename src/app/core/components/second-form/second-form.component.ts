@@ -18,8 +18,11 @@ export class SecondFormComponent implements OnInit, OnDestroy {
   currentOrder!: CurrentOrder;
   secondForm!: FormGroup;
   airports = AIRPORTS;
+  minDate: Date;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+    this.minDate = new Date();
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -37,10 +40,10 @@ export class SecondFormComponent implements OnInit, OnDestroy {
       departurePoint: new FormControl('', Validators.required),
       destinationPoint: new FormControl('', Validators.required),
       date: new FormGroup({
-        start: new FormControl(), // TODO Add validator if the day has passed
+        start: new FormControl(),
         end: new FormControl(),
       }),
-      singleDate: new FormControl(), // TODO Add validator date || singleDate
+      singleDate: new FormControl(),
       passengersCompound: new FormControl(),
     });
   }
@@ -65,6 +68,14 @@ export class SecondFormComponent implements OnInit, OnDestroy {
       singleDate: this.currentOrder.singleDate,
       passengersCompound: this.currentOrder.passengersCompound,
     });
+  }
+
+  get destinationPoint() {
+    return this.secondForm.get('destinationPoint')?.value;
+  }
+
+  get departurePoint() {
+    return this.secondForm.get('departurePoint')?.value;
   }
 
   onUpdateForm() {

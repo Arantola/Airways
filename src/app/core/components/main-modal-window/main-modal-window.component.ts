@@ -1,11 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  AbstractControlOptions,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { selectCurrentOrder } from 'src/app/redux/selectors/app.selectors';
-import { appSettingsActions, bookingActions } from 'src/app/redux/actions/app.actions';
+import {
+  appSettingsActions,
+  bookingActions,
+} from 'src/app/redux/actions/app.actions';
 import {
   BOOKING_PAGES,
   PASSENGERS_LIST,
@@ -32,6 +43,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private router: Router,
+    private formBuilder: FormBuilder,
     private iconService: IconService
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
@@ -43,6 +55,10 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     this.store.dispatch(appSettingsActions.changePage({ currentPage: 'main' }));
     this.subscribeToCurrentOrder();
     this.prefillForm();
+    // setInterval(() => {
+    //   console.log(this.initialForm.get('date')?.value);
+    //   console.log(this.initialForm.get('singleDate')?.value);
+    // }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -55,10 +71,10 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       departurePoint: new FormControl('', Validators.required),
       destinationPoint: new FormControl('', Validators.required),
       date: new FormGroup({
-        start: new FormControl(), // TODO Add validator if the day has passed
+        start: new FormControl(),
         end: new FormControl(),
       }),
-      singleDate: new FormControl(), // TODO Add validator date || singleDate
+      singleDate: new FormControl(),
       passengersCompound: new FormControl(),
     });
   }
@@ -84,6 +100,26 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       singleDate: this.currentOrder.singleDate,
       passengersCompound: this.currentOrder.passengersCompound,
     });
+  }
+
+  isFormValid() {
+    return (
+      ((typeof this.start !== 'undefined' && typeof this.end !== 'undefined') ||
+        typeof this.singleDate !== 'undefined') &&
+      this.initialForm.valid
+    );
+  }
+
+  get singleDate() {
+    return this.initialForm.get('singleDate')?.value;
+  }
+
+  get end() {
+    return this.initialForm.get('date.end')?.value;
+  }
+
+  get start() {
+    return this.initialForm.get('date.start')?.value;
   }
 
   get destinationPoint() {
