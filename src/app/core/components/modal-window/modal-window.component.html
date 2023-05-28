@@ -1,0 +1,14 @@
+<div class="modal-wrapper">
+  <ng-container *ngIf="data.type === 'cart'">
+    <h1>Order successfully added to cart!</h1>
+  </ng-container>
+
+  <ng-container *ngIf="data.type === 'booking'">
+    <h1 >Order has been paid!</h1>
+    <p>Paid orders are placed on the 'account' page</p>
+  </ng-container>
+
+  <ng-container *ngIf="data.type === 'signin'">
+    <h1>You need to sign in to proceed!</h1>
+  </ng-container>
+</div>

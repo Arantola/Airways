@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
-import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
+import { ModalWindowComponent } from '../../../core/components/modal-window/modal-window.component';
 import { BOOKING_PAGES } from 'src/app/shared/constants/constants';
 import {
   appSettingsActions,
@@ -70,32 +70,19 @@ export class SummaryPageComponent implements OnInit, OnDestroy {
 
   addToCart() {
     this.store.dispatch(ordersActions.saveOrder({ order: this.currentOrder }));
-    this.dialog.open(SummaryModalWindowComponent, {
-      data: {
-        type: 'cart',
-      },
-    });
+    this.dialog.open(ModalWindowComponent, { data: { type: 'cart' } });
     setTimeout(() => {
       this.store.dispatch(bookingActions.resetOrder({ currentOrder: {} }));
       this.dialog.closeAll();
-      this.router.navigate(['/cart']);
+      this.router.navigate(['/shopping-cart']);
     }, 2000);
   }
 
   payOrder() {
     this.store.dispatch(
-      ordersActions.saveOrder({
-        order: {
-          ...this.currentOrder,
-          paid: true,
-        },
-      })
+      ordersActions.saveOrder({ order: { ...this.currentOrder, paid: true } })
     );
-    this.dialog.open(SummaryModalWindowComponent, {
-      data: {
-        type: 'booking',
-      },
-    });
+    this.dialog.open(ModalWindowComponent, { data: { type: 'booking' } });
     setTimeout(() => {
       this.store.dispatch(bookingActions.resetOrder({ currentOrder: {} }));
       this.dialog.closeAll();

@@ -1,5 +1,8 @@
 import { Store } from '@ngrx/store';
-import { appSettingsActions, ordersActions } from 'src/app/redux/actions/app.actions';
+import {
+  appSettingsActions,
+  ordersActions,
+} from 'src/app/redux/actions/app.actions';
 import { Component, OnInit } from '@angular/core';
 import { CurrentOrder, UserOrder } from 'src/app/shared/interfaces/interfaces';
 import { selectOrders } from 'src/app/redux/selectors/orders.selectors';
@@ -7,9 +10,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { PaymentModalWindowComponent } from '../payment-modal-window/payment-modal-window.component';
 import { selectSettingsState } from 'src/app/redux/selectors/app.selectors';
 import { CurrencyService } from 'src/app/shared/services/currency.service';
+import { ModalWindowComponent } from '../../modal-window/modal-window.component';
 
 @Component({
   selector: 'app-cart',
@@ -30,23 +33,30 @@ export class CartComponent implements OnInit {
   constructor(
     private store: Store,
     public dialog: MatDialog,
-    private currencyService: CurrencyService,
+    private currencyService: CurrencyService
   ) {
-    this.store.select(selectOrders).pipe(takeUntil(this.destroy$)).subscribe(
-      (orders) => {
+    this.store
+      .select(selectOrders)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((orders) => {
         this.orders = orders;
-      },
-    );
-    this.store.select(selectSettingsState).pipe(takeUntil(this.destroy$)).subscribe(
-      (settings) => {
+      });
+    this.store
+      .select(selectSettingsState)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((settings) => {
         this.currency = settings.currency;
-        this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
-      }
-    )
+        this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(
+          this.totalCost,
+          this.currency
+        );
+      });
   }
 
   ngOnInit(): void {
-    this.store.dispatch(appSettingsActions.changePage({ currentPage: 'shopping-cart' }));
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: 'shopping-cart' })
+    );
     this.store.dispatch(ordersActions.loadOrders());
   }
 
@@ -62,11 +72,17 @@ export class CartComponent implements OnInit {
       this.ordersPayable = [];
     }
     this.totalSelectedOrders = this.ordersPayable.length;
-    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(
+      this.totalCost,
+      this.currency
+    );
   }
 
   public isAllOrdersSelected(): boolean {
-    return this.orders?.length === this.ordersPayable.length;
+    return (
+      this.orders?.length === this.ordersPayable.length &&
+      this.orders?.length > 0
+    );
   }
 
   getElementId(userOrder: UserOrder): string {
@@ -85,24 +101,29 @@ export class CartComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(PaymentModalWindowComponent);
+    if (this.ordersPayable.length > 0) {
+      this.dialog.open(ModalWindowComponent, { data: { type: 'booking' } });
 
-    this.ordersPayable.forEach((userOrder) => {
-      const key = this.getElementId(userOrder);
-      const order = this.getElementData(userOrder);
-      userOrder = {
-        [key]: {
-          ...order,
-          paid: true,
-        }
-      }
-      this.store.dispatch(ordersActions.updateOrder({userOrder}));
-    })
+      this.ordersPayable.forEach((userOrder) => {
+        const key = this.getElementId(userOrder);
+        const order = this.getElementData(userOrder);
+        userOrder = {
+          [key]: { ...order, paid: true },
+        };
+        this.store.dispatch(ordersActions.updateOrder({ userOrder }));
+      });
+
+      this.ordersPayable = [];
+      this.totalSelectedOrders = 0;
+    }
   }
 
   onChangeOrderPayable(ordersPayable: UserOrder[]) {
     this.ordersPayable = ordersPayable;
     this.totalSelectedOrders = this.ordersPayable.length;
-    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(this.totalCost, this.currency);
+    this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(
+      this.totalCost,
+      this.currency
+    );
   }
 }

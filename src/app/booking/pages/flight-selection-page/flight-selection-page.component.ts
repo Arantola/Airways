@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest, Subject, takeUntil, Subscription } from 'rxjs';
+import { map, combineLatest, Subscription } from 'rxjs';
 import {
   appSettingsActions,
   bookingActions,
@@ -19,7 +19,7 @@ import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { AIRPORTS } from 'src/app/admin/airports';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SummaryModalWindowComponent } from '../../components/summary-modal-window/summary-modal-window.component';
+import { ModalWindowComponent } from '../../../core/components/modal-window/modal-window.component';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -165,11 +165,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   public toNextStep() {
     if (!this.authService.isLoggedIn) {
-      this.dialog.open(SummaryModalWindowComponent, {
-        data: {
-          type: 'signin',
-        },
-      });
+      this.dialog.open(ModalWindowComponent, { data: { type: 'signin' } });
     } else {
       this.router.navigate(['booking', BOOKING_PAGES[1]]);
     }

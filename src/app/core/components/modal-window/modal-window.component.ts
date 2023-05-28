@@ -3,10 +3,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
-  selector: 'app-summary-modal-window',
-  templateUrl: './summary-modal-window.component.html',
-  styleUrls: ['./summary-modal-window.component.scss'],
+  selector: 'app-modal-window',
+  templateUrl: './modal-window.component.html',
+  styleUrls: ['./modal-window.component.scss'],
 })
-export class SummaryModalWindowComponent {
+export class ModalWindowComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }
