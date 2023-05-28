@@ -92,7 +92,7 @@
       </th>
       <td class="cart-table__td cart-table__td_price" mat-cell *matCellDef="let element">
         <div class="cart-table__td-content">
-          {{ currency | currencySymbol }}{{ getElementPrice(element) }}
+          {{ currency | currencySymbol }}{{ getElementPrice(element)?.toFixed(2) }}
         </div>
       </td>
     </ng-container>
@@ -100,7 +100,7 @@
     <ng-container matColumnDef="menu">
       <th mat-header-cell *matHeaderCellDef>
       </th>
-      <td mat-cell *matCellDef="let element"> 
+      <td mat-cell *matCellDef="let element">
         <div class="cart-table__menu">
           <button class="cart-table__button" [matMenuTriggerFor]="menu" mat-icon-button>
             <mat-icon>more_vert</mat-icon>

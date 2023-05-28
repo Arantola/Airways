@@ -136,7 +136,7 @@ export class DateCarouselComponent implements OnChanges {
   }
 
   public createDisplayedItems(): DateCarouselItem[] {
-    let date = new Date(this.selectedDate.getTime());
+    let date = new Date(new Date(this.selectedDate).getTime());
     date.setDate(date.getDate() - 2);
 
     const dates = [
@@ -151,7 +151,7 @@ export class DateCarouselComponent implements OnChanges {
   }
 
   public isItemSelected(item: DateCarouselItem): boolean {
-    return item.date.getTime() == this.selectedDate.getTime();
+    return new Date(item.date).getTime() == new Date(this.selectedDate).getTime();
   }
 
   public toDateCard(item: DateCarouselItem): DateCard | undefined {

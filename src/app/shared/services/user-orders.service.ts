@@ -49,7 +49,6 @@ export class UserOrdersService {
 
   deleteOrder(id: string) {
     this.setID();
-    console.log('deleteOrder on server')
     return this.http.delete(`${FIREBASE_ORDERS}/${this.uid}/${id}.json`);
   }
 }

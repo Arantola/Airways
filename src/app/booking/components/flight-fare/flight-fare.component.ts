@@ -56,13 +56,12 @@ export class FlightFareComponent implements OnInit, OnDestroy {
         this.totalCostForDisplay = this.currencyService.calculateCurrencyValue(<number>this.totalCost, this.currency);
       }
     )
+    this.store.dispatch(bookingActions.addTotalCost({ totalCost: this.totalCost }));
   }
 
   ngOnDestroy(): void {
     this.settingsSubscription?.unsubscribe();
-
     this.store.dispatch(bookingActions.addTotalCost({ totalCost: this.totalCost }));
-
   }
 
   get adultsCount(): number {

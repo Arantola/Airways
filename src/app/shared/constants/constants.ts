@@ -32,6 +32,18 @@ const CART_COLUMNS = [
 
 const EXCHANGE_RATE = 'https://www.cbr-xml-daily.ru/daily_json.js';
 
+const DATE_FORMAT = {
+  parse: {
+    dateInput:  ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY/DD/MM', 'YYYY/MM/DD'],
+  },
+  display: {
+    dateInput: 'MM/DD/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
+
 export {
   DATE_FORMATS,
   CURRENCIES,
@@ -42,4 +54,5 @@ export {
   FIREBASE_ORDERS,
   CurrencySymbols,
   EXCHANGE_RATE,
+  DATE_FORMAT,
 };

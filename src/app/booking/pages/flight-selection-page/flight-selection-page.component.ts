@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest, Subject, takeUntil } from 'rxjs';
+import { map, combineLatest, Subject, takeUntil, Subscription } from 'rxjs';
 import {
   appSettingsActions,
   bookingActions,
@@ -61,37 +61,15 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     })
   );
 
-  private destroy$ = new Subject();
+  private orderSubscription: Subscription;
 
   constructor(
     private router: Router,
     private store: Store,
     private flightService: FlightDataService,
     public authService: AuthService
-  ) {}
-
-  transformParamToDate(param: string | null): Date | undefined {
-    if (param === null) {
-      return undefined;
-    }
-
-    return new Date(param);
-  }
-
-  transformParamToAirport(iata: string | null): Airport | undefined {
-    if (iata === null) {
-      return undefined;
-    }
-
-    return AIRPORTS.find((airport) => airport.iata === iata);
-  }
-
-  ngOnInit() {
-    this.store.dispatch(
-      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
-    );
-
-    this.order$.pipe(takeUntil(this.destroy$)).subscribe((order) => {
+  ) {
+    this.orderSubscription = this.order$.subscribe((order) => {
       this.order = order;
       this.isRounded = order.isRounded;
 
@@ -125,8 +103,30 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  transformParamToDate(param: string | null): Date | undefined {
+    if (param === null) {
+      return undefined;
+    }
+
+    return new Date(param);
+  }
+
+  transformParamToAirport(iata: string | null): Airport | undefined {
+    if (iata === null) {
+      return undefined;
+    }
+
+    return AIRPORTS.find((airport) => airport.iata === iata);
+  }
+
+  ngOnInit() {
+    this.store.dispatch(
+      appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
+    );
+  }
+
   ngOnDestroy(): void {
-    this.destroy$.complete();
+    this.orderSubscription.unsubscribe();
   }
 
   get startOrderDate(): Date {

@@ -11,8 +11,11 @@
   [ngClass]="{'total-fare_center' : !isRoundTrip}">
   <app-flight-fare [currentOrder]="currentOrder"></app-flight-fare>
 </div>
-<div class="buttons">
+<div class="buttons" *ngIf="!fromUserAccount">
   <a routerLink="/booking/passengers" class="buttons__back">Back</a>
   <button class="buttons__add" (click)="addToCart()">Add to order cart</button>
-  <button  class="buttons__buy" (click)="payOrder()">Buy now</button>
+  <button class="buttons__buy" (click)="payOrder()">Buy now</button>
+</div>
+<div class="buttons" *ngIf="fromUserAccount">
+  <button class="buttons__account" routerLink="/account">Return to Account</button>
 </div>

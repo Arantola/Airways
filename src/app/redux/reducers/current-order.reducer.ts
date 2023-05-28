@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentOrder, Ticket } from 'src/app/shared/interfaces/interfaces';
+import { CurrentOrder } from 'src/app/shared/interfaces/interfaces';
 import { bookingActions } from '../actions/app.actions';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 const currentOrderState: CurrentOrder = {
   // main page
@@ -31,6 +30,7 @@ const currentOrderState: CurrentOrder = {
     email: undefined,
   },
   totalCost: 0,
+  paid: false,
 };
 
 export const currentOrderReducer = createReducer(

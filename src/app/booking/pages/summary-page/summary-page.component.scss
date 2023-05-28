@@ -101,11 +101,10 @@
     }
   }
 
-  &__buy {
+  &__buy, &__account {
     background-color: $primary;
     color: $neutral100;
     border-radius: 4px;
-    width: 126px;
     height: 60px;
     margin-left: 40px;
     outline: none;
@@ -120,5 +119,11 @@
     &:hover {
       background-color: $primary-dark;
     }
+  }
+  &__buy {
+    width: 126px;
+  }
+  &__account {
+    width: 200px;
   }
 }
