@@ -15,13 +15,11 @@ const routes: Routes = [
     path: BOOKING_PAGES[1],
     canActivate: [AuthGuard],
     component: PassengersPageComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: BOOKING_PAGES[2],
     canActivate: [AuthGuard],
     component: SummaryPageComponent,
-    canActivate: [AuthGuard],
   },
 ];
 
