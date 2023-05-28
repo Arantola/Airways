@@ -1,0 +1,134 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: block;
+  @include adaptive-value-less(620, padding-top, 62, 5);
+  @include adaptive-value-less(620, padding-bottom, 162, 5);
+  form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 580px;
+    background:rgba($neutral100, 0.85);
+    border-radius: 8px;
+    @include adaptive-value-less(620, padding, 24, 5);
+  }
+  mat-radio-group {
+    display: flex;
+    @include adaptive-value-less(620, margin-bottom, 15, 10);
+  }
+  mat-radio-button {
+    @include button-font;
+    @include adaptive-value-less(620, margin-right, 60, 50);
+  }
+  mat-form-field {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .main-page {
+    &__containter-bottom {
+      @include adaptive-value-less(620, margin-top, 18, 5);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      @media (max-width: 620px) {
+        flex-direction:column-reverse;
+        gap: 24px;
+      }
+    }
+    &__btn {
+      @include button-font;
+      justify-self: end;
+      max-width: 128px;
+      height: 60px;
+      padding: 20px 37.5px;
+      align-self: flex-end;
+      @include adaptive-value-less(555, margin-top, 20, 10);
+      @media (max-width: 620px) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+  .place-options {
+    position: relative;
+    &__group{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .passenger-option {
+    display: flex;
+  }
+}
+
+.btn-input-switch {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 38px;
+  right: 54px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid $neutral40;
+  transition: 0.3ms;
+  color: $neutral20;
+  &:hover {
+    transition: 0.3ms;
+    border: 1px solid $neutral0;
+    color: $neutral0;
+  }
+  &:active {
+    transition: 0.3ms;
+    border: 1px solid $neutral0;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+.option {
+  display: flex;
+  @include body-large;
+  input {
+    border: none;
+    max-width: 20px;
+    user-select: none;
+    pointer-events: none;
+    text-align: center;
+    @include body-medium;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    width: 60%;
+  }
+  &__support {
+    @include body-medium;
+    color: $neutral30;
+  }
+  &__operator {
+    margin-top: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-select-arrow,
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+  .mat-mdc-input-element {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

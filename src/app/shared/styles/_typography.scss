@@ -1,0 +1,84 @@
+@import './adaptive';
+
+@mixin _text-settings($fs, $lh, $fw: normal, $ls: normal) {
+  font-size: $fs;
+  line-height: $lh;
+  font-weight: $fw;
+  letter-spacing: $ls;
+}
+
+@mixin title-large {
+  @include _text-settings(24px, 28px, 700);
+}
+
+@mixin title-medium {
+  @include _text-settings(20px, 24px, 700, 0.5px)
+}
+
+@mixin title-small {
+  @include _text-settings(16px, 24px, 700, 0.5px)
+}
+
+@mixin title-xsmall {
+  @include _text-settings(16px, 24px, 500, 0.15px)
+}
+
+@mixin subtitle-large {
+  @include _text-settings(30px, 36px, 700)
+}
+
+@mixin subtitle-medium {
+  @include _text-settings(20px, 20px, 700)
+}
+
+@mixin subtitle-small {
+  @include _text-settings(12px, 16px, 700)
+}
+
+@mixin label-large {
+  @include _text-settings(16px, 16px, 400, 0.5px)
+}
+
+@mixin label-medium {
+  @include _text-settings(14px, 20px, 500, 0.1px)
+}
+
+@mixin label-small {
+  @include _text-settings(12px, 16px, 400, 0.4px)
+}
+
+@mixin body-xlarge {
+  @include _text-settings(20px, 32px, 500, 0.5px)
+}
+
+@mixin body-large {
+  @include _text-settings(16px, 24px, 400, 0.5px)
+}
+
+@mixin body-medium {
+  @include _text-settings(14px, 20px, 400, 0.25px)
+}
+
+@mixin body-small {
+  @include _text-settings(12px, 16px, 400, 0.4px)
+}
+
+@mixin body-xsmall {
+  @include _text-settings(8px, 20px, 400, 0.4px)
+}
+
+@mixin button-font {
+  @include _text-settings(16px, 20px, 400, 0.1px)
+}
+
+@mixin button-font-bold {
+  @include _text-settings(16px, 20px, 500, 0.1px)
+}
+
+@mixin error-large {
+  @include _text-settings(80px, 80px, 700)
+}
+
+@mixin error-medium {
+  @include _text-settings(60px, 80px, 700, 1px)
+}

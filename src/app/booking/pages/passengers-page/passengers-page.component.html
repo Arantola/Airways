@@ -1,0 +1,49 @@
+<form [formGroup]="passengersForm" (ngSubmit)="submitForm()">
+  <div class="passengers__title-group">
+    <mat-icon class="passengers__icon" svgIcon="account" color="primary"></mat-icon>
+    <h2 class="passengers__title">Passengers</h2>
+  </div>
+  <p class="passengers__support-text">
+    Enter the passenger's names as they appear on document (passport&nbsp;or&nbsp;ID).
+  </p>
+
+  <div class="passengers__list">
+    <app-passenger-list formControlName="passengersList"></app-passenger-list>
+  </div>
+
+  <div class="passengers__title-group">
+    <mat-icon class="passengers__icon" svgIcon="contact" color="primary"></mat-icon>
+    <h2 class="passengers__title">Contact details</h2>
+  </div>
+  <p class="passengers__support-text">
+    We need contact details to be able to deliver the latest information regarding your flight.
+  </p>
+
+    <div class="contacts" formGroupName="contactsForm">
+      <ng-container formGroupName="phone">
+        <mat-form-field class="contacts__code" appearance="outline">
+          <mat-label>Country code</mat-label>
+          <mat-select formControlName="country">
+            <mat-option *ngFor="let code of countryCodeData" [value]="code">
+              {{ code.name }} ({{ code.dial_code }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="contacts__phone" appearance="outline" *ngIf="country">
+          <mat-label>Mobile phone number</mat-label>
+          <input formControlName="number" matInput>
+        </mat-form-field>
+      </ng-container>
+
+      <mat-form-field class="contacts__email" appearance="outline">
+        <mat-label>Enter your email</mat-label>
+        <input formControlName="email" placeholder="example@email.com" matInput required>
+      </mat-form-field>
+    </div>
+
+  <div class="passengers__buttons-group">
+    <a class="passengers__button passengers__button_back" routerLink="/booking/flight-selection">Back</a>
+    <button class="passengers__button" color="primary" type="submit" mat-flat-button>Continue</button>
+  </div>
+</form>

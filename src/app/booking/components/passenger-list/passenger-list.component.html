@@ -1,0 +1,69 @@
+<div class="passanger__list" [formGroup]="formGroup">
+  <ng-container formArrayName="passengers">
+    <ng-container *ngFor="let passengerForm of passengersFormArray.controls; let i = index">
+
+      <div class="passanger__card" [formGroupName]="i">
+        <h3 class="passanger__title">{{ i + 1}}. {{ passengersArray[i] | titlecase }}</h3>
+        <div class="passanger__form-main">
+
+          <mat-form-field class="passanger__field-top" appearance="outline">
+          <mat-label>First name</mat-label>
+          <input formControlName="firstName" type="text" matInput required>
+          </mat-form-field>
+
+          <mat-form-field class="passanger__field-top" appearance="outline">
+            <mat-label>Last name</mat-label>
+            <input formControlName="lastName" type="text" matInput required>
+          </mat-form-field>
+
+          <mat-button-toggle-group
+            class="gender__group"
+            formControlName="gender"
+            #gender="matButtonToggleGroup"
+            >
+            <mat-button-toggle class="gender__button" value="male">
+              <mat-icon color="primary" *ngIf="gender.value === 'male'">done</mat-icon>
+              Male
+            </mat-button-toggle>
+            <mat-button-toggle class="gender__button" value="female">
+              <mat-icon color="primary" *ngIf="gender.value === 'female'">done</mat-icon>
+              Female
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Choose a date</mat-label>
+            <input
+              formControlName="birthday"
+              [matDatepicker]="picker"
+              placeholder={{dateFormat}}
+              [max]="getMaxDate(passengersArray[i])"
+              [min]="getMinDate(passengersArray[i])"
+              matInput
+              required
+              >
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="bottom__group" *ngIf="passengersArray[i] !== 'infant'">
+          <mat-slide-toggle formControlName="baggage" color="primary">
+            <div class="extra-option">
+              <mat-icon class="extra-option__icon" color="black">luggage</mat-icon>
+              <span class="extra-option__label">Additional baggage (up&nbsp;to&nbsp;23&nbsp;kilograms)</span>
+            </div>
+          </mat-slide-toggle>
+
+          <mat-slide-toggle formControlName="assistance" color="primary">
+            <div class="extra-option">
+              <mat-icon class="extra-option__icon" color="black">wheelchair_pickup</mat-icon>
+              <span class="extra-option__label">Need special assistance?</span>
+            </div>
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+    </ng-container>
+  </ng-container>
+</div>

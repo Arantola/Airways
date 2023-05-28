@@ -1,0 +1,101 @@
+@import '../../../shared/styles/utils';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  @include adaptive-value-less(1024, padding-top, 50, 15);
+  @include adaptive-value-less(1024, padding-bottom, 100, 20);
+  .passengers {
+    &__title-group {
+      display: flex;
+      @include adaptive-value-less(1024, gap, 12, 8);
+    }
+    &__title {
+      color: $primary;
+      @include title-large;
+      @include adaptive-value-less(1024, margin-bottom, 8, 5);
+    }
+    &__support-text {
+      color: $neutral10;
+      @include body-large;
+      @include adaptive-value-less(1024, margin-bottom, 20, 10);
+    }
+    &__list {
+      display: flex;
+      flex-direction: column;
+      @include adaptive-value-less(1024, margin-bottom, 50, 20);
+    }
+    &__buttons-group {
+      display: flex;
+      @include adaptive-value-less(1024, gap, 20, 10);
+    }
+    &__button {
+      height: 60px;
+      width: 126px;
+      @include button-font;
+      @media (max-width: 620px) {
+        flex-grow: 1;
+      }
+    }
+    &__button_back {
+      cursor: pointer;
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: $primary;
+      text-decoration: none;
+      @media (max-width: 620px) {
+        border: 1px solid $neutral30;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .contacts {
+    display: flex;
+    background: $neutral100;
+    @include adaptive-value-less(1024, margin-bottom, 40, 10);
+    @include adaptive-value-less(1024, gap, 20, 10);
+    @include adaptive-value-less(1024, padding-top, 32, 10);
+    @include adaptive-value-less(1024, padding-bottom, 32, 10);
+    @include adaptive-value-less(1024, padding-left, 44, 5);
+    @include adaptive-value-less(1024, padding-right, 44, 5);
+    @media (max-width: 980px) {
+      flex-wrap: wrap;
+    }
+    &__code {
+      flex-grow: 1;
+      width: 180px;
+      max-width: 180px;
+      @media (max-width: 620px) {
+        width: 550px;
+        max-width: 550px;
+      }
+    }
+    &__phone {
+      flex-grow: 1;
+      max-width: 550px;
+      @media (max-width: 620px) {
+        width: 550px;
+      }
+    }
+    &__email {
+      flex-grow: 1.5;
+      max-width: 550px;
+      @media (max-width: 980px) {
+        width: 550px;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+  .mat-mdc-form-field-infix {
+    width: 180px;
+  }
+}

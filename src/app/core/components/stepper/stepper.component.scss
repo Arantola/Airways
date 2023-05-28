@@ -1,0 +1,55 @@
+@import '../../../shared/styles/utils';
+
+:host {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  gap: 8px;
+}
+
+.step {
+  display: flex;
+  gap: 8px;
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $neutral100;
+    background-color: $neutral30;
+    &_registered {
+      background-color: $accent;
+    }
+  }
+  &__label {
+    @include label-medium;
+    color: $neutral30;
+  }
+}
+
+.label {
+  &-common {
+    display: block;
+    @media (max-width: 360px) {
+      display: none;
+    }
+  }
+  &-narrow {
+    display: none;
+    @media (max-width: 360px) {
+      display: block;
+    }
+  }
+}
+
+.line {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: 1px;
+  background-color: $neutral40;
+}

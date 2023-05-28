@@ -1,0 +1,105 @@
+<mat-toolbar class="header"
+  [class.header_booking]="!isMainPage"
+>
+  <mat-toolbar-row class="header__content">
+    <a class="header__logo" routerLink="main">
+      <img src="../../../../assets/icons/logo.svg" alt="logo airways">
+    </a>
+
+    <div class="header__slogan" *ngIf="isMainPage">
+      <span>Book&nbsp;flights</span>
+    </div>
+
+    <div class="header__group">
+      <app-stepper *ngIf="!isMainPage && isBookingPage"></app-stepper>
+      <div class="header__stepper-alt" *ngIf="isMainPage && !isBookingPage">
+        AIRWAYS&nbsp;Book&nbsp;flights
+      </div>
+
+      <div class="header__menu menu">
+        <button
+          class="menu__item menu__button-date"
+          [matMenuTriggerFor]="date"
+          mat-stroked-button
+        >
+          <span id="date_display">{{ selectedDateFormat }}</span>
+          <span id="date_placeholder">DATE</span>
+          <mat-icon id="date_icon" class="icon" [class.icon_black]="!isMainPage">arrow_drop_down</mat-icon>
+        </button>
+
+          <mat-menu #date="matMenu" class="date-menu">
+            <ng-template matMenuContent>
+              <button
+                class="date-menu__option"
+                *ngFor="let dateFormat of dateFormats"
+                mat-menu-item
+                (click)="onChangeDateFormat(dateFormat)"
+              >
+                {{ dateFormat }}
+                <mat-icon
+                  *ngIf="dateFormat === selectedDateFormat"
+                  color="primary"
+                >
+                  check
+                </mat-icon>
+              </button>
+            </ng-template>
+          </mat-menu>
+
+        <button
+          class="menu__item menu__button-currency"
+          [matMenuTriggerFor]="menu"
+          mat-stroked-button
+        >
+          {{ selectedCurrency }}
+        </button>
+          <mat-menu class="header__currency-menu" #menu="matMenu">
+            <ng-template matMenuContent>
+              <button mat-menu-item
+                *ngFor="let currency of currencies"
+                (click)="onChangeCurrency(currency)"
+              >
+                {{ currency }}
+              </button>
+            </ng-template>
+          </mat-menu>
+
+        <button
+          class="menu__item menu__button-signin"
+          *ngIf="userName === ''"
+          [class.header__signin-button_booking]="!isMainPage"
+          mat-stroked-button
+          (click)="toggleAuthWindow()"
+        >
+          <mat-icon class="icon" [class.icon_black]="!isMainPage" svgIcon="user"></mat-icon>
+          <span class="menu__button-signin-text">Sign&nbsp;in</span>
+        </button>
+
+        <a
+          class="menu__item menu__button-signin"
+          *ngIf="userName !== ''"
+          [class.header__signin-button_booking]="!isMainPage"
+          mat-stroked-button
+          routerLink="/account"
+        >
+          <span class="menu__button-signin-text">{{ userName }}</span>
+        </a>
+
+        <a
+          class="menu__item menu__button-basket"
+          mat-stroked-button
+          routerLink="shopping-cart">
+          <mat-icon
+            class="icon"
+            [matBadge]="totalOrders"
+            [matBadgeHidden]="totalOrders === 0"
+            matBadgeColor="warn"
+            [class.icon_black]="!isMainPage"
+            svgIcon="basket"
+          ></mat-icon>
+        </a>
+      </div>
+    </div>
+
+  </mat-toolbar-row>
+</mat-toolbar>

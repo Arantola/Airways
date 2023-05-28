@@ -1,0 +1,81 @@
+@import 'src/app/shared/styles/utils';
+
+.form-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  &__line {
+    flex: 1;
+  }
+  &__text {
+    @include label-small;
+  }
+}
+
+.form {
+  margin-top: 15px;
+  &__field {
+    width: 100%;
+    margin-top: 16px;
+  }
+  &__field.phone-field {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    mat-form-field{
+      flex: 1;
+    }
+  }
+  &__field-button {
+    width: 50%;
+    color: $neutral0;
+    @include label-medium;
+    border: 1px solid $neutral30;
+    border-radius: 4px;
+  }
+  &__field-number {
+    flex: 1;
+  }
+  &__agreement{
+    margin-top: 30px;
+    display: flex;
+    gap: 23px;
+    align-items: center;
+    @include label-medium;
+    color: $neutral0;
+  }
+  &__agreement-link {
+    color: $primary;
+    cursor: pointer;
+  }
+  &__field-error {
+    color: $error;
+  }
+  &__submit-button{
+    margin-top: 24px;
+    width: 100%;
+    height: 44px;
+  }
+  ::ng-deep {
+    .mat-mdc-form-field-bottom-align::before {
+      content: none;
+    }
+    .mat-button-toggle.form__field-button.mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+      background-color: $secondary90;
+    }
+  }
+}
+
+.error {
+  color: $error;
+  @include label-small;
+  margin: 4px 0 0 16px;
+}
+
+::ng-deep mat-tooltip-component {
+  & .mdc-tooltip {
+    white-space: pre-line;
+  }
+}
+

@@ -1,0 +1,45 @@
+@import 'src/app/shared/styles/utils';
+
+.fare {
+  background-color: $neutral100;
+  border-radius: 8px;
+  &__passenger {
+    padding: 24px 72px 20px 40px;
+    @media (max-width: 620px) {
+      padding: 14px 42px 10px 20px;
+    }
+    &-type {
+      display: flex;
+      justify-content: space-between;
+      @include title-small;
+    }
+    &-base,
+    &-tax {
+      display: flex;
+      justify-content: space-between;
+      margin-left: 40px;
+      @include body-large;
+      @media (max-width: 620px) {
+        @include body-medium;
+        margin-left: 20px;
+      }
+    }
+    span:nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+  &__total {
+    padding: 20px 72px 20px 40px;
+    @include title-medium;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid $secondary80;
+    @media (max-width: 620px) {
+      @include title-small;
+      padding: 14px 42px 10px 20px;
+    }
+    &-cost {
+      color: $primary;
+    }
+  }
+}

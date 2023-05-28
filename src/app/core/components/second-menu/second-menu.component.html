@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="flight__info">
+    <div class="flight__cities">
+      <span class="flight__city">{{ currentOrder.departurePoint?.city }}</span>
+      <mat-icon color="primary" svgIcon="return_trip"></mat-icon>
+      <span class="flight__city">{{ currentOrder.destinationPoint?.city }}</span>
+    </div>
+    <div class="flight__return">
+      <div class="extra-text">
+        <ng-container *ngIf="!currentOrder.isRounded">One way</ng-container>
+        <ng-container *ngIf="currentOrder.isRounded">Return</ng-container>
+        <span class="splitter"></span>
+      </div>
+      <ng-container *ngIf="!currentOrder.isRounded">
+        <span>{{ currentOrder.singleDate | date : 'd MMM'}}</span>
+      </ng-container>
+      <ng-container *ngIf="currentOrder.isRounded">
+        <span>{{ currentOrder.date.start | date : 'd MMM'}}</span>
+        &nbsp;-&nbsp;
+        <span>{{ currentOrder.date.end | date : 'd MMM' }}</span>
+      </ng-container>
+      <span class="splitter"></span>
+      <span>{{ passengersCount }}</span>
+      <mat-icon class="flight__icon-passenger" svgIcon="account"></mat-icon>
+    </div>
+  </div>
+  <button class="flight__button-edit"
+    *ngIf="currentPage === pages[0]"
+    [class.flight__button-edit_on]="isEditMode"
+    (click)="onToggleEdit()"
+    type="button"
+    >
+      <span *ngIf="!isEditMode">Edit</span>
+      <span *ngIf="isEditMode">End&nbsp;edit</span>
+  </button>
+  <app-second-form *ngIf="isEditMode && currentPage === pages[0]"></app-second-form>
+</div>

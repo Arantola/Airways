@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+@import './app/shared/styles/normalize';
+@import './app/shared/styles/utils';
+@import './palette';
+
+$my-primary: mat.define-palette($primary-color-palette);
+$my-accent: mat.define-palette($accent-color-palette);
+$my-warn: mat.define-palette($warn-color-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
+
+@include mat.all-component-themes($my-theme);
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Initial form inputs
+.mdc-list-item__primary-text {
+  .place-options__top{
+    @include body-large;
+  }
+  .place-options__bottom{
+    color: $neutral30;
+    @include body-medium;
+    margin-bottom: 8px;
+  }
+}

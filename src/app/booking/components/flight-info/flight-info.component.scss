@@ -1,0 +1,72 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: block;
+  max-width: 551px;
+}
+
+.flight-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 24px;
+  min-height: 100px;
+  background-color: $secondary80;
+  border-radius: 8px 8px 0 0;
+  border-top: 3px solid $primary;
+  flex: 0.3;
+  @media (max-width: 620px) {
+    padding: 10px 12px;
+  }
+  &__general {
+    @include title-medium;
+    @media (max-width: 620px) {
+      @include title-small;
+    }
+    &-number {
+      color: $primary;
+    }
+    &-direction {
+      margin-left: 20px;
+    }
+    @media (max-width: 620px) {
+      margin-left: 0;
+    }
+  }
+  &__departure {
+    display: flex;
+    gap: 36px;
+    @include body-large;
+    @media (max-width: 620px) {
+      flex-direction: column;
+      @include body-medium;
+      gap: 0;
+    }
+
+  }
+
+}
+
+.passenger {
+  background-color: $neutral100;
+  padding: 20px 24px;
+  border: 1px solid $secondary80;
+  max-width: 551px;
+  flex: 0.7;
+  @include body-large;
+  @media (max-width: 620px) {
+    @include body-medium;
+    padding: 10px 12px;
+  }
+  &__baggage {
+    list-style-type: none;
+    padding-left: 28px;
+    @media (max-width: 620px) {
+      padding-left: 10px;
+    }
+  }
+  @media (max-width: 620px) {
+    padding: 14px 42px 10px 20px;
+  }
+}

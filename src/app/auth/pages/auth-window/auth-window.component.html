@@ -1,0 +1,16 @@
+<div mat-dialog-actions class="close-sign-in-form">
+  <button class="close-sign-in-form__button" mat-dialog-close mat-button #closeBtn>&#10006;</button>
+</div>
+<div mat-dialog-content>
+  <mat-tab-group class="sign-in-form" animationDuration="0ms" #tabs>
+    <mat-tab label="Sign in">
+      <app-social-link></app-social-link>
+      <app-sign-in (userSignIn)="closeAuthWindow()"></app-sign-in>
+    </mat-tab>
+    <mat-tab label="Sign up">
+      <app-social-link></app-social-link>
+      <app-sign-up (userSignUp)="goToSignInTab()"></app-sign-up>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

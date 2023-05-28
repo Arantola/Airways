@@ -1,0 +1,98 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  mat-form-field {
+    flex-grow: 1;
+  }
+}
+
+.passanger {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    @include adaptive-value-less(1024, gap, 20, 10);
+  }
+  &__card {
+    background: $neutral100;
+    @include adaptive-value-less(1024, padding-top, 32, 10);
+    @include adaptive-value-less(1024, padding-bottom, 32, 10);
+    @include adaptive-value-less(1024, padding-right, 44, 10);
+    @include adaptive-value-less(1024, padding-left, 44, 10);
+    @include adaptive-value-less(1024, border-radius, 8, 4);
+    @include shadow;
+  }
+  &__title{
+    color: $primary;
+    @include title-large;
+    @include adaptive-value-less(1024, margin-bottom, 16, 8);
+  }
+  &__form-main {
+    display: flex;
+    @include adaptive-value-less(1024, gap, 20, 10);
+    @include adaptive-value-less(1024, margin-bottom, 27, 10);
+    @media (max-width: 900px) {
+      flex-wrap: wrap;
+    }
+    @media (max-width: 620px) {
+      flex-direction: column;
+    }
+  }
+  &__field-top {
+    @media (max-width: 900px) {
+      min-width: 350px;
+    }
+    @media (max-width: 820px) {
+      min-width: 500px;
+    }
+    @media (max-width: 620px) {
+      min-width: auto;
+    }
+  }
+}
+
+.gender {
+  &__group {
+    display: flex;
+    margin-bottom: auto;
+  }
+  &__button {
+    flex-grow: 1;
+    width: 108px;
+    height: 56px;
+    border-color: $neutral40;
+  }
+}
+
+.bottom {
+  &__group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    @include adaptive-value-less(620, gap, 30, 10);
+    @media (max-width: 620px) {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+    }
+  }
+}
+
+.extra-option {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @include label-small;
+  &__icon {
+    margin-left: 20px;
+  }
+  &__label {
+    margin-left: 8px;
+  }
+}
+
+:host ::ng-deep {
+  .mat-button-toggle-button {
+    height: 56px;
+  }
+}

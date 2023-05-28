@@ -1,0 +1,29 @@
+<div class="way">
+  <div
+    class="way__direction"
+    [class.way__direction_way-back]="isWayBack"
+  >
+    <img src="../../../../assets/icons/airplane.svg" alt="airplane">
+    <span class="way__direction-text">
+      {{ departurePoint?.city }} to {{ destinationPoint?.city }}
+    </span>
+  </div>
+  <app-date-carousel
+    [activeItems]="activeItems"
+    [selectedDate]="selectedDate"
+    [isSelectedTicket]="isSelectedTicket"
+    (dateSelected)="selectedDate = $event"
+    [settings$]="settings$"
+  ></app-date-carousel>
+  <app-ticket
+    *ngFor="let flight of getFlightsOnDay(selectedDate)"
+    [flight]="flight"
+    [isWayBack]="isWayBack"
+    [currency]="currency"
+    [selected]="isSelectedTicket"
+    (ticketSelected)="onTicketSelected($event)"
+    (onSaveTicket)="onTicketSave($event)"
+    (onDeleteTicket)="onTicketDelete($event)"
+    [settings$]="settings$"
+  ></app-ticket>
+</div>

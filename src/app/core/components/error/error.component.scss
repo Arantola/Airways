@@ -1,0 +1,31 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  p:first-child {
+    color: $neutral0;
+    @include error-medium;
+  }
+  p:nth-child(2) {
+    color: $primary-dark;
+    @include error-large;
+  }
+  p:last-child {
+    @include error-medium;
+    color: $neutral0;
+  }
+  p {
+    text-align: center;
+  }
+
+}
+

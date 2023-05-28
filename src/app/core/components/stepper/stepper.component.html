@@ -1,0 +1,41 @@
+<div class="step">
+  <div class="step__icon step__icon_registered">
+    <img *ngIf="isCurrentStep(0)" src="../../../../assets/icons/pen.svg">
+    <img *ngIf="!isCurrentStep(0)" src="../../../../assets/icons/check_mark.svg">
+  </div>
+  <div class="step__label">
+    <span class="label-common">Flights</span>
+    <span class="label-narrow">Step&nbsp;1</span>
+  </div>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+  <div class="step__icon"
+    [class.step__icon_registered]="!isCurrentStep(0)"
+  >
+    <span *ngIf="isCurrentStep(0)">2</span>
+    <img *ngIf="isCurrentStep(1)" src="../../../../assets/icons/pen.svg">
+    <img *ngIf="isCurrentStep(2)" src="../../../../assets/icons/check_mark.svg">
+  </div>
+  <div class="step__label">
+    <span class="label-common">Passengers</span>
+    <span class="label-narrow">Step&nbsp;2</span>
+  </div>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+  <div class="step__icon"
+    [class.step__icon_registered]="isCurrentStep(2)"
+  >
+    <span *ngIf="!isCurrentStep(2)">3</span>
+    <img *ngIf="isCurrentStep(2)" src="../../../../assets/icons/pen.svg">
+  </div>
+  <div class="step__label">
+    <span class="label-common">Review&nbsp;&&nbsp;Payment</span>
+    <span class="label-narrow">Step&nbsp;3</span>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+.date-carousel {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  &.date-carousel_next-animation {
+    & .date-carousel__cards {
+      left: 0;
+      @media (max-width: 768px) {
+        left: -33.333333%;
+      }
+    }
+
+    &.date-carousel_next-animation-process {
+      & .date-carousel__cards {
+        left: -20%;
+        transition: left .5s ease-in-out;
+        @media (max-width: 768px) {
+          left: -66.666666%;
+        }
+      }
+    }
+  }
+
+  &.date-carousel_prev-animation {
+    & .date-carousel__cards {
+      left: -20%;
+      @media (max-width: 768px) {
+        left: -66.666666%;
+      }
+    }
+
+    &.date-carousel_prev-animation-process {
+      & .date-carousel__cards {
+        left: 0;
+        transition: left .5s ease-in-out;
+        @media (max-width: 768px) {
+          left: -33.333333%;
+        }
+      }
+    }
+  }
+
+  &__inner {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__cards {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    left: 0;
+    line-height: 83px;
+    @media (max-width: 768px) {
+      left: -33.333333%;
+    }
+  }
+
+  &__card {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 20%;
+    @media (max-width: 768px) {
+      width: 33.333333%;
+    }
+  }
+
+  &__next, &__prev {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #E9EDF1;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    bottom: 20px;
+  }
+
+  &__next:hover, &__prev:hover {
+    background-color: #d3d6d9;
+  }
+
+  &__next {
+    right: 0px;
+  }
+
+  &__prev {
+    left: 0px;
+  }
+}

@@ -1,0 +1,159 @@
+@import '../../../shared/styles/abstract';
+@import '../../../shared/styles/typography';
+.ticket {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  width: 100%;
+  background-color: $neutral100;
+  margin-top: 8px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  &.ticket_selected {
+    justify-content: space-between;
+    & .ticket__flight-no {
+      border-right: none;
+    }
+  }
+  &__flight-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 55%;
+    box-sizing: border-box;
+    padding: 27px 0;
+    padding-left: 40px;
+  }
+  &__flight-no {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 15%;
+    padding: 0 20px;
+  }
+  &__start-time-and-date, &__finish-time-and-date {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+  &__finish-time-and-date {
+    align-items: flex-end;
+  }
+  &__start-time, &__finish-time {
+    @include subtitle-large;
+    color: black;
+  }
+  &__time-progress {
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
+  &__time-line {
+    flex: 1;
+    height: 2px;
+    background-color: #D0D9DF;
+  }
+  &__flight-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    @include label-small;
+    color: black;
+    &.ticket__flight-time_way-back img {
+      transform: scaleX(-1);
+    }
+  }
+  &__date, &__timezone, &__city {
+    color: $neutral30;
+  }
+  &__date {
+    @include label-large;
+  }
+  &__timezone {
+    @include body-xsmall;
+  }
+  &__city {
+    @include body-small;
+  }
+  &__time-and-timezone {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  &__flight-no-text {
+    @include body-medium;
+    color: $neutral30;
+  }
+  &__flight-no-fr {
+    @include body-medium;
+    color: black;
+    margin-left: 12px;
+  }
+  &__select-and-warning {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    width: 30%;
+    border-left: dashed 2px #D0D9DF;
+    padding-right: 40px;
+  }
+  &__select-container {
+    display: flex;
+    box-sizing: border-box;
+    width: 88%;
+    padding: 15.5px 0;
+  }
+  &__select {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 45%;
+  }
+  &__price-and-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: end;
+    justify-content: space-between;
+    flex: 1;
+    @include subtitle-small;
+    color: $neutral30;
+  }
+  &__price {
+    @include subtitle-large;
+    color: $primary;
+  }
+  &__warning {
+    padding: 4px 8px;
+    color: $neutral20;
+    @include subtitle-small;
+  }
+  &__edit, &__price-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+  }
+  &__edit-button, &__select-button {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  &__select-button {
+    letter-spacing: 0.1px;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    background: linear-gradient(108.75deg, #0090BD 59.91%, #073590 95.36%);
+    border: 1px solid $primary;
+  }
+  &__edit-button {
+    background: $secondary90;
+    color: $primary;
+    letter-spacing: 0.1px;
+  }
+  &__price-selected {
+    @include subtitle-large;
+    color: #000000;
+  }
+}

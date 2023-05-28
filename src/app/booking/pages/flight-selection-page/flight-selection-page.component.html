@@ -1,0 +1,32 @@
+<div class="flight-selection">
+  <app-way
+    [order]="order"
+    [selectedDate]="startOrderDate"
+    [tripData]="wayData"
+    [tourSelected]="tourSelected"
+    (ticketSave)="saveTicket($event)"
+    (ticketDelete)="deleteTicket($event)"
+  ></app-way>
+  <app-way
+    *ngIf="isRounded"
+    [order]="order"
+    [selectedDate]="endOrderDate"
+    [tripData]="wayBackData"
+    [tourSelected]="tourSelected"
+    [isWayBack]="true"
+    (ticketSave)="saveTicket($event)"
+    (ticketDelete)="deleteTicket($event)"
+  ></app-way>
+  <div class="flight-selection__buttons-group">
+    <a class="flight-selection__button flight-selection__button_back" routerLink="main">Back</a>
+    <button
+      mat-flat-button
+      class="flight-selection__button flight-selection__button_forward"
+      color="primary"
+      [disabled]="isContinueButtonDisabled$ | async"
+      (click)="toNextStep()"
+    >
+      Continue
+    </button>
+  </div>
+</div>

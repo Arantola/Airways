@@ -1,0 +1,40 @@
+@import '../../../shared/styles/utils';
+
+.flight-selection {
+  max-width: 1228px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  app-way {
+    display: block;
+    margin-bottom: 32px;
+  }
+  &__buttons-group {
+    display: flex;
+    margin-top: 8px;
+  }
+  &__button {
+    @include button-font;
+    height: 60px;
+    width: 126px;
+    @media (max-width: 620px) {
+      height: 40px;
+    }
+    @media (max-width: 450px) {
+      margin-left: 10px;
+    }
+    &_back {
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primary;
+    }
+    &_forward {
+      &:hover {
+        background-color: $primary-dark;
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+@import 'src/app/shared/styles/utils';
+
+:host {
+  max-width: 1128px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: $primary;
+  margin-top: 48px;
+  &__name {
+    @include title-large;
+    margin: 0;
+  }
+}
+
+.flight-info {
+  display: flex;
+  gap: 25px;
+  margin-top: 28px;
+  @media (max-width: 450px) {
+    flex-direction: column;
+  }
+  app-flight-info {
+    flex: 1;
+    max-width: 551px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 450px) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+}
+
+.total-fare {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+  app-flight-fare {
+    margin-left: 25px;
+    flex: 0.5;
+    border: 1px $secondary80 solid;
+    border-radius: 8px;
+    max-width: 551px;
+    @media (max-width: 450px) {
+      flex: 1;
+      margin-left: 0;
+    }
+  }
+  &_center{
+    justify-content: center;
+    app-flight-fare {
+      margin-left: 0;
+      flex: 1;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 40px 0 48px;
+  @media (max-width: 450px) {
+    justify-content: space-around;
+  }
+
+  &__back {
+    text-decoration: none;
+    color: $primary;
+  }
+
+  &__add {
+    color: $primary;
+    border-radius: 4px;
+    border: 1px solid $primary;
+    width: 170px;
+    height: 60px;
+    margin-left: 85px;
+    outline: none;
+    cursor: pointer;
+    @media (max-width: 620px) {
+      height: 40px;
+    }
+    @media (max-width: 450px) {
+      margin-left: 10px;
+    }
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
+
+  &__buy, &__account {
+    background-color: $primary;
+    color: $neutral100;
+    border-radius: 4px;
+    height: 60px;
+    margin-left: 40px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    @media (max-width: 620px) {
+      height: 40px;
+    }
+    @media (max-width: 450px) {
+      margin-left: 10px;
+    }
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+  &__buy {
+    width: 126px;
+  }
+  &__account {
+    width: 200px;
+  }
+}

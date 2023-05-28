@@ -1,0 +1,48 @@
+$primary: #11397e;
+$primary-light: #b8c4d8;
+$primary-dark: #0c2c6b;
+
+$accent: #0090bd;
+$accent-light: #b3deeb;
+$accent-dark: #007dae;
+
+$error: #b3261e;
+$error-light:rgba(179, 38, 30, 0.3);
+
+$gradient: linear-gradient(108.75deg, $accent 59.91%, $primary 95.36%);
+
+$highlight-green: #7f8906;
+$highlight-green-light: rgba(241, 201, 51, 0.3);
+$highlight-yellow: #f1c933;
+$highlight-yellow-light: rgba(127, 137, 6, 0.3);
+
+$neutral0:#1c1b1f;
+$neutral10:#49454f;
+$neutral20:#454a53;
+$neutral30:#74767a;
+$neutral40: rgba(116, 118, 122, 0.6);
+$neutral50: rgba(0, 0, 0, 0.25);
+$neutral60: #cecece;
+$neutral80: #f5f5f5;
+$neutral90: rgba(241, 243, 246, 0.15);
+$neutral100: #ffffff;
+
+$secondary50: #E1E5EB;
+$secondary80: #F1F3F6;
+$secondary85: #f5f5f5;
+$secondary90: #F4F6F9;
+$secondary100: #f8fafd;
+
+@mixin shadow {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+@mixin unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
