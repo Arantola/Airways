@@ -21,7 +21,7 @@
     <a class="flight-selection__button flight-selection__button_back" routerLink="main">Back</a>
     <button
       mat-flat-button
-      class="flight-selection__button"
+      class="flight-selection__button flight-selection__button_forward"
       color="primary"
       [disabled]="isContinueButtonDisabled$ | async"
       (click)="toNextStep()"

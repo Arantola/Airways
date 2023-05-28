@@ -40,7 +40,6 @@ export class SignInComponent implements OnInit {
 
   onSignIn() {
     if (this.signInForm.valid) {
-      alert(`You sign in with ${this.userEmail}`);
       this.userSignIn.emit(true);
       this.authService.signIn(this.userEmail, this.userPassword);
     }

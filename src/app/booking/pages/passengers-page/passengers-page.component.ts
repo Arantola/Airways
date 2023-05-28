@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -53,10 +53,13 @@ export class PassengersPageComponent implements OnInit, OnDestroy {
       passengersList: new FormControl(),
       contactsForm: new FormGroup({
         phone: new FormGroup({
-          country: new FormControl(),
-          number: new FormControl(),
+          country: new FormControl('', [Validators.required]),
+          number: new FormControl('', [Validators.required]),
         }),
-        email: new FormControl<string>(''),
+        email: new FormControl<string>('', [
+          Validators.required,
+          Validators.email,
+        ]),
       }),
     });
   }

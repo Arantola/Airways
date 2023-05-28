@@ -22,17 +22,19 @@
     @media (max-width: 450px) {
       margin-left: 10px;
     }
-    &:hover {
-      background-color: $primary-dark;
+    &_back {
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primary;
     }
-  }
-  &__button_back {
-    cursor: pointer;
-    text-decoration: none;
-    margin-left: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $primary;
+    &_forward {
+      &:hover {
+        background-color: $primary-dark;
+      }
+    }
   }
 }

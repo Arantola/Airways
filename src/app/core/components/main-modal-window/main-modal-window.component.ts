@@ -28,6 +28,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
   isRounded: boolean = true;
   initialForm!: FormGroup;
   currentOrder!: CurrentOrder;
+  minDate: Date;
 
   public settings$ = this.store.select(selectSettingsState);
   private settingsSubscription?: Subscription;
@@ -40,6 +41,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
     @Inject(MAT_DATE_FORMATS) private _formats: DateFormat,
   ) {
     this.iconService.addPath('switch', 'assets/icons/switch.svg');
+    this.minDate = new Date();
   }
 
   ngOnInit(): void {
@@ -67,10 +69,10 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       departurePoint: new FormControl('', Validators.required),
       destinationPoint: new FormControl('', Validators.required),
       date: new FormGroup({
-        start: new FormControl(), // TODO Add validator if the day has passed
+        start: new FormControl(),
         end: new FormControl(),
       }),
-      singleDate: new FormControl(), // TODO Add validator date || singleDate
+      singleDate: new FormControl(),
       passengersCompound: new FormControl(),
     });
   }
@@ -80,6 +82,7 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       .select(selectCurrentOrder)
       .subscribe((currentOrder) => {
         this.currentOrder = currentOrder;
+        this.isRounded = currentOrder.isRounded;
       });
   }
 
@@ -95,6 +98,34 @@ export class MainModalWindowComponent implements OnInit, OnDestroy {
       singleDate: this.currentOrder.singleDate,
       passengersCompound: this.currentOrder.passengersCompound,
     });
+  }
+
+  isFormValid() {
+    return (
+      ((typeof this.start !== 'undefined' && typeof this.end !== 'undefined') ||
+        typeof this.singleDate !== 'undefined') &&
+      this.initialForm.valid
+    );
+  }
+
+  get singleDate() {
+    return this.initialForm.get('singleDate')?.value;
+  }
+
+  get end() {
+    return this.initialForm.get('date.end')?.value;
+  }
+
+  get start() {
+    return this.initialForm.get('date.start')?.value;
+  }
+
+  get destinationPoint() {
+    return this.initialForm.get('destinationPoint')?.value;
+  }
+
+  get departurePoint() {
+    return this.initialForm.get('departurePoint')?.value;
   }
 
   onRadioChange() {
