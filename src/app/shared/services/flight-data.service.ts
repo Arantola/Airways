@@ -15,13 +15,13 @@ export class FlightDataService {
   addFlight(flight: Flight) {
     return this.http
       .post<FirebaseFlight>(FIREBASE_FLIGHTS, flight)
-      .subscribe((response) => console.log(response));
+      .subscribe();
   }
 
   resetDB() {
     return this.http
       .put<FirebaseFlight>(FIREBASE_FLIGHTS, {})
-      .subscribe((response) => console.log(response));
+      .subscribe();
   }
 
   getFlightsByIATA(departureIata: string, destinationIata: string): Observable<Flight[]> {
@@ -48,6 +48,6 @@ export class FlightDataService {
   getAllFlights() {
     this.http
       .get<FirebaseFlight>(FIREBASE_FLIGHTS)
-      .subscribe((response) => console.log(response));
+      .subscribe();
   }
 }

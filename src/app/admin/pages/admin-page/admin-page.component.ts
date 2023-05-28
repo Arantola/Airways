@@ -55,12 +55,9 @@ export class AdminPageComponent implements OnInit {
   }
 
   onGetFlightByIATA() {
-    console.log(
-      'ByIATA: ',
-      this.flightService.getFlightsByIATA(
-        this.departureIata,
-        this.destinationIata
-      )
+    this.flightService.getFlightsByIATA(
+      this.departureIata,
+      this.destinationIata
     );
   }
 
@@ -78,7 +75,6 @@ export class AdminPageComponent implements OnInit {
 
   onGetAllOrders() {
     this.orders.getAllOrders();
-    console.log(this.orders.userOrders);
   }
 
   onOverwriteOrder() {
