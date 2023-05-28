@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { appSettingsActions } from 'src/app/redux/actions/app.actions';
-import { AIRPORTS } from '../../airports';
+import { AIRPORTS } from '../../../shared/constants/airports';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
 import { FlightsGeneratorService } from './flights-generator';
 import { UserOrdersService } from 'src/app/shared/services/user-orders.service';

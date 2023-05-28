@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, combineLatest, Subject, takeUntil, Subscription } from 'rxjs';
+import { map, combineLatest, Subscription } from 'rxjs';
 import {
   appSettingsActions,
   bookingActions,
@@ -16,8 +16,10 @@ import {
   saveTicketData,
 } from 'src/app/shared/interfaces/interfaces';
 import { FlightDataService } from 'src/app/shared/services/flight-data.service';
-import { AIRPORTS } from 'src/app/admin/airports';
+import { AIRPORTS } from 'src/app/shared/constants/airports';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalWindowComponent } from '../../../core/components/modal-window/modal-window.component';
 
 @Component({
   selector: 'app-flight-selection-page',
@@ -66,8 +68,9 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store,
+    private dialog: MatDialog,
     private flightService: FlightDataService,
-    public authService: AuthService
+    private authService: AuthService
   ) {
     this.orderSubscription = this.order$.subscribe((order) => {
       this.order = order;
@@ -120,6 +123,7 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.correctnessCheck();
     this.store.dispatch(
       appSettingsActions.changePage({ currentPage: BOOKING_PAGES[0] })
     );
@@ -127,6 +131,18 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.orderSubscription.unsubscribe();
+  }
+
+  private correctnessCheck() {
+    if (
+      typeof this.order?.departurePoint === 'undefined' ||
+      typeof this.order.destinationPoint === 'undefined' ||
+      ((typeof this.order.date.start === 'undefined' ||
+        typeof this.order.date.end === 'undefined') &&
+        typeof this.order.singleDate === 'undefined')
+    ) {
+      this.router.navigate(['/main']);
+    }
   }
 
   get startOrderDate(): Date {
@@ -162,10 +178,10 @@ export class FlightSelectionPageComponent implements OnInit, OnDestroy {
 
   public toNextStep() {
     if (!this.authService.isLoggedIn) {
-      // TODO Show popup
-      alert('You need sign in first!');
+      this.dialog.open(ModalWindowComponent, { data: { type: 'signin' } });
+    } else {
+      this.router.navigate(['booking', BOOKING_PAGES[1]]);
     }
-    this.router.navigate(['booking', BOOKING_PAGES[1]]);
   }
 
   public createTicket(flight: Flight, finishTime: string): Ticket {

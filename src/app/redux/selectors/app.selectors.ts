@@ -4,7 +4,6 @@ import {
   CurrentOrder,
 } from 'src/app/shared/interfaces/interfaces';
 
-
 export const selectSettingsState =
   createFeatureSelector<AppSettings>('settingsState');
 

@@ -1,6 +1,10 @@
 @import '../../../shared/styles/utils';
 
 .modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 30px;
   h1 {
     @include title-large;

@@ -34,6 +34,9 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
+        this.store.dispatch(
+          appSettingsActions.setUserName({ userName: user.displayName as string })
+        );
       } else {
         localStorage.setItem('user', 'null');
         JSON.parse(localStorage.getItem('user')!);

@@ -14,7 +14,6 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { WayComponent } from './components/way/way.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightFareComponent } from './components/flight-fare/flight-fare.component';
-import { SummaryModalWindowComponent } from './components/summary-modal-window/summary-modal-window.component';
 import { SharedModule } from '../shared/shared.module';
 
 const bookingComponents = [
@@ -28,7 +27,6 @@ const bookingComponents = [
   PassengersPageComponent,
   FlightInfoComponent,
   FlightFareComponent,
-  SummaryModalWindowComponent
 ];
 
 @NgModule({

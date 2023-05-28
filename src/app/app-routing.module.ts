@@ -7,8 +7,8 @@ import { UserAccountComponent } from './core/components/user-account/user-accoun
 import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'main', component: MainModalWindowComponent },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
   { path: 'shopping-cart', canActivate: [AuthGuard], component: CartComponent },
   {
     path: 'account',
